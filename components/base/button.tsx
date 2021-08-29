@@ -21,16 +21,20 @@ const variant = (size: ButtonSize, color: ButtonColor) => {
   let tw_buttonColor = "";
   let tw_buttonBorder = "border ";
   let tw_buttonTextColor = "";
+  let tw_iconSize = "";
 
   switch (size) {
     case "small":
       tw_buttonHeight = "h-8";
+      tw_iconSize = "h-4 w-4";
       break;
     case "medium":
       tw_buttonHeight = "h-10";
+      tw_iconSize = "h-5 w-5";
       break;
     case "large":
       tw_buttonHeight = "h-12";
+      tw_iconSize = "h-6 w-6";
       break;
   }
 
@@ -81,24 +85,23 @@ const variant = (size: ButtonSize, color: ButtonColor) => {
     buttonColor: tw_buttonColor,
     buttonBorder: tw_buttonBorder,
     buttonTextColor: tw_buttonTextColor,
+    iconSize: tw_iconSize,
   };
 };
 
 const Button = (props: ButtonProps) => {
   const { text, size, color, Suffix, Prefix } = props;
 
-  const { buttonHeight, buttonColor, buttonBorder, buttonTextColor } = variant(
-    size,
-    color
-  );
+  const { buttonHeight, buttonColor, buttonBorder, buttonTextColor, iconSize } =
+    variant(size, color);
 
   return (
     <button
       className={`flex items-center px-3 hover:text-primary hover:bg-primary-background rounded active:bg-primary-accent-2 ${buttonHeight} ${buttonTextColor} ${buttonColor} ${buttonBorder}`}
     >
-      {Prefix && <Prefix className="mr-2" />}
+      {Prefix && <Prefix className={`mr-2 ${iconSize}`} />}
       {text}
-      {Suffix && <Suffix className="ml-2" />}
+      {Suffix && <Suffix className={`ml-2 ${iconSize}`} />}
     </button>
   );
 };

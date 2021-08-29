@@ -4,7 +4,10 @@ import { ArrowUp } from "react-feather";
 const Test = () => {
   return (
     <div>
-      <Button size="small" text="button" Suffix={ArrowUp} />
+      <Button size="medium" text="button" Suffix={ArrowUp} color="primary" />
+      <Button size="medium" text="button" Suffix={ArrowUp} color="secondary" />
+      <Button size="medium" text="button" Suffix={ArrowUp} color="success" />
+      <Button size="medium" text="button" Suffix={ArrowUp} color="warning" />
     </div>
   );
 };

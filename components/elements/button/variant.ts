@@ -1,25 +1,6 @@
-type ButtonSize = "small" | "medium" | "large";
-type ButtonColor =
-  | "primary"
-  | "secondary"
-  | "success"
-  | "error"
-  | "warning"
-  | "alert"
-  | "violet";
+import { ButtonColor, ButtonSize, ButtonVariant } from "./index";
 
-type ButtonType = "border" | "ghost";
-
-interface ButtonProps {
-  text: string;
-  size: ButtonSize;
-  color: ButtonColor;
-  type: ButtonType;
-  Prefix?: (props: React.ComponentProps<"svg">) => JSX.Element;
-  Suffix?: (props: React.ComponentProps<"svg">) => JSX.Element;
-}
-
-const variant = (size: ButtonSize, color: ButtonColor, type: ButtonType) => {
+const variant = (size: ButtonSize, color: ButtonColor, type: ButtonVariant) => {
   let tw_buttonHeight = "";
   let tw_buttonColor = "";
   let tw_buttonBorder = "border ";
@@ -44,12 +25,12 @@ const variant = (size: ButtonSize, color: ButtonColor, type: ButtonType) => {
   switch (color) {
     case "primary":
       if (type === "border") {
-        tw_buttonColor = "bg-primary";
+        tw_buttonColor = "bg-primary hover:bg-primary-background";
         tw_buttonBorder += "border-primary";
         tw_buttonTextColor = "text-primary-background hover:text-primary";
       } else if (type === "ghost") {
         tw_buttonColor =
-          "bg-primary-background hover:bg-primary-accent-5 hover:bg-opacity-20";
+          "bg-primary-background hover:bg-primary-accent-5 hover:bg-opacity-20 active:bg-opacity-30";
         tw_buttonTextColor = "text-primary";
       }
       break;
@@ -60,74 +41,76 @@ const variant = (size: ButtonSize, color: ButtonColor, type: ButtonType) => {
         tw_buttonTextColor = "text-primary-accent-5 hover:text-primary";
       } else if (type === "ghost") {
         tw_buttonColor =
-          "bg-primary-background hover:bg-primary-accent-5 hover:bg-opacity-20";
+          "bg-primary-background hover:bg-primary-accent-5 hover:bg-opacity-20 active:bg-opacity-30";
         tw_buttonTextColor = "text-primary-accent-5";
       }
       break;
     case "success":
       if (type === "border") {
-        tw_buttonColor = "bg-success";
+        tw_buttonColor = "bg-success hover:bg-primary-background";
         tw_buttonBorder += "border-success";
         tw_buttonTextColor = "text-primary-background hover:text-success";
       } else if (type === "ghost") {
         tw_buttonColor =
-          "bg-primary-background hover:bg-success  hover:bg-opacity-20";
+          "bg-primary-background hover:bg-success  hover:bg-opacity-20 active:bg-opacity-30";
         tw_buttonTextColor = "text-success";
       }
 
       break;
     case "error":
       if (type === "border") {
-        tw_buttonColor = "bg-error";
+        tw_buttonColor = "bg-error hover:bg-primary-background";
         tw_buttonBorder += "border-error";
         tw_buttonTextColor = "text-primary-background hover:text-error";
       } else if (type === "ghost") {
         tw_buttonColor =
-          "bg-primary-background hover:bg-error hover:bg-opacity-20";
+          "bg-primary-background hover:bg-error hover:bg-opacity-20 active:bg-opacity-30";
         tw_buttonTextColor = "text-error";
       }
 
       break;
     case "warning":
       if (type === "border") {
-        tw_buttonColor = "bg-warning";
+        tw_buttonColor = "bg-warning hover:bg-primary-background";
         tw_buttonBorder += "border-warning";
         tw_buttonTextColor = "text-primary-background hover:text-warning";
       } else if (type === "ghost") {
         tw_buttonColor =
-          "bg-primary-background hover:bg-warning hover:bg-opacity-20";
+          "bg-primary-background hover:bg-warning hover:bg-opacity-20 active:bg-opacity-30";
         tw_buttonTextColor = "text-warning";
       }
 
       break;
     case "alert":
       if (type === "border") {
-        tw_buttonColor = "bg-highlight-pink";
+        tw_buttonColor = "bg-highlight-pink hover:bg-primary-background";
         tw_buttonBorder += "border-highlight-pink";
         tw_buttonTextColor =
           "text-primary-background hover:text-highlight-pink";
       } else if (type === "ghost") {
         tw_buttonColor =
-          "bg-primary-background hover:bg-highlight-pink hover:bg-opacity-20";
+          "bg-primary-background hover:bg-highlight-pink hover:bg-opacity-20 active:bg-opacity-30";
         tw_buttonTextColor = "text-highlight-pink";
       }
 
       break;
     case "violet":
       if (type === "border") {
-        tw_buttonColor = "bg-violet";
+        tw_buttonColor = "bg-violet hover:bg-primary-background";
         tw_buttonBorder += "border-violet";
         tw_buttonTextColor = "text-primary-background hover:text-violet";
       } else if (type === "ghost") {
         tw_buttonColor =
-          "bg-primary-background hover:bg-violet hover:bg-opacity-20";
+          "bg-primary-background hover:bg-violet hover:bg-opacity-20 active:bg-opacity-30";
         tw_buttonTextColor = "text-violet";
       }
       break;
   }
 
-  if (type !== "border") {
+  if (type === "ghost") {
     tw_buttonBorder = "";
+  } else if (type === "border") {
+    tw_buttonColor += " active:bg-primary-accent-2";
   }
 
   return {
@@ -139,21 +122,4 @@ const variant = (size: ButtonSize, color: ButtonColor, type: ButtonType) => {
   };
 };
 
-const Button = (props: ButtonProps) => {
-  const { text, size, color, type, Suffix, Prefix } = props;
-
-  const { buttonHeight, buttonColor, buttonBorder, buttonTextColor, iconSize } =
-    variant(size, color, type);
-
-  return (
-    <button
-      className={`flex items-center px-3 hover:bg-primary-background rounded active:bg-primary-accent-2 ${buttonHeight} ${buttonTextColor} ${buttonColor} ${buttonBorder}`}
-    >
-      {Prefix && <Prefix className={`mr-2 ${iconSize}`} />}
-      {text}
-      {Suffix && <Suffix className={`ml-2 ${iconSize}`} />}
-    </button>
-  );
-};
-
-export { Button };
+export { variant };

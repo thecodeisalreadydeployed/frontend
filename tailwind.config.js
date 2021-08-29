@@ -1,4 +1,5 @@
 const baseColors = require("./styles/colors");
+const baseBorderRadii = require("./styles/border-radii");
 
 module.exports = {
   mode: "jit",
@@ -7,6 +8,7 @@ module.exports = {
   theme: {
     extend: {},
     colors: baseColors,
+    borderRadius: baseBorderRadii,
   },
   variants: {
     extend: {},

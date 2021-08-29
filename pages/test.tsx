@@ -33,35 +33,6 @@ const Test = () => {
         color="warning"
         type="border"
       />
-      shadow
-      <Button
-        size="small"
-        text="button"
-        Suffix={ArrowUp}
-        color="primary"
-        type="shadow"
-      />
-      <Button
-        size="medium"
-        text="button"
-        Suffix={ArrowUp}
-        color="secondary"
-        type="shadow"
-      />
-      <Button
-        size="large"
-        text="button"
-        Suffix={ArrowUp}
-        color="success"
-        type="shadow"
-      />
-      <Button
-        size="medium"
-        text="button"
-        Suffix={ArrowUp}
-        color="warning"
-        type="shadow"
-      />
       ghost
       <Button
         size="small"

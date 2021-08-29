@@ -8,7 +8,7 @@ type ButtonColor =
   | "alert"
   | "violet";
 
-type ButtonType = "border" | "ghost" | "shadow";
+type ButtonType = "border" | "ghost";
 
 interface ButtonProps {
   text: string;

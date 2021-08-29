@@ -3,11 +3,101 @@ import { ArrowUp } from "react-feather";
 
 const Test = () => {
   return (
-    <div>
-      <Button size="small" text="button" Suffix={ArrowUp} color="primary" />
-      <Button size="medium" text="button" Suffix={ArrowUp} color="secondary" />
-      <Button size="large" text="button" Suffix={ArrowUp} color="success" />
-      <Button size="medium" text="button" Suffix={ArrowUp} color="warning" />
+    <div className="">
+      border
+      <Button
+        size="small"
+        text="button"
+        Suffix={ArrowUp}
+        color="primary"
+        type="border"
+      />
+      <Button
+        size="medium"
+        text="button"
+        Suffix={ArrowUp}
+        color="secondary"
+        type="border"
+      />
+      <Button
+        size="large"
+        text="button"
+        Suffix={ArrowUp}
+        color="success"
+        type="border"
+      />
+      <Button
+        size="medium"
+        text="button"
+        Suffix={ArrowUp}
+        color="warning"
+        type="border"
+      />
+      shadow
+      <Button
+        size="small"
+        text="button"
+        Suffix={ArrowUp}
+        color="primary"
+        type="shadow"
+      />
+      <Button
+        size="medium"
+        text="button"
+        Suffix={ArrowUp}
+        color="secondary"
+        type="shadow"
+      />
+      <Button
+        size="large"
+        text="button"
+        Suffix={ArrowUp}
+        color="success"
+        type="shadow"
+      />
+      <Button
+        size="medium"
+        text="button"
+        Suffix={ArrowUp}
+        color="warning"
+        type="shadow"
+      />
+      ghost
+      <Button
+        size="small"
+        text="button"
+        Suffix={ArrowUp}
+        color="primary"
+        type="ghost"
+      />
+      <Button
+        size="medium"
+        text="button"
+        Suffix={ArrowUp}
+        color="secondary"
+        type="ghost"
+      />
+      <Button
+        size="large"
+        text="button"
+        Suffix={ArrowUp}
+        color="success"
+        type="ghost"
+      />
+      <Button
+        size="medium"
+        text="button"
+        Suffix={ArrowUp}
+        color="warning"
+        type="ghost"
+      />
+      <Button
+        size="medium"
+        text="button"
+        Suffix={ArrowUp}
+        color="alert"
+        type="ghost"
+      />
     </div>
   );
 };

@@ -1,10 +1,10 @@
-const baseColors = require("./styles/colors");
-const baseBorderRadii = require("./styles/border-radii");
+const baseColors = require("./theme/colors");
+const baseBorderRadii = require("./theme/border-radii");
 
 module.exports = {
   mode: "jit",
   purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: false,
   theme: {
     extend: {},
     colors: baseColors,

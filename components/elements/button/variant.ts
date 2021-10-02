@@ -1,22 +1,22 @@
 import { ButtonColor, ButtonSize, ButtonVariant } from "./index";
 
 const variant = (size: ButtonSize, color: ButtonColor, type: ButtonVariant) => {
-  let tw_buttonHeight = "";
-  let tw_buttonColor = "";
   let tw_buttonBorder = "border ";
+  let tw_buttonColor = "";
+  let tw_buttonHeight = "";
   let tw_buttonTextColor = "";
   let tw_iconSize = "";
 
   switch (size) {
-    case "small":
+    case "sm":
       tw_buttonHeight = "h-8";
       tw_iconSize = "h-4 w-4";
       break;
-    case "medium":
+    case "md":
       tw_buttonHeight = "h-10";
       tw_iconSize = "h-5 w-5";
       break;
-    case "large":
+    case "lg":
       tw_buttonHeight = "h-12";
       tw_iconSize = "h-6 w-6";
       break;
@@ -25,8 +25,8 @@ const variant = (size: ButtonSize, color: ButtonColor, type: ButtonVariant) => {
   switch (color) {
     case "primary":
       if (type === "border") {
-        tw_buttonColor = "bg-primary hover:bg-primary-background";
         tw_buttonBorder += "border-primary";
+        tw_buttonColor = "bg-primary hover:bg-primary-background";
         tw_buttonTextColor = "text-primary-background hover:text-primary";
       } else if (type === "ghost") {
         tw_buttonColor =
@@ -36,8 +36,8 @@ const variant = (size: ButtonSize, color: ButtonColor, type: ButtonVariant) => {
       break;
     case "secondary":
       if (type === "border") {
-        tw_buttonColor = "bg-primary-background";
         tw_buttonBorder += "border-primary-accent-2 hover:border-primary";
+        tw_buttonColor = "bg-primary-background";
         tw_buttonTextColor = "text-primary-accent-5 hover:text-primary";
       } else if (type === "ghost") {
         tw_buttonColor =
@@ -47,8 +47,8 @@ const variant = (size: ButtonSize, color: ButtonColor, type: ButtonVariant) => {
       break;
     case "success":
       if (type === "border") {
-        tw_buttonColor = "bg-success hover:bg-primary-background";
         tw_buttonBorder += "border-success";
+        tw_buttonColor = "bg-success hover:bg-primary-background";
         tw_buttonTextColor = "text-primary-background hover:text-success";
       } else if (type === "ghost") {
         tw_buttonColor =
@@ -59,8 +59,8 @@ const variant = (size: ButtonSize, color: ButtonColor, type: ButtonVariant) => {
       break;
     case "error":
       if (type === "border") {
-        tw_buttonColor = "bg-error hover:bg-primary-background";
         tw_buttonBorder += "border-error";
+        tw_buttonColor = "bg-error hover:bg-primary-background";
         tw_buttonTextColor = "text-primary-background hover:text-error";
       } else if (type === "ghost") {
         tw_buttonColor =
@@ -71,8 +71,8 @@ const variant = (size: ButtonSize, color: ButtonColor, type: ButtonVariant) => {
       break;
     case "warning":
       if (type === "border") {
-        tw_buttonColor = "bg-warning hover:bg-primary-background";
         tw_buttonBorder += "border-warning";
+        tw_buttonColor = "bg-warning hover:bg-primary-background";
         tw_buttonTextColor = "text-primary-background hover:text-warning";
       } else if (type === "ghost") {
         tw_buttonColor =
@@ -83,8 +83,8 @@ const variant = (size: ButtonSize, color: ButtonColor, type: ButtonVariant) => {
       break;
     case "alert":
       if (type === "border") {
-        tw_buttonColor = "bg-highlight-pink hover:bg-primary-background";
         tw_buttonBorder += "border-highlight-pink";
+        tw_buttonColor = "bg-highlight-pink hover:bg-primary-background";
         tw_buttonTextColor =
           "text-primary-background hover:text-highlight-pink";
       } else if (type === "ghost") {
@@ -96,8 +96,8 @@ const variant = (size: ButtonSize, color: ButtonColor, type: ButtonVariant) => {
       break;
     case "violet":
       if (type === "border") {
-        tw_buttonColor = "bg-violet hover:bg-primary-background";
         tw_buttonBorder += "border-violet";
+        tw_buttonColor = "bg-violet hover:bg-primary-background";
         tw_buttonTextColor = "text-primary-background hover:text-violet";
       } else if (type === "ghost") {
         tw_buttonColor =
@@ -114,9 +114,9 @@ const variant = (size: ButtonSize, color: ButtonColor, type: ButtonVariant) => {
   }
 
   return {
-    buttonHeight: tw_buttonHeight,
-    buttonColor: tw_buttonColor,
     buttonBorder: tw_buttonBorder,
+    buttonColor: tw_buttonColor,
+    buttonHeight: tw_buttonHeight,
     buttonTextColor: tw_buttonTextColor,
     iconSize: tw_iconSize,
   };

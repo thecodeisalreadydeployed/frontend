@@ -1,7 +1,7 @@
 import { Icon } from "react-feather";
 import { variant } from "./variant";
 
-export type ButtonSize = "small" | "medium" | "large";
+export type ButtonSize = "sm" | "md" | "lg";
 export type ButtonColor =
   | "primary"
   | "secondary"
@@ -13,24 +13,27 @@ export type ButtonColor =
 
 export type ButtonVariant = "border" | "ghost";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps {
+  wrapperProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
   children: string;
-  size?: ButtonSize;
   color?: ButtonColor;
-  variant?: ButtonVariant;
   Prefix?: Icon | ((props: React.ComponentProps<"svg">) => JSX.Element);
+  size?: ButtonSize;
   Suffix?: Icon | ((props: React.ComponentProps<"svg">) => JSX.Element);
+  variant?: ButtonVariant;
+  wrapperOverride?: string;
 }
 
 const Button = (props: ButtonProps) => {
   const {
     children,
-    size = "medium",
     color = "primary",
-    variant: buttonVariant = "border",
-    Suffix,
     Prefix,
-    ...buttonProps
+    size = "md",
+    Suffix,
+    variant: buttonVariant = "border",
+    wrapperOverride,
+    wrapperProps,
   } = props;
 
   const { buttonHeight, buttonColor, buttonBorder, buttonTextColor, iconSize } =
@@ -38,8 +41,8 @@ const Button = (props: ButtonProps) => {
 
   return (
     <button
-      className={`flex items-center px-3 rounded ${buttonHeight} ${buttonTextColor} ${buttonColor} ${buttonBorder}`}
-      {...buttonProps}
+      className={`inline-flex align-middle items-center px-3 rounded ${buttonBorder} ${buttonColor} ${buttonHeight} ${buttonTextColor} ${wrapperOverride}`}
+      {...wrapperProps}
     >
       {Prefix && <Prefix className={`mr-2 stroke-[1.5px] ${iconSize}`} />}
       {children}

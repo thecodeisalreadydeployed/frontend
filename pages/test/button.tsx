@@ -3,43 +3,51 @@ import { ArrowDown, ArrowUp } from "react-feather";
 
 const Test = () => {
   return (
-    <div className="p-2 space-y-2">
+    <div className="p-2">
       <h1 className="text-xl font-bold">Buttons</h1>
       <h2>Size</h2>
-      <Button size="small">Small</Button>
-      <Button size="medium">Medium</Button>
-      <Button size="large">Large</Button>
+      <div className="space-x-1">
+        <Button size="sm">Small</Button>
+        <Button size="md">Medium</Button>
+        <Button size="lg">Large</Button>
+      </div>
       <h2>Color</h2>
-      <Button color="primary">Primary</Button>
-      <Button color="secondary">Secondary</Button>
-      <Button color="alert">Alert</Button>
-      <Button color="error">Error</Button>
-      <Button color="success">Success</Button>
-      <Button color="violet">Violet</Button>
-      <Button color="warning">Warning</Button>
+      <div className="space-x-1">
+        <Button color="primary">Primary</Button>
+        <Button color="secondary">Secondary</Button>
+        <Button color="alert">Alert</Button>
+        <Button color="error">Error</Button>
+        <Button color="success">Success</Button>
+        <Button color="violet">Violet</Button>
+        <Button color="warning">Warning</Button>
+      </div>
       <h2>Variant</h2>
-      <Button variant="border" color="primary">
-        Border
-      </Button>
-      <Button variant="border" color="warning">
-        Border
-      </Button>
-      <Button variant="ghost" color="alert">
-        Ghost
-      </Button>
-      <Button variant="ghost" color="error">
-        Ghost
-      </Button>
+      <div className="space-x-1">
+        <Button variant="border" color="primary">
+          Border
+        </Button>
+        <Button variant="border" color="warning">
+          Border
+        </Button>
+        <Button variant="ghost" color="alert">
+          Ghost
+        </Button>
+        <Button variant="ghost" color="error">
+          Ghost
+        </Button>
+      </div>
       <h2>Icon</h2>
-      <Button Prefix={ArrowUp} color="alert">
-        Alert
-      </Button>
-      <Button Suffix={ArrowDown} color="error">
-        Error
-      </Button>
-      <Button Prefix={ArrowUp} Suffix={ArrowDown} color="success">
-        Success
-      </Button>
+      <div className="space-x-1">
+        <Button Prefix={ArrowUp} color="alert">
+          Alert
+        </Button>
+        <Button Suffix={ArrowDown} color="error">
+          Error
+        </Button>
+        <Button Prefix={ArrowUp} Suffix={ArrowDown} color="success">
+          Success
+        </Button>
+      </div>
     </div>
   );
 };

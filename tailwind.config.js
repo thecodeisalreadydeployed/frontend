@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const baseColors = require(`${__dirname}/styles/colors`);
 const baseBorderRadii = require(`${__dirname}/styles/border-radii`);
 

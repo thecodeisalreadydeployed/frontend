@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate-css-types": "tailwindcss-classnames -i ./tailwind.config.js -o ./theme/tailwind-type.d.ts"
   },
   "dependencies": {
     "@headlessui/react": "^1.4.0",

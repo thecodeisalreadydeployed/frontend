@@ -38,13 +38,13 @@ const Test = () => {
       </div>
       <h2>Icon</h2>
       <div className="space-x-1">
-        <Button Prefix={ArrowUp} color="alert">
+        <Button IconPrefix={ArrowUp} color="alert">
           Alert
         </Button>
-        <Button Suffix={ArrowDown} color="error">
+        <Button IconSuffix={ArrowDown} color="error">
           Error
         </Button>
-        <Button Prefix={ArrowUp} Suffix={ArrowDown} color="success">
+        <Button IconPrefix={ArrowUp} IconSuffix={ArrowDown} color="success">
           Success
         </Button>
       </div>

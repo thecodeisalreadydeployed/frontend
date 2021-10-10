@@ -14,12 +14,16 @@ export type ButtonColor =
 export type ButtonVariant = "border" | "ghost";
 
 interface ButtonProps {
-  wrapperProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+  wrapperProps?: Omit<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    "children" | "onClick"
+  >;
   children: string;
   color?: ButtonColor;
-  Prefix?: Icon | ((props: React.ComponentProps<"svg">) => JSX.Element);
+  IconPrefix?: Icon | ((props: React.ComponentProps<"svg">) => JSX.Element);
+  IconSuffix?: Icon | ((props: React.ComponentProps<"svg">) => JSX.Element);
+  onClick?: React.ButtonHTMLAttributes<HTMLButtonElement>["onClick"];
   size?: ButtonSize;
-  Suffix?: Icon | ((props: React.ComponentProps<"svg">) => JSX.Element);
   variant?: ButtonVariant;
   wrapperOverride?: string;
 }
@@ -28,9 +32,10 @@ const Button = (props: ButtonProps) => {
   const {
     children,
     color = "primary",
-    Prefix,
+    IconPrefix,
+    IconSuffix,
+    onClick,
     size = "md",
-    Suffix,
     variant: buttonVariant = "border",
     wrapperOverride,
     wrapperProps,
@@ -41,12 +46,17 @@ const Button = (props: ButtonProps) => {
 
   return (
     <button
+      onClick={onClick}
       className={`inline-flex align-middle items-center px-3 rounded ${buttonBorder} ${buttonColor} ${buttonHeight} ${buttonTextColor} ${wrapperOverride}`}
       {...wrapperProps}
     >
-      {Prefix && <Prefix className={`mr-2 stroke-[1.5px] ${iconSize}`} />}
+      {IconPrefix && (
+        <IconPrefix className={`mr-2 stroke-[1.5px] ${iconSize}`} />
+      )}
       {children}
-      {Suffix && <Suffix className={`ml-2 stroke-[1.5px] ${iconSize}`} />}
+      {IconSuffix && (
+        <IconSuffix className={`ml-2 stroke-[1.5px] ${iconSize}`} />
+      )}
     </button>
   );
 };

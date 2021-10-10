@@ -1,5 +1,5 @@
-const baseColors = require("./theme/colors");
-const baseBorderRadii = require("./theme/border-radii");
+const baseColors = require(`${__dirname}/theme/colors`);
+const baseBorderRadii = require(`${__dirname}/theme/border-radii`);
 
 module.exports = {
   mode: "jit",

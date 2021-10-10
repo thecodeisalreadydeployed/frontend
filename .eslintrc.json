@@ -1,6 +1,6 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": [],
+  "plugins": ["@typescript-eslint"],
   "extends": [
     "plugin:tailwindcss/recommended",
     "eslint:recommended",
@@ -8,5 +8,8 @@
     "next/core-web-vitals",
     "prettier"
   ],
-  "rules": { "no-duplicate-imports": "error" }
+  "rules": {
+    "no-duplicate-imports": "error",
+    "@typescript-eslint/explicit-module-boundary-types": "off"
+  }
 }

@@ -15,6 +15,7 @@ const Header = (props: HeaderProps) => {
         src="https://avatars.githubusercontent.com/u/88529578?s=200&v=4"
         alt="Logo"
         className="object-contain w-11 h-11 rounded-full ring-2 cursor-pointer ring-primary-accent-2"
+        draggable={false}
       />
       {organization && (
         <>

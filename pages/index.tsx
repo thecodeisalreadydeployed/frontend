@@ -1,5 +1,5 @@
 import { Award } from "react-feather";
-import { Header } from "@elements";
+import { HeaderLayout } from "@layouts";
 
 const Home = () => {
   return (
@@ -10,13 +10,6 @@ const Home = () => {
   );
 };
 
-Home.getLayout = function getLayout(page: React.ReactElement) {
-  return (
-    <>
-      <Header />
-      {page}
-    </>
-  );
-};
+Home.getLayout = HeaderLayout;
 
 export default Home;

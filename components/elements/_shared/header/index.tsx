@@ -1,5 +1,6 @@
 import { BreadcrumbDivider } from "@elements";
 import { Menu } from "react-feather";
+import { useRouter } from "next/router";
 
 interface HeaderProps {
   organization?: string;
@@ -8,6 +9,7 @@ interface HeaderProps {
 
 const Header = (props: HeaderProps) => {
   const { organization, project } = props;
+  const router = useRouter();
 
   return (
     <nav className="flex items-center px-6 h-20 text-sm">
@@ -16,11 +18,15 @@ const Header = (props: HeaderProps) => {
         alt="Logo"
         className="object-contain w-11 h-11 rounded-full ring-2 cursor-pointer ring-primary-accent-2"
         draggable={false}
+        onClick={() => router.push(`/${organization}`)}
       />
       {organization && (
         <>
           <BreadcrumbDivider height="h-11" width="w-11" />
-          <p className="cursor-pointer select-none line-clamp-1">
+          <p
+            className="cursor-pointer select-none line-clamp-1"
+            onClick={() => router.push(`/${organization}`)}
+          >
             {organization}
           </p>
         </>

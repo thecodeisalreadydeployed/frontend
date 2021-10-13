@@ -45,7 +45,7 @@ const Input = (props: InputProps) => {
     placeholder,
     size = "md",
     type = "text",
-    value = "",
+    value,
     width = "w-60",
     wrapperOverride = "",
     wrapperProps,

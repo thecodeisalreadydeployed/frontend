@@ -1,7 +1,7 @@
 import { HeaderLayout } from "@layouts";
 
 const Project = () => {
-  return <div></div>;
+  return <div className="bg-primary-accent-1">asdf</div>;
 };
 
 Project.getLayout = HeaderLayout;

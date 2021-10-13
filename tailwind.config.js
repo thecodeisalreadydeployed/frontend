@@ -10,6 +10,10 @@ module.exports = {
     extend: {},
     colors: baseColors,
     borderRadius: baseBorderRadii,
+    container: {
+      center: true,
+      padding: "1.5rem",
+    },
   },
   variants: {
     extend: {},

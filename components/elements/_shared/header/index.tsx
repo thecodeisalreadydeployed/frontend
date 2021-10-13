@@ -1,4 +1,4 @@
-import { BreadcrumbDivider, GithubLogo } from "@elements";
+import { BreadcrumbDivider } from "@elements";
 import { useRouter } from "next/router";
 
 interface HeaderProps {

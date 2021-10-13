@@ -1,9 +1,9 @@
 import { Button } from "@elements";
 import { ArrowDown, ArrowUp } from "react-feather";
 
-const Test = () => {
+const ButtonDesign = () => {
   return (
-    <div className="p-2">
+    <div className="p-2 space-y-2">
       <h1 className="text-xl font-bold">Buttons</h1>
       <h2>Size</h2>
       <div className="space-x-1">
@@ -52,4 +52,4 @@ const Test = () => {
   );
 };
 
-export default Test;
+export default ButtonDesign;

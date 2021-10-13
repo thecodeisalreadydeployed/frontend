@@ -5,8 +5,9 @@ const Test = () => {
   const router = useRouter();
 
   return (
-    <div>
-      <Button onClick={() => router.push("/test/button")}>button</Button>
+    <div className="space-x-2">
+      <Button onClick={() => router.push("/test/button")}>Button</Button>
+      <Button onClick={() => router.push("/test/input")}>Input</Button>
     </div>
   );
 };

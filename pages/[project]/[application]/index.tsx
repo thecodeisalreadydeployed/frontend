@@ -3,9 +3,9 @@ import { HeaderLayout } from "@layouts";
 
 const Overview = () => {
   const router = useRouter();
-  const { project } = router.query;
+  const { application } = router.query;
 
-  return <div>Project: {project}</div>;
+  return <div>Application: {application}</div>;
 };
 
 Overview.getLayout = HeaderLayout;

@@ -10,12 +10,13 @@ module.exports = {
     extend: {},
     colors: baseColors,
     borderRadius: baseBorderRadii,
+    container: {
+      center: true,
+      padding: "1.5rem",
+    },
   },
   variants: {
     extend: {},
   },
-  plugins: [
-    require("@tailwindcss/aspect-ratio"),
-    require("@tailwindcss/line-clamp"),
-  ],
+  plugins: [require("@tailwindcss/line-clamp")],
 };

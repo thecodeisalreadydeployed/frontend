@@ -3,14 +3,11 @@ import { useRouter } from "next/router";
 
 const HeaderLayout = (page: React.ReactElement) => {
   const router = useRouter();
-  const { organization, project } = router.query;
+  const { application, project } = router.query;
 
   return (
     <>
-      <Header
-        organization={organization as string}
-        project={project as string}
-      />
+      <Header application={application as string} project={project as string} />
       {page}
     </>
   );

@@ -3,12 +3,12 @@ import { Menu } from "react-feather";
 import { useRouter } from "next/router";
 
 interface HeaderProps {
-  organization?: string;
   project?: string;
+  application?: string;
 }
 
 const Header = (props: HeaderProps) => {
-  const { organization, project } = props;
+  const { project, application } = props;
   const router = useRouter();
 
   return (
@@ -18,24 +18,24 @@ const Header = (props: HeaderProps) => {
         alt="Logo"
         className="object-contain w-11 h-11 rounded-full ring-2 cursor-pointer ring-primary-accent-2"
         draggable={false}
-        onClick={() => router.push(`/${organization}`)}
+        onClick={() => router.push(`/${project}`)}
       />
-      {organization && (
+      {project && (
         <>
           <BreadcrumbDivider height="h-11" width="w-11" />
           <p
             className="cursor-pointer select-none line-clamp-1"
-            onClick={() => router.push(`/${organization}`)}
+            onClick={() => router.push(`/${project}`)}
           >
-            {organization}
+            {project}
           </p>
         </>
       )}
-      {project && (
+      {application && (
         <>
           <BreadcrumbDivider height="h-11" width="w-11" />
           <p className="mr-2 cursor-pointer select-none line-clamp-1">
-            {project}
+            {application}
           </p>
         </>
       )}

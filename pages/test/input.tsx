@@ -1,4 +1,4 @@
-import { Input } from "@elements";
+import { Input } from "@atoms";
 
 const InputDesign = () => {
   return (

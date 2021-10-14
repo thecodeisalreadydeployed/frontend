@@ -1,4 +1,4 @@
-import { HeaderLayout } from "@layouts";
+import { HeaderLayout } from "@templates";
 
 const Project = () => {
   return <div>asdf</div>;

@@ -1,4 +1,4 @@
-import { BreadcrumbDivider } from "@elements";
+import { BreadcrumbDivider } from "components/atoms";
 import { useRouter } from "next/router";
 
 interface HeaderProps {

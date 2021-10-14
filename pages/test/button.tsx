@@ -1,4 +1,4 @@
-import { Button } from "@elements";
+import { Button } from "@atoms";
 import { ArrowDown, ArrowUp } from "react-feather";
 
 const ButtonDesign = () => {

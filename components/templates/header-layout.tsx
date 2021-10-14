@@ -1,4 +1,4 @@
-import { Header } from "@elements";
+import { Header } from "@molecules";
 import { useRouter } from "next/router";
 
 const HeaderLayout = (page: React.ReactElement) => {

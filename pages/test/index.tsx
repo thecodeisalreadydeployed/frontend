@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { Button } from "@elements";
+import { Button } from "@atoms";
 
 const Test = () => {
   const router = useRouter();

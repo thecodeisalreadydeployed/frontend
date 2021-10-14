@@ -33,3 +33,4 @@ yarn-error.log*
 # vercel
 .vercel
 theme/tailwind-type.d.ts
+styles/tailwind-type.d.ts

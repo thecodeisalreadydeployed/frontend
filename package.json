@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "yarn generate-css-types",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate-css-types": "tailwindcss-classnames -i ./tailwind.config.js -o ./theme/tailwind-type.d.ts"
+    "generate-css-types": "tailwindcss-classnames -i ./tailwind.config.js -o ./styles/tailwind-type.d.ts"
   },
   "dependencies": {
     "@headlessui/react": "^1.4.1",

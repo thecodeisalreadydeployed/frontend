@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "yarn generate-css-types",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

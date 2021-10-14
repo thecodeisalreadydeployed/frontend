@@ -4,13 +4,19 @@ interface ProjectCardProps {
   name: string;
   description?: string;
   updatedAt?: string;
+  onClick?: React.HTMLAttributes<HTMLDivElement>["onClick"];
 }
 
 const ProjectCard = (props: ProjectCardProps) => {
-  const { name, description = "No description", updatedAt = "N/A" } = props;
+  const {
+    name,
+    description = "No description",
+    updatedAt = "N/A",
+    onClick,
+  } = props;
 
   return (
-    <Card wrapperOverride="space-y-4 reset">
+    <Card wrapperOverride="space-y-4 reset" onClick={onClick}>
       <div className="flex items-center space-x-2 ">
         <img
           src="/favicon.ico"

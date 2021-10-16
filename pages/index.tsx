@@ -1,12 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HeaderLayout } from "@templates";
 import { Input, Button } from "@atoms";
 import { ProjectCard } from "@molecules";
 import { useRouter } from "next/router";
+import useSWR from "swr";
 
 const Project = () => {
   const [searchInput, setSearchInput] = useState("");
   const router = useRouter();
+
+  const { data } = useSWR("http://localhost:3001/projects");
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   return (
     <div className="container mt-6">

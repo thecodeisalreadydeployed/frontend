@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import { SWRConfig } from "swr";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
 
@@ -13,7 +14,16 @@ type AppPropsWithLayout = AppProps & {
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
 
-  return getLayout(<Component {...pageProps} />);
+  return getLayout(
+    <SWRConfig
+      value={{
+        fetcher: (resource, init) =>
+          fetch(resource, init).then((res) => res.json()),
+      }}
+    >
+      <Component {...pageProps} />
+    </SWRConfig>
+  );
 }
 
 export default MyApp;

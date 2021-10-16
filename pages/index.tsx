@@ -9,11 +9,8 @@ const Project = () => {
   const [searchInput, setSearchInput] = useState("");
   const router = useRouter();
 
+  // NOTE: - Move localhost to env
   const { data: projects } = useSWR("http://localhost:3001/projects");
-
-  useEffect(() => {
-    console.log(projects);
-  }, [projects]);
 
   const ProjectCards = () => {
     return (

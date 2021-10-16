@@ -9,11 +9,26 @@ const Project = () => {
   const [searchInput, setSearchInput] = useState("");
   const router = useRouter();
 
-  const { data } = useSWR("http://localhost:3001/projects");
+  const { data: projects } = useSWR("http://localhost:3001/projects");
 
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    console.log(projects);
+  }, [projects]);
+
+  const ProjectCards = () => {
+    return (
+      projects?.map(
+        (project: { name: string; updated_at: string }, index: number) => (
+          <ProjectCard
+            name={project.name}
+            updatedAt={project.updated_at}
+            key={index}
+            onClick={() => router.push(`/${project.name}`)}
+          />
+        )
+      ) ?? null
+    );
+  };
 
   return (
     <div className="container mt-6">
@@ -27,22 +42,7 @@ const Project = () => {
         <Button wrapperOverride="flex-shrink-0">New Project</Button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        <ProjectCard
-          name="Project 1"
-          onClick={() => router.push("/project-1")}
-        />
-        <ProjectCard
-          name="Project 2"
-          onClick={() => router.push("/project-2")}
-        />
-        <ProjectCard
-          name="Project 3"
-          onClick={() => router.push("/project-3")}
-        />
-        <ProjectCard
-          name="Project 4"
-          onClick={() => router.push("/project-4")}
-        />
+        <ProjectCards />
       </div>
     </div>
   );

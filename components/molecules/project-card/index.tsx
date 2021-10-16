@@ -23,10 +23,12 @@ const ProjectCard = (props: ProjectCardProps) => {
           alt="Project Image"
           className="flex-shrink-0 w-8 h-8 rounded-full"
         />
-        <p className="w-full font-medium line-clamp-2">{name}</p>
+        <p className="w-full font-medium truncate line-clamp-2">{name}</p>
       </div>
       <p className="text-sm text-primary-accent-6">{description}</p>
-      <p className="text-sm text-primary-accent-4">{updatedAt}</p>
+      <p className="text-sm truncate line-clamp-1 text-primary-accent-4">
+        {updatedAt}
+      </p>
     </Card>
   );
 };

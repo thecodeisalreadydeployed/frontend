@@ -18,6 +18,7 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-feather": "^2.0.9",
+    "swr": "^1.0.1",
     "tailwindcss-classnames": "^2.2.4"
   },
   "devDependencies": {

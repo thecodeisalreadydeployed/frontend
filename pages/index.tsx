@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { HeaderLayout } from "@templates";
 import { Input, Button } from "@atoms";
 import { ProjectCard } from "@molecules";

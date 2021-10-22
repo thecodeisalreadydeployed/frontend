@@ -7,6 +7,6 @@
     @apply bg-primary-accent-1;
   }
   .reset {
-    all: initial;
+    @apply text-base font-normal text-primary cursor-auto;
   }
 }

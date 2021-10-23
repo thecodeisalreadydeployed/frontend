@@ -1,5 +1,5 @@
 import { Award } from "react-feather";
-import { HeaderLayout } from "@layouts";
+import { HeaderLayout } from "@templates";
 
 const Application = () => {
   return (

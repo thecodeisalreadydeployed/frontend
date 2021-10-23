@@ -19,6 +19,9 @@ const Header = () => {
           projectName={project?.name}
           onClickLogo={() => router.push("/")}
           onClickProject={() => router.push(`/${projectId}`)}
+          onClickApplication={() =>
+            router.push(`/${projectId}/${applicationId}`)
+          }
         />
         <GithubLogo
           width="w-8"

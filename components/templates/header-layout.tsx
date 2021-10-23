@@ -1,13 +1,9 @@
-import { Header } from "@molecules";
-import { useRouter } from "next/router";
+import { Header } from "@organisms";
 
 const HeaderLayout = (page: React.ReactElement) => {
-  const router = useRouter();
-  const { application, project } = router.query;
-
   return (
     <>
-      <Header application={application as string} project={project as string} />
+      <Header />
       {page}
     </>
   );

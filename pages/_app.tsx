@@ -14,14 +14,14 @@ type AppPropsWithLayout = AppProps & {
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
 
-  return getLayout(
+  return (
     <SWRConfig
       value={{
         fetcher: (resource, init) =>
           fetch(resource, init).then((res) => res.json()),
       }}
     >
-      <Component {...pageProps} />
+      {getLayout(<Component {...pageProps} />)}
     </SWRConfig>
   );
 }

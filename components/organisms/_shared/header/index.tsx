@@ -1,14 +1,15 @@
 import { BreadcrumbDivider } from "components/atoms";
 import { useRouter } from "next/router";
+import useSWR from "swr";
 
-interface HeaderProps {
-  project?: string;
-  application?: string;
-}
-
-const Header = (props: HeaderProps) => {
-  const { project, application } = props;
+const Header = () => {
   const router = useRouter();
+
+  const { project: projectId, application: applicationId } = router.query;
+
+  const { data: project } = useSWR(
+    projectId ? `http://localhost:3001/project/${projectId}` : null
+  );
 
   return (
     <div className="bg-primary-background">
@@ -20,22 +21,22 @@ const Header = (props: HeaderProps) => {
           draggable={false}
           onClick={() => router.push(`/`)}
         />
-        {project && (
+        {project?.name && (
           <>
             <BreadcrumbDivider height="h-8" width="w-8" />
             <p
               className="cursor-pointer select-none line-clamp-1"
-              onClick={() => router.push(`/${project}`)}
+              onClick={() => router.push(`/${projectId}`)}
             >
-              {project}
+              {project?.name}
             </p>
           </>
         )}
-        {application && (
+        {applicationId && (
           <>
             <BreadcrumbDivider height="h-11" width="w-11" />
             <p className="mr-2 cursor-pointer select-none line-clamp-1">
-              {application}
+              {applicationId}
             </p>
           </>
         )}

@@ -15,12 +15,15 @@ const Project = () => {
   const ProjectCards = () => {
     return (
       projects?.map(
-        (project: { name: string; updated_at: string }, index: number) => (
+        (
+          project: { name: string; updated_at: string; id: string },
+          index: number
+        ) => (
           <ProjectCard
             name={project.name}
             updatedAt={project.updated_at}
             key={index}
-            onClick={() => router.push(`/${project.name}`)}
+            onClick={() => router.push(`/${project.id}`)}
           />
         )
       ) ?? null

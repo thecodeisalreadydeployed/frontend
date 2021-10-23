@@ -39,7 +39,7 @@ const NavBreadCrumb = (props: NavBreadCrumbProps) => {
       )}
       {applicationName && (
         <>
-          <BreadcrumbDivider height="h-11" width="w-11" />
+          <BreadcrumbDivider height="h-8" width="w-8" />
           <p
             className="mr-2 cursor-pointer select-none line-clamp-1"
             onClick={onClickApplication}

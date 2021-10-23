@@ -27,6 +27,7 @@ const Application = () => {
             name={application.name}
             updatedAt={application.updated_at}
             key={index}
+            onClick={() => router.push(`/${projectId}/${application.id}`)}
           />
         )
       ) ?? null

@@ -1,11 +1,21 @@
 import { useRouter } from "next/router";
+import { TitleHeader } from "@organisms";
 import { HeaderLayout } from "@templates";
+import useSWR from "swr";
 
 const Overview = () => {
   const router = useRouter();
-  const { application } = router.query;
+  const { application: applicationId } = router.query;
 
-  return <div>Application: {application}</div>;
+  const { data: application } = useSWR(
+    applicationId ? `http://localhost:3001/app/${applicationId}` : null
+  );
+
+  return (
+    <div>
+      <TitleHeader applicationTitle={application?.name} />
+    </div>
+  );
 };
 
 Overview.getLayout = HeaderLayout;

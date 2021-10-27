@@ -10,7 +10,7 @@ const Project = () => {
   const router = useRouter();
 
   // NOTE: - Move localhost to env
-  const { data: projects } = useSWR("http://localhost:3001/projects");
+  const { data: projects } = useSWR("http://localhost:3001/project/list");
 
   const ProjectCards = () => {
     return (

@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { TitleHeader } from "@organisms";
+import { TitleHeader, DeploymentList } from "@organisms";
 import { HeaderLayout } from "@templates";
 import useSWR from "swr";
 
@@ -14,6 +14,7 @@ const Overview = () => {
   return (
     <div>
       <TitleHeader applicationTitle={application?.name} />
+      <DeploymentList />
     </div>
   );
 };

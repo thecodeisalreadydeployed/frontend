@@ -24,19 +24,24 @@ const Project = () => {
         <Button wrapperOverride="flex-shrink-0">New Project</Button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {projects?.map(
-          (
-            project: { name: string; updated_at: string; id: string },
-            index: number
-          ) => (
-            <ProjectCard
-              name={project.name}
-              updatedAt={project.updated_at}
-              key={index}
-              onClick={() => router.push(`/${project.id}`)}
-            />
+        {projects
+          ?.filter(
+            (project: { name: string; updated_at: string; id: string }) =>
+              project.name.toLocaleLowerCase().includes(searchInput)
           )
-        )}
+          .map(
+            (
+              project: { name: string; updated_at: string; id: string },
+              index: number
+            ) => (
+              <ProjectCard
+                name={project.name}
+                updatedAt={project.updated_at}
+                key={index}
+                onClick={() => router.push(`/${project.id}`)}
+              />
+            )
+          )}
       </div>
     </div>
   );

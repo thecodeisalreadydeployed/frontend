@@ -34,3 +34,4 @@ yarn-error.log*
 .vercel
 theme/tailwind-type.d.ts
 styles/tailwind-type.d.ts
+pages/demo.tsx

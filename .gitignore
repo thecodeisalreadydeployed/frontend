@@ -32,6 +32,7 @@ yarn-error.log*
 
 # vercel
 .vercel
-theme/tailwind-type.d.ts
-styles/tailwind-type.d.ts
+
+# custom
 pages/demo.tsx
+utils/types/tailwind.d.ts

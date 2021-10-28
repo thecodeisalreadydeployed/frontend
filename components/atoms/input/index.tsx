@@ -1,5 +1,5 @@
 import { variant } from "./variant";
-import { TWidth } from "styles/tailwind-type";
+import { TWidth } from "@types_/tailwind";
 
 export type InputSize = "sm" | "md" | "lg";
 type InputType =

@@ -2,11 +2,11 @@ import { variant } from "./variant";
 
 export type Status = "ready" | "error";
 
-interface DeploymentStatusProps {
+interface DeploymentStatusDotProps {
   status: Status;
 }
 
-const DeploymentStatus = (props: DeploymentStatusProps) => {
+const DeploymentStatusDot = (props: DeploymentStatusDotProps) => {
   const { status } = props;
 
   const { dotColor, dotLabel } = variant(status);
@@ -19,4 +19,4 @@ const DeploymentStatus = (props: DeploymentStatusProps) => {
   );
 };
 
-export { DeploymentStatus };
+export { DeploymentStatusDot };

@@ -12,7 +12,7 @@ const DeploymentStatusDot = (props: DeploymentStatusDotProps) => {
   const { dotColor, dotLabel } = variant(status);
 
   return (
-    <div className="inline-flex items-center m-1 space-x-2 reset">
+    <div className="inline-flex items-center space-x-2 reset">
       <div className={`w-2.5 h-2.5 rounded-full ${dotColor}`} />
       <p className="text-sm text-primary-accent-5">{dotLabel}</p>
     </div>

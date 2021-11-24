@@ -1,11 +1,11 @@
-import { DeploymentStatusDot } from "@atoms";
+import { DeploymentStatusDot, DeploymentStatus } from "@atoms";
 
 interface DeploymentSummaryRowProps {
   applicationName: string;
   duration?: string;
   updatedAt?: string;
   author?: string;
-  deploymentStatus?: "ready" | "error";
+  deploymentStatus?: DeploymentStatus;
 }
 
 const DeploymentSummaryRow = (props: DeploymentSummaryRowProps) => {

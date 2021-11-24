@@ -14,7 +14,7 @@ const Overview = () => {
   return (
     <div>
       <TitleHeader applicationTitle={application?.name} />
-      <DeploymentList />
+      <DeploymentList applicationId={application?.id} />
     </div>
   );
 };

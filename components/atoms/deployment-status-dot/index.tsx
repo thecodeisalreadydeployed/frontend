@@ -1,6 +1,6 @@
 import { variant } from "./variant";
 
-export type Status = "ready" | "error";
+export type Status = "ready" | "error" | "building" | "queueing";
 
 interface DeploymentStatusDotProps {
   status: Status;

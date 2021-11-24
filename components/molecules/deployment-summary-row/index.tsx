@@ -23,11 +23,11 @@ const DeploymentSummaryRow = (props: DeploymentSummaryRowProps) => {
         <p className="text-sm font-semibold cursor-pointer line-clamp-1">
           {applicationName}
         </p>
-        <p className="text-sm line-clamp-1 text-primary-accent-5">Preview</p>
+        <p className="text-sm line-clamp-1 text-primary-accent-4">Preview</p>
       </div>
       <div className="h-10">
         <DeploymentStatusDot status={deploymentStatus} />
-        <p className="text-sm line-clamp-1 text-primary-accent-5">{duration}</p>
+        <p className="text-sm line-clamp-1 text-primary-accent-4">{duration}</p>
       </div>
       <div className="col-span-2 text-right">
         <p className="text-sm line-clamp-1 text-primary-accent-5">

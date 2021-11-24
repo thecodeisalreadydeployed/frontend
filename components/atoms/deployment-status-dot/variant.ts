@@ -13,6 +13,14 @@ const variant = (status: Status) => {
       tw_dotColor = "bg-error";
       vl_dotLabel = "Error";
       break;
+    case "building":
+      tw_dotColor = "bg-warning";
+      vl_dotLabel = "Building";
+      break;
+    case "queueing":
+      tw_dotColor = "bg-warning";
+      vl_dotLabel = "Queueing";
+      break;
   }
 
   return {

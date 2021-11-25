@@ -1,5 +1,5 @@
 import { ProjectCard } from "@molecules";
-import { Input, Button } from "@atoms";
+import { Input, Button, PageTitle } from "@atoms";
 import { Application as FetchedApplication } from "@types_/api";
 import { useState } from "react";
 import { HeaderLayout } from "@templates";
@@ -19,6 +19,7 @@ const Application = () => {
 
   return (
     <div className="container mt-6">
+      <PageTitle>Applications</PageTitle>
       <div className="flex mb-6 space-x-4">
         <Input
           value={searchInput}

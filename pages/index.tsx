@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { HeaderLayout } from "@templates";
-import { Input, Button } from "@atoms";
+import { Input, Button, PageTitle } from "@atoms";
 import { ProjectCard } from "@molecules";
 import { Project as FetchedProject } from "@types_/api";
 import { useRouter } from "next/router";
@@ -17,6 +17,7 @@ const Project = () => {
 
   return (
     <div className="container mt-6">
+      <PageTitle>Projects</PageTitle>
       <div className="flex mb-6 space-x-4">
         <Input
           value={searchInput}

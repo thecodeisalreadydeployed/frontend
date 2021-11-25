@@ -1,5 +1,6 @@
 import { ProjectCard } from "@molecules";
 import { Input, Button } from "@atoms";
+import { Application as FetchedApplication } from "@types_/api";
 import { useState } from "react";
 import { HeaderLayout } from "@templates";
 import { useRouter } from "next/router";
@@ -12,7 +13,7 @@ const Application = () => {
 
   const { project: projectId } = router.query;
 
-  const { data: applications } = useSWR(
+  const { data: applications } = useSWR<FetchedApplication[]>(
     projectId ? `http://localhost:3001/project/${projectId}/apps` : null
   );
 
@@ -29,23 +30,24 @@ const Application = () => {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {applications
-          ?.filter(
-            (application: { name: string; updated_at: string; id: string }) =>
-              application.name.toLocaleLowerCase().includes(searchInput)
+          ?.filter((application) =>
+            application.name.toLocaleLowerCase().includes(searchInput)
           )
-          .map(
-            (
-              application: { name: string; updated_at: string; id: string },
-              index: number
-            ) => (
-              <ProjectCard
-                name={application.name}
-                updatedAt={application.updated_at}
-                key={index}
-                onClick={() => router.push(`/${projectId}/${application.id}`)}
-              />
-            )
-          )}
+          .map((application, index) => (
+            <ProjectCard
+              name={application.name}
+              updatedAt={new Date(application.updatedAt).toLocaleDateString(
+                undefined,
+                {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                }
+              )}
+              key={index}
+              onClick={() => router.push(`/${projectId}/${application.id}`)}
+            />
+          ))}
       </div>
     </div>
   );

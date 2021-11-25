@@ -1,6 +1,7 @@
 import useSWR from "swr";
 import { DeploymentSummaryRow } from "@molecules";
 import { DeploymentStatus } from "@atoms";
+import { Deployment } from "@types_/api";
 
 interface DeploymentListProps {
   applicationId?: string;
@@ -63,7 +64,7 @@ const DeploymentList = (props: DeploymentListProps) => {
         Deployments that are currently being worked on.
       </p>
       <div className="bg-primary-background rounded border divide-y border-primary-accent-2 divide-primary-accent-2">
-        {deployments?.map((deployment: any) => {
+        {deployments?.map((deployment: Deployment) => {
           const committedDate = new Date(deployment.committedAt);
           const builtDate = new Date(deployment.builtAt);
           const updatedDate = new Date(deployment.updatedAt);

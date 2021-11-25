@@ -2,6 +2,7 @@ import { useState } from "react";
 import { HeaderLayout } from "@templates";
 import { Input, Button } from "@atoms";
 import { ProjectCard } from "@molecules";
+import { Project as FetchedProject } from "@types_/api";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
@@ -10,7 +11,9 @@ const Project = () => {
   const router = useRouter();
 
   // NOTE: - Move localhost to env
-  const { data: projects } = useSWR("http://localhost:3001/project/list");
+  const { data: projects } = useSWR<FetchedProject[]>(
+    "http://localhost:3001/project/list"
+  );
 
   return (
     <div className="container mt-6">
@@ -25,23 +28,24 @@ const Project = () => {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {projects
-          ?.filter(
-            (project: { name: string; updated_at: string; id: string }) =>
-              project.name.toLocaleLowerCase().includes(searchInput)
+          ?.filter((project: FetchedProject) =>
+            project.name.toLocaleLowerCase().includes(searchInput)
           )
-          .map(
-            (
-              project: { name: string; updated_at: string; id: string },
-              index: number
-            ) => (
-              <ProjectCard
-                name={project.name}
-                updatedAt={project.updated_at}
-                key={index}
-                onClick={() => router.push(`/${project.id}`)}
-              />
-            )
-          )}
+          .map((project, index) => (
+            <ProjectCard
+              name={project.name}
+              updatedAt={new Date(project.updatedAt).toLocaleDateString(
+                undefined,
+                {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                }
+              )}
+              key={index}
+              onClick={() => router.push(`/${project.id}`)}
+            />
+          ))}
       </div>
     </div>
   );

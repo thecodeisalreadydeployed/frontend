@@ -21,8 +21,8 @@ export interface App {
   projectID: string;
   name: string;
   gitSource: GitSource;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   buildConfiguration: BuildConfiguration;
   observable: boolean;
 }
@@ -36,17 +36,17 @@ export interface Deployment {
   creator: Actor;
   meta: string;
   gitSource: GitSource;
-  builtAt: Date;
-  committedAt: Date;
-  deployedAt: Date;
+  builtAt: string;
+  committedAt: string;
+  deployedAt: string;
   buildConfiguration: BuildConfiguration;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   state: string;
 }
 export interface Project {
   id: string;
   name: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }

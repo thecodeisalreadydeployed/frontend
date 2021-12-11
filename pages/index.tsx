@@ -5,6 +5,7 @@ import { ProjectCard } from "@molecules";
 import { Project as FetchedProject } from "@types_/api-schema";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import { formatDistanceToNow } from "date-fns";
 
 const Project = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -35,14 +36,9 @@ const Project = () => {
           .map((project, index) => (
             <ProjectCard
               name={project.name}
-              updatedAt={new Date(project.updatedAt).toLocaleDateString(
-                undefined,
-                {
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
-                }
-              )}
+              updatedAt={formatDistanceToNow(new Date(project.updatedAt), {
+                addSuffix: true,
+              })}
               key={index}
               onClick={() => router.push(`/${project.id}`)}
             />

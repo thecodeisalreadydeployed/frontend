@@ -2,36 +2,11 @@ import useSWR from "swr";
 import { DeploymentSummaryRow } from "@molecules";
 import { DeploymentStatus } from "@atoms";
 import { Deployment } from "@types_/api-schema";
+import { intervalToDuration, formatDistanceToNowStrict } from "date-fns";
 
 interface DeploymentListProps {
   applicationId?: string;
 }
-
-const msToHMS = (ms: number) => {
-  let seconds = ms / 1000;
-  const hours = seconds / 3600;
-  seconds = seconds % 3600;
-  const minutes = seconds / 60;
-  seconds = seconds % 60;
-
-  return {
-    hours: parseInt(`${hours}`),
-    minutes: parseInt(`${minutes}`),
-    seconds: parseInt(`${seconds}`),
-  };
-};
-
-const msToSelectiveDHMS = (ms: number) => {
-  if (ms < 1000 * 60) {
-    return Math.floor(ms / 1000) + "s";
-  } else if (ms < 1000 * 60 * 60) {
-    return Math.floor(ms / 1000 / 60) + "m";
-  } else if (ms < 1000 * 60 * 60 * 24) {
-    return Math.floor(ms / 1000 / 60 / 60) + "h";
-  } else {
-    return Math.floor(ms / 1000 / 60 / 60 / 24) + "d";
-  }
-};
 
 const deploymentStatusApiMap = (status: string): DeploymentStatus => {
   switch (status) {
@@ -65,29 +40,27 @@ const DeploymentList = (props: DeploymentListProps) => {
       </p>
       <div className="bg-primary-background rounded border divide-y border-primary-accent-2 divide-primary-accent-2">
         {deployments?.map((deployment: Deployment) => {
-          const committedDate = new Date(deployment.committedAt);
           const builtDate = new Date(deployment.builtAt);
           const updatedDate = new Date(deployment.updatedAt);
           const createdDate = new Date(deployment.createdAt);
 
-          const buildDuration = Math.abs(
-            builtDate.getTime() - createdDate.getTime()
-          );
-          const { hours, minutes, seconds } = msToHMS(buildDuration);
+          const buildDuration = intervalToDuration({
+            start: builtDate,
+            end: createdDate,
+          });
 
-          const durationSinceUpdated = Math.abs(
-            new Date().getTime() - updatedDate.getTime()
-          );
+          const updatedToNow = formatDistanceToNowStrict(updatedDate);
 
           return (
             <DeploymentSummaryRow
               key={deployment?.id}
               applicationName={deployment?.gitSource.commitMessage}
               author={deployment?.gitSource.commitAuthorName}
-              duration={`${hours != 0 ? `${hours}h` : ""} ${
-                minutes != 0 ? `${minutes}m ` : ""
-              } ${seconds != 0 ? `${seconds}s` : ""}`}
-              updatedAt={msToSelectiveDHMS(durationSinceUpdated).toString()}
+              // TODO: - fix edge case where the duration is more than 24 hours
+              duration={`${
+                buildDuration.hours ? buildDuration.hours + "h" : ""
+              } ${buildDuration.minutes}m ${buildDuration.seconds}s`}
+              updatedAt={updatedToNow}
               deploymentStatus={deploymentStatusApiMap(deployment.state)}
             />
           );

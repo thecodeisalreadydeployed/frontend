@@ -5,6 +5,7 @@ import { useState } from "react";
 import { HeaderLayout } from "@templates";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import { formatDistanceToNow } from "date-fns";
 
 const Application = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -37,14 +38,9 @@ const Application = () => {
           .map((application, index) => (
             <ProjectCard
               name={application.name}
-              updatedAt={new Date(application.updatedAt).toLocaleDateString(
-                undefined,
-                {
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
-                }
-              )}
+              updatedAt={formatDistanceToNow(new Date(application.updatedAt), {
+                addSuffix: true,
+              })}
               key={index}
               onClick={() => router.push(`/${projectId}/${application.id}`)}
             />

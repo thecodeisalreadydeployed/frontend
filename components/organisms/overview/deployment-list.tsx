@@ -68,9 +68,10 @@ const DeploymentList = (props: DeploymentListProps) => {
           const committedDate = new Date(deployment.committedAt);
           const builtDate = new Date(deployment.builtAt);
           const updatedDate = new Date(deployment.updatedAt);
+          const createdDate = new Date(deployment.createdAt);
 
           const buildDuration = Math.abs(
-            committedDate.getTime() - builtDate.getTime()
+            builtDate.getTime() - createdDate.getTime()
           );
           const { hours, minutes, seconds } = msToHMS(buildDuration);
 
@@ -81,11 +82,11 @@ const DeploymentList = (props: DeploymentListProps) => {
           return (
             <DeploymentSummaryRow
               key={deployment?.id}
-              applicationName={deployment?.id}
-              author={deployment?.creator.email}
-              duration={`${hours != 0 && `${hours}h`} ${
-                minutes != 0 && `${minutes}m`
-              } ${seconds != 0 && `${seconds}s`}`}
+              applicationName={deployment?.gitSource.commitMessage}
+              author={deployment?.gitSource.commitAuthorName}
+              duration={`${hours != 0 ? `${hours}h` : ""} ${
+                minutes != 0 ? `${minutes}m ` : ""
+              } ${seconds != 0 ? `${seconds}s` : ""}`}
               updatedAt={msToSelectiveDHMS(durationSinceUpdated).toString()}
               deploymentStatus={deploymentStatusApiMap(deployment.state)}
             />

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { TitleHeader, DeploymentList } from "@organisms";
-import { Application } from "@types_/api";
+import { App } from "@types_/api-schema";
 import { HeaderLayout } from "@templates";
 import useSWR from "swr";
 
@@ -8,7 +8,7 @@ const Overview = () => {
   const router = useRouter();
   const { application: applicationId } = router.query;
 
-  const { data: application } = useSWR<Application>(
+  const { data: application } = useSWR<App>(
     applicationId ? `http://localhost:3001/app/${applicationId}` : null
   );
 

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { HeaderLayout } from "@templates";
 import { Input, Button, PageTitle } from "@atoms";
 import { ProjectCard } from "@molecules";
-import { Project as FetchedProject } from "@types_/api";
+import { Project as FetchedProject } from "@types_/api-schema";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 

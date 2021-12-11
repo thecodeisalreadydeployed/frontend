@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import { DeploymentSummaryRow } from "@molecules";
 import { DeploymentStatus } from "@atoms";
-import { Deployment } from "@types_/api";
+import { Deployment } from "@types_/api-schema";
 
 interface DeploymentListProps {
   applicationId?: string;

@@ -1,6 +1,6 @@
 import { ProjectCard } from "@molecules";
 import { Input, Button, PageTitle } from "@atoms";
-import { Application as FetchedApplication } from "@types_/api";
+import { App } from "@types_/api-schema";
 import { useState } from "react";
 import { HeaderLayout } from "@templates";
 import { useRouter } from "next/router";
@@ -13,7 +13,7 @@ const Application = () => {
 
   const { project: projectId } = router.query;
 
-  const { data: applications } = useSWR<FetchedApplication[]>(
+  const { data: applications } = useSWR<App[]>(
     projectId ? `http://localhost:3001/project/${projectId}/apps` : null
   );
 

@@ -7,7 +7,7 @@
     "prebuild": "yarn generate-css-types",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint && yarn tsc --noEmit",
     "generate-css-types": "tailwindcss-classnames -i ./tailwind.config.js -o ./utils/types/tailwind.d.ts"
   },
   "dependencies": {

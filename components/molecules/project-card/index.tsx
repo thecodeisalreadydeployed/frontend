@@ -21,7 +21,7 @@ const ProjectCard = (props: ProjectCardProps) => {
         <img
           src={`https://avatars.dicebear.com/api/identicon/${name}.svg`}
           alt="Icon"
-          className="flex-shrink-0 w-8 h-8 rounded-full ring-2 ring-primary-accent-2"
+          className="w-8 h-8 rounded-full ring-2 shrink-0 ring-primary-accent-2"
         />
         <p className="w-full font-medium truncate line-clamp-2">{name}</p>
       </div>

@@ -3,9 +3,10 @@ const baseColors = require(`${__dirname}/styles/colors`);
 const baseBorderRadii = require(`${__dirname}/styles/border-radii`);
 
 module.exports = {
-  mode: "jit",
-  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
-  darkMode: false,
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {},
     colors: baseColors,
@@ -14,9 +15,6 @@ module.exports = {
       center: true,
       padding: "1.5rem",
     },
-  },
-  variants: {
-    extend: {},
   },
   plugins: [require("@tailwindcss/line-clamp")],
 };

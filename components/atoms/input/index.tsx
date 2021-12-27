@@ -27,23 +27,29 @@ type InputType =
   | "week";
 
 interface InputProps {
-  wrapperProps?: Omit<React.InputHTMLAttributes<HTMLInputElement>, "className">;
-  disabled?: React.InputHTMLAttributes<HTMLInputElement>["disabled"];
-  onChange?: React.InputHTMLAttributes<HTMLInputElement>["onChange"];
+  autoComplete?: boolean;
+  disabled?: boolean;
+  id?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   placeholder?: string;
   size?: InputSize;
+  spellCheck?: boolean;
   type?: Exclude<InputType, "checkbox" | "radio">;
-  value?: React.InputHTMLAttributes<HTMLInputElement>["value"];
+  value?: string;
   width?: TWidth;
   wrapperOverride?: string;
+  wrapperProps?: Omit<React.InputHTMLAttributes<HTMLInputElement>, "className">;
 }
 
 const Input = (props: InputProps) => {
   const {
+    autoComplete = false,
     disabled = false,
+    id,
     onChange = () => null,
     placeholder,
     size = "md",
+    spellCheck = false,
     type = "text",
     value,
     width = "w-60",
@@ -55,10 +61,13 @@ const Input = (props: InputProps) => {
 
   return (
     <input
+      autoComplete={autoComplete ? "on" : "off"}
       className={`rounded border placeholder-[#A9A9A9] disabled:bg-primary-accent-1 disabled:cursor-not-allowed border-primary-accent-2 px-3 outline-none focus:border-primary-accent-5 ${width} ${inputHeight} ${inputTextSize} ${wrapperOverride}`}
       disabled={disabled}
+      id={id}
       onChange={onChange}
       placeholder={placeholder}
+      spellCheck={spellCheck}
       type={type}
       value={value}
       {...wrapperProps}

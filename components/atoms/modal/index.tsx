@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 interface ModalProps {
   showModal: boolean;
-  onClickOutside: () => void;
+  onClickOutside?: () => void;
   children?: React.ReactNode;
 }
 
@@ -20,11 +20,11 @@ export const Modal = (props: ModalProps) => {
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-opacity-80 backdrop-blur bg-primary-accent-3"
+      className="fixed inset-0 z-50 bg-opacity-60 backdrop-blur bg-primary-accent-3"
       onClick={onClickOutside}
     >
       <div
-        className="absolute top-1/2 left-1/2 bg-primary-background shadow-xl -translate-x-1/2 -translate-y-1/2 rounded-2xl"
+        className="absolute top-1/2 left-1/2 bg-primary-background rounded -translate-x-1/2 -translate-y-1/2"
         onClick={(e) => e.stopPropagation()}
       >
         {children}

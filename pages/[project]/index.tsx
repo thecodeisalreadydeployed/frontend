@@ -1,4 +1,5 @@
 import { ProjectCard } from "@molecules";
+import { CreateApplicationModal } from "@organisms";
 import { Input, Button, PageTitle } from "@atoms";
 import { App } from "@types_/api-schema";
 import { useState } from "react";
@@ -9,6 +10,8 @@ import { formatDistanceToNow } from "date-fns";
 
 const Application = () => {
   const [searchInput, setSearchInput] = useState("");
+  const [showCreateApplicationModal, setShowCreateApplicationModal] =
+    useState(false);
 
   const router = useRouter();
 
@@ -19,7 +22,11 @@ const Application = () => {
   );
 
   const handleCreateNewApplication = () => {
-    return;
+    setShowCreateApplicationModal(true);
+  };
+
+  const handleCloseApplicationModal = () => {
+    setShowCreateApplicationModal(false);
   };
 
   return (
@@ -52,6 +59,10 @@ const Application = () => {
             />
           ))}
       </div>
+      <CreateApplicationModal
+        showModal={showCreateApplicationModal}
+        onClose={handleCloseApplicationModal}
+      />
     </div>
   );
 };

@@ -9,11 +9,11 @@ const Header = () => {
   const { project: projectId, application: applicationId } = router.query;
 
   const { data: project } = useSWR(
-    projectId ? `http://localhost:3001/project/${projectId}` : null
+    projectId ? `http://localhost:3001/projects/${projectId}` : null
   );
 
   const { data: application } = useSWR(
-    applicationId ? `http://localhost:3001/app/${applicationId}` : null
+    applicationId ? `http://localhost:3001/apps/${applicationId}` : null
   );
 
   return (

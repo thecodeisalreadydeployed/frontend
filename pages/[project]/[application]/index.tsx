@@ -9,7 +9,7 @@ const Overview = () => {
   const { application: applicationId } = router.query;
 
   const { data: application } = useSWR<App>(
-    applicationId ? `http://localhost:3001/app/${applicationId}` : null
+    applicationId ? `http://localhost:3001/apps/${applicationId}` : null
   );
 
   return (

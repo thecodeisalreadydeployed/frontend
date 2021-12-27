@@ -15,7 +15,7 @@ const Application = () => {
   const { project: projectId } = router.query;
 
   const { data: applications } = useSWR<App[]>(
-    projectId ? `http://localhost:3001/project/${projectId}/apps` : null
+    projectId ? `http://localhost:3001/projects/${projectId}/apps` : null
   );
 
   return (

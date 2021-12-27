@@ -13,7 +13,7 @@ const Project = () => {
 
   // NOTE: - Move localhost to env
   const { data: projects } = useSWR<FetchedProject[]>(
-    "http://localhost:3001/project/list"
+    "http://localhost:3001/projects/list"
   );
 
   return (

@@ -28,7 +28,7 @@ const DeploymentList = (props: DeploymentListProps) => {
 
   const { data: deployments } = useSWR(
     applicationId
-      ? `http://localhost:3001/app/${applicationId}/deployments`
+      ? `http://localhost:3001/apps/${applicationId}/deployments`
       : null
   );
 

@@ -18,6 +18,10 @@ const Application = () => {
     projectId ? `http://localhost:3001/projects/${projectId}/apps` : null
   );
 
+  const handleCreateNewApplication = () => {
+    return;
+  };
+
   return (
     <div className="container mt-6">
       <PageTitle>Applications</PageTitle>
@@ -28,7 +32,9 @@ const Application = () => {
           placeholder="Search..."
           width="w-full"
         />
-        <Button wrapperOverride="shrink-0">New Application</Button>
+        <Button wrapperOverride="shrink-0" onClick={handleCreateNewApplication}>
+          New Application
+        </Button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {applications

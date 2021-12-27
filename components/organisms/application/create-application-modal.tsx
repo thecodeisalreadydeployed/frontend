@@ -20,6 +20,7 @@ enum ApplicationInput {
 
 const CreateApplicationModal = (props: CreateApplicationModalProps) => {
   const { onClose: closeModal = () => null, showModal } = props;
+
   const [applicationProjectId, setApplicationProjectId] = useState("");
   const [applicationName, setApplicationName] = useState("");
   const [applicationRepoUrl, setApplicationRepoUrl] = useState("");
@@ -31,6 +32,18 @@ const CreateApplicationModal = (props: CreateApplicationModalProps) => {
     useState("");
   const [applicationStartCommand, setApplicationStartCommand] = useState("");
   const [applicationCommitSha, setApplicationCommitSha] = useState("");
+
+  const resetInput = () => {
+    setApplicationProjectId("");
+    setApplicationName("");
+    setApplicationRepoUrl("");
+    setApplicationBuildScript("");
+    setApplicationInstallCommand("");
+    setApplicationBuildCommand("");
+    setApplicationOutputDirectory("");
+    setApplicationStartCommand("");
+    setApplicationCommitSha("");
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -67,7 +80,13 @@ const CreateApplicationModal = (props: CreateApplicationModalProps) => {
   };
 
   return (
-    <Modal onClickOutside={closeModal} showModal={showModal}>
+    <Modal
+      onClickOutside={() => {
+        closeModal();
+        resetInput();
+      }}
+      showModal={showModal}
+    >
       <div className="p-6">
         <div className="flex mb-6">
           <p className="">New Application</p>
@@ -114,7 +133,7 @@ const CreateApplicationModal = (props: CreateApplicationModalProps) => {
           value={applicationBuildCommand}
           onChange={handleInputChange}
         />
-        <p className="mb-3">Start Commnad</p>
+        <p className="mb-3">Start Command</p>
         <Input
           id={ApplicationInput.START_COMMAND}
           value={applicationStartCommand}

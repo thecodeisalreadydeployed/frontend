@@ -1,7 +1,5 @@
 import { SWRConfig } from "swr";
 
-import { AppPropsWithLayout } from "types/next";
-
 import "styles/globals.css";
 
 const MyApp = ({ Component, pageProps }: AppPropsWithLayout): JSX.Element => {

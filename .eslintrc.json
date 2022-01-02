@@ -11,6 +11,7 @@
   "rules": {
     "no-duplicate-imports": "error",
     "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@next/next/no-img-element": "off"
+    "@next/next/no-img-element": "off",
+    "sort-imports": "warn"
   }
 }

@@ -1,5 +1,5 @@
 import "styles/globals.css";
-
+import { SWRConfig } from "swr";
 import * as NextImage from "next/image";
 
 const OriginalNextImage = NextImage.default;
@@ -18,3 +18,16 @@ export const parameters = {
     },
   },
 };
+
+export const decorators = [
+  (Story) => (
+    <SWRConfig
+      value={{
+        fetcher: (resource, init) =>
+          fetch(resource, init).then((res) => res.json()),
+      }}
+    >
+      <Story />
+    </SWRConfig>
+  ),
+];

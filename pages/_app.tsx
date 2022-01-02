@@ -1,4 +1,4 @@
-import "../styles/globals.css";
+import "styles/globals.css";
 import { SWRConfig } from "swr";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";

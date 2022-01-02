@@ -1,7 +1,7 @@
 import { ProjectCard } from "@molecules";
 import { CreateApplicationModal } from "@organisms";
 import { Input, Button, PageTitle } from "@atoms";
-import { App } from "@types_/api-schema";
+import { App } from "types/api-schema";
 import { useState } from "react";
 import { HeaderLayout } from "@templates";
 import { useRouter } from "next/router";

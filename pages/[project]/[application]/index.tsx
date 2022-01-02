@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { TitleHeader, DeploymentList } from "@organisms";
-import { App } from "@types_/api-schema";
+import { App } from "types/api-schema";
 import { HeaderLayout } from "@templates";
 import useSWR from "swr";
 

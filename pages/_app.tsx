@@ -1,17 +1,8 @@
 import "styles/globals.css";
+import type { AppPropsWithLayout } from "types/next";
 import { SWRConfig } from "swr";
-import type { NextPage } from "next";
-import type { AppProps } from "next/app";
 
-type NextPageWithLayout = NextPage & {
-  getLayout?: (page: React.ReactElement) => React.ReactNode;
-};
-
-type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout;
-};
-
-function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+const MyApp = ({ Component, pageProps }: AppPropsWithLayout): JSX.Element => {
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
@@ -24,6 +15,6 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       {getLayout(<Component {...pageProps} />)}
     </SWRConfig>
   );
-}
+};
 
 export default MyApp;

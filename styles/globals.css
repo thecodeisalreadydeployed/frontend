@@ -6,7 +6,4 @@
   body {
     @apply bg-primary-accent-1;
   }
-  .reset {
-    @apply text-base font-normal text-primary cursor-auto;
-  }
 }

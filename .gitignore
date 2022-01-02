@@ -35,4 +35,4 @@ yarn-error.log*
 
 # custom
 pages/demo.tsx
-utils/types/tailwind.d.ts
+storybook-static/

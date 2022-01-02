@@ -1,6 +1,6 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["tailwindcss", "@typescript-eslint"],
+  "plugins": ["tailwindcss", "simple-import-sort", "@typescript-eslint"],
   "extends": [
     "plugin:tailwindcss/recommended",
     "eslint:recommended",
@@ -11,7 +11,8 @@
   ],
   "rules": {
     "no-duplicate-imports": "error",
-    "sort-imports": "warn",
+    "simple-import-sort/imports": "warn",
+    "simple-import-sort/exports": "warn",
     "prettier/prettier": "warn"
   }
 }

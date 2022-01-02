@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { HeaderLayout } from "@templates";
-import { Input, Button, PageTitle } from "@atoms";
-import { ProjectCard } from "@molecules";
-import { Project as FetchedProject } from "types/api-schema";
 import { useRouter } from "next/router";
-import useSWR from "swr";
+
 import { formatDistanceToNow } from "date-fns";
+import useSWR from "swr";
+
+import { Button, Input, PageTitle } from "@atoms";
+import { ProjectCard } from "@molecules";
+import { HeaderLayout } from "@templates";
+import { Project as FetchedProject } from "types/api-schema";
 
 const Project = () => {
   const [searchInput, setSearchInput] = useState("");

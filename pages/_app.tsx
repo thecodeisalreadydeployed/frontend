@@ -1,6 +1,8 @@
-import "styles/globals.css";
-import type { AppPropsWithLayout } from "types/next";
 import { SWRConfig } from "swr";
+
+import { AppPropsWithLayout } from "types/next";
+
+import "styles/globals.css";
 
 const MyApp = ({ Component, pageProps }: AppPropsWithLayout): JSX.Element => {
   const getLayout = Component.getLayout ?? ((page) => page);

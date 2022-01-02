@@ -1,4 +1,3 @@
-import { Icon } from "react-feather";
 import { variant } from "./variant";
 
 export type ButtonSize = "sm" | "md" | "lg";
@@ -20,8 +19,8 @@ interface ButtonProps {
   >;
   children: string;
   color?: ButtonColor;
-  IconPrefix?: Icon | ((props: React.ComponentProps<"svg">) => JSX.Element);
-  IconSuffix?: Icon | ((props: React.ComponentProps<"svg">) => JSX.Element);
+  IconPrefix?: (props: React.ComponentProps<"svg">) => JSX.Element;
+  IconSuffix?: (props: React.ComponentProps<"svg">) => JSX.Element;
   onClick?: React.ButtonHTMLAttributes<HTMLButtonElement>["onClick"];
   size?: ButtonSize;
   fullWidth?: boolean;
@@ -29,7 +28,7 @@ interface ButtonProps {
   wrapperOverride?: string;
 }
 
-const Button = (props: ButtonProps) => {
+const Button = (props: ButtonProps): JSX.Element => {
   const {
     children,
     color = "primary",

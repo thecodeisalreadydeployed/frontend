@@ -6,13 +6,13 @@ interface DeploymentStatusDotProps {
   status: Status;
 }
 
-const DeploymentStatusDot = (props: DeploymentStatusDotProps) => {
+const DeploymentStatusDot = (props: DeploymentStatusDotProps): JSX.Element => {
   const { status } = props;
 
   const { dotColor, dotLabel } = variant(status);
 
   return (
-    <div className="inline-flex items-center space-x-2 reset">
+    <div className="inline-flex items-center space-x-2">
       <div className={`w-2.5 h-2.5 rounded-full ${dotColor}`} />
       <p className="text-sm text-primary-accent-5">{dotLabel}</p>
     </div>

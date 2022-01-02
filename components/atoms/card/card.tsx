@@ -8,7 +8,7 @@ interface CardProps {
   wrapperOverride?: string;
 }
 
-const Card = (props: CardProps) => {
+const Card = (props: CardProps): JSX.Element => {
   const { children, onClick, wrapperProps, wrapperOverride = "" } = props;
 
   return (

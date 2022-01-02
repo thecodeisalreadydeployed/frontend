@@ -10,7 +10,6 @@
   ],
   "rules": {
     "no-duplicate-imports": "error",
-    "tailwindcss/no-custom-classname": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@next/next/no-img-element": "off"
   }

@@ -37,7 +37,6 @@ const Application = () => {
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
           placeholder="Search..."
-          width="w-full"
         />
         <Button wrapperOverride="shrink-0" onClick={handleCreateNewApplication}>
           New Application

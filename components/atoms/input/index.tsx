@@ -1,5 +1,4 @@
 import { variant } from "./variant";
-import { TWidth } from "@types_/tailwind";
 
 export type InputSize = "sm" | "md" | "lg";
 type InputType =
@@ -36,7 +35,6 @@ interface InputProps {
   spellCheck?: boolean;
   type?: Exclude<InputType, "checkbox" | "radio">;
   value?: string;
-  width?: TWidth;
   wrapperOverride?: string;
   wrapperProps?: Omit<React.InputHTMLAttributes<HTMLInputElement>, "className">;
 }
@@ -52,7 +50,6 @@ const Input = (props: InputProps) => {
     spellCheck = false,
     type = "text",
     value,
-    width = "w-60",
     wrapperOverride = "",
     wrapperProps,
   } = props;
@@ -62,9 +59,10 @@ const Input = (props: InputProps) => {
   return (
     <input
       autoComplete={autoComplete ? "on" : "off"}
-      className={`rounded border placeholder-[#A9A9A9] disabled:bg-primary-accent-1 disabled:cursor-not-allowed border-primary-accent-2 px-3 outline-none focus:border-primary-accent-5 ${width} ${inputHeight} ${inputTextSize} ${wrapperOverride}`}
+      className={`rounded border placeholder-[#A9A9A9] disabled:bg-primary-accent-1 disabled:cursor-not-allowed border-primary-accent-2 px-3 outline-none focus:border-primary-accent-5 w-full ${inputHeight} ${inputTextSize} ${wrapperOverride}`}
       disabled={disabled}
       id={id}
+      size={1}
       onChange={onChange}
       placeholder={placeholder}
       spellCheck={spellCheck}

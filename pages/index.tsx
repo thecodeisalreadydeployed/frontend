@@ -24,7 +24,6 @@ const Project = () => {
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
           placeholder="Search..."
-          width="w-full"
         />
         <Button wrapperOverride="shrink-0">New Project</Button>
       </div>

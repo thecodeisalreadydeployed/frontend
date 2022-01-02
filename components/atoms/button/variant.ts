@@ -1,11 +1,17 @@
 import { ButtonColor, ButtonSize, ButtonVariant } from "./index";
 
-const variant = (size: ButtonSize, color: ButtonColor, type: ButtonVariant) => {
+const variant = (
+  size: ButtonSize,
+  color: ButtonColor,
+  type: ButtonVariant,
+  fullWidth: boolean
+) => {
   let tw_buttonBorder = "border ";
   let tw_buttonColor = "";
   let tw_buttonHeight = "";
   let tw_buttonTextColor = "";
   let tw_iconSize = "";
+  let tw_buttonWidth = "";
 
   switch (size) {
     case "sm":
@@ -113,12 +119,17 @@ const variant = (size: ButtonSize, color: ButtonColor, type: ButtonVariant) => {
     tw_buttonColor += " active:bg-primary-accent-2";
   }
 
+  if (fullWidth) {
+    tw_buttonWidth = "w-full";
+  }
+
   return {
     buttonBorder: tw_buttonBorder,
     buttonColor: tw_buttonColor,
     buttonHeight: tw_buttonHeight,
     buttonTextColor: tw_buttonTextColor,
     iconSize: tw_iconSize,
+    buttonWidth: tw_buttonWidth,
   };
 };
 

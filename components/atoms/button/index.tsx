@@ -24,6 +24,7 @@ interface ButtonProps {
   IconSuffix?: Icon | ((props: React.ComponentProps<"svg">) => JSX.Element);
   onClick?: React.ButtonHTMLAttributes<HTMLButtonElement>["onClick"];
   size?: ButtonSize;
+  fullWidth?: boolean;
   variant?: ButtonVariant;
   wrapperOverride?: string;
 }
@@ -35,19 +36,26 @@ const Button = (props: ButtonProps) => {
     IconPrefix,
     IconSuffix,
     onClick,
+    fullWidth = false,
     size = "md",
     variant: buttonVariant = "border",
     wrapperOverride,
     wrapperProps,
   } = props;
 
-  const { buttonHeight, buttonColor, buttonBorder, buttonTextColor, iconSize } =
-    variant(size, color, buttonVariant);
+  const {
+    buttonHeight,
+    buttonColor,
+    buttonBorder,
+    buttonTextColor,
+    iconSize,
+    buttonWidth,
+  } = variant(size, color, buttonVariant, fullWidth);
 
   return (
     <button
       onClick={onClick}
-      className={`inline-flex align-middle items-center px-3 rounded ${buttonBorder} ${buttonColor} ${buttonHeight} ${buttonTextColor} ${wrapperOverride}`}
+      className={`inline-flex align-middle justify-center items-center px-3 rounded ${buttonBorder} ${buttonColor} ${buttonHeight} ${buttonTextColor} ${buttonWidth} ${wrapperOverride}`}
       {...wrapperProps}
     >
       {IconPrefix && (

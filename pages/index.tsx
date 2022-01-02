@@ -9,7 +9,7 @@ import { ProjectCard } from "@molecules";
 import { HeaderLayout } from "@templates";
 import { Project as FetchedProject } from "types/api-schema";
 
-const Project = () => {
+const Project = (): JSX.Element => {
   const [searchInput, setSearchInput] = useState("");
   const router = useRouter();
 
@@ -29,7 +29,7 @@ const Project = () => {
         />
         <Button wrapperOverride="shrink-0">New Project</Button>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {projects
           ?.filter((project: FetchedProject) =>
             project.name.toLocaleLowerCase().includes(searchInput)

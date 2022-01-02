@@ -1,8 +1,8 @@
-import Project from "../../pages/index";
+import Page from "../../pages/index";
 
 export default {
   title: "Pages/Project",
-  component: Project,
+  component: Page,
 };
 
-export const ProjectPage = () => <Project />;
+export const Project = (): JSX.Element => <Page />;

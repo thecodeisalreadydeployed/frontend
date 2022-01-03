@@ -6,6 +6,6 @@
 
 @layer base {
   body {
-    @apply bg-zinc-800 text-zinc-100 font-sora;
+    @apply bg-zinc-800 text-zinc-200 font-normal font-sora;
   }
 }

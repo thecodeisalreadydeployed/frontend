@@ -4,6 +4,11 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontWeight: {
+      light: 200,
+      normal: 400,
+      bold: 600,
+    },
     extend: {
       fontFamily: {
         sora: ["Sora", "sans-serif"],

@@ -1,36 +1,26 @@
 import { Card } from "@atoms";
-
 interface ProjectCardProps {
   name: string;
   description?: string;
   updatedAt?: string;
-  onClick?: React.HTMLAttributes<HTMLDivElement>["onClick"];
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-const ProjectCard = (props: ProjectCardProps) => {
-  const {
-    name,
-    description = "No description",
-    updatedAt = "N/A",
-    onClick,
-  } = props;
+export const ProjectCard = (props: ProjectCardProps): JSX.Element => {
+  const { name, updatedAt = "N/A", onClick } = props;
 
   return (
-    <Card wrapperOverride="space-y-4 reset" onClick={onClick}>
-      <div className="flex items-center space-x-2 ">
-        <img
-          src={`https://avatars.dicebear.com/api/identicon/${name}.svg`}
-          alt="Icon"
-          className="w-8 h-8 rounded-full ring-2 shrink-0 ring-primary-accent-2"
-        />
-        <p className="w-full font-medium truncate line-clamp-2">{name}</p>
-      </div>
-      <p className="text-sm text-primary-accent-6">{description}</p>
-      <p className="text-sm truncate line-clamp-1 text-primary-accent-4">
-        {updatedAt}
+    <Card onClick={onClick}>
+      <div
+        className="relative -mx-6 -mt-6 mb-6 h-8 bg-repeat-x opacity-60"
+        style={{
+          backgroundImage: `url(https://avatars.dicebear.com/api/identicon/${name}.svg)`,
+        }}
+      />
+      <p className="mb-2 text-base font-normal text-zinc-200 truncate">
+        {name}
       </p>
+      <p className="text-xs font-light text-zinc-400">{updatedAt}</p>
     </Card>
   );
 };
-
-export { ProjectCard };

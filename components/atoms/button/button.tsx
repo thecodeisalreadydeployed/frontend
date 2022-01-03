@@ -1,71 +1,54 @@
-import { variant } from "./variant";
+import clsx from "clsx";
 
-export type ButtonSize = "sm" | "md" | "lg";
-export type ButtonColor =
-  | "primary"
-  | "secondary"
-  | "success"
-  | "error"
-  | "warning"
-  | "alert"
-  | "violet";
+type Color = "primary" | "secondary";
 
-export type ButtonVariant = "border" | "ghost";
+type Size = "sm" | "md" | "lg";
 
 interface ButtonProps {
-  wrapperProps?: Omit<
-    React.ButtonHTMLAttributes<HTMLButtonElement>,
-    "children" | "onClick"
-  >;
-  children: string;
-  color?: ButtonColor;
-  IconPrefix?: (props: React.ComponentProps<"svg">) => JSX.Element;
-  IconSuffix?: (props: React.ComponentProps<"svg">) => JSX.Element;
-  onClick?: React.ButtonHTMLAttributes<HTMLButtonElement>["onClick"];
-  size?: ButtonSize;
+  children?: React.ReactNode;
+  color: Color;
   fullWidth?: boolean;
-  variant?: ButtonVariant;
-  wrapperOverride?: string;
+  id?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  size: Size;
 }
 
-const Button = (props: ButtonProps): JSX.Element => {
+const SIZE_MAPS: Record<Size, string> = {
+  sm: clsx("py-1.5 text-sm"),
+  md: clsx("py-2.5 text-sm"),
+  lg: clsx("py-3 text-base"),
+};
+
+const COLOR_MAPS: Record<Color, string> = {
+  primary: clsx(
+    "text-black hover:text-white bg-white hover:bg-black border-white"
+  ),
+  secondary: clsx(
+    "text-white hover:text-black bg-black hover:bg-white border-black"
+  ),
+};
+export const Button = (props: ButtonProps): JSX.Element => {
   const {
     children,
     color = "primary",
-    IconPrefix,
-    IconSuffix,
-    onClick,
     fullWidth = false,
+    id,
+    onClick,
     size = "md",
-    variant: buttonVariant = "border",
-    wrapperOverride,
-    wrapperProps,
   } = props;
-
-  const {
-    buttonHeight,
-    buttonColor,
-    buttonBorder,
-    buttonTextColor,
-    iconSize,
-    buttonWidth,
-  } = variant(size, color, buttonVariant, fullWidth);
 
   return (
     <button
+      id={id}
       onClick={onClick}
-      className={`inline-flex align-middle justify-center items-center px-3 rounded ${buttonBorder} ${buttonColor} ${buttonHeight} ${buttonTextColor} ${buttonWidth} ${wrapperOverride}`}
-      {...wrapperProps}
+      className={clsx(
+        "inline-flex justify-center items-center px-4 align-middle rounded border transition-colors duration-150 ease-linear",
+        COLOR_MAPS[color],
+        SIZE_MAPS[size],
+        fullWidth && "w-full"
+      )}
     >
-      {IconPrefix && (
-        <IconPrefix className={`mr-2 stroke-[1.5px] ${iconSize}`} />
-      )}
       {children}
-      {IconSuffix && (
-        <IconSuffix className={`ml-2 stroke-[1.5px] ${iconSize}`} />
-      )}
     </button>
   );
 };
-
-export { Button };

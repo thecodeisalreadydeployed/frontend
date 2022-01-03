@@ -1,5 +1,5 @@
 import "styles/globals.css";
-import { SWRConfigValue } from "utils/swr-fetcher";
+import { SWRConfigContext } from "utils/swr-fetcher";
 import * as NextImage from "next/image";
 
 const OriginalNextImage = NextImage.default;
@@ -21,8 +21,8 @@ export const parameters = {
 
 export const decorators = [
   (Story) => (
-    <SWRConfigValue>
+    <SWRConfigContext>
       <Story />
-    </SWRConfigValue>
+    </SWRConfigContext>
   ),
 ];

@@ -4,12 +4,12 @@ import type { BareFetcher } from "swr/dist/types";
 const fetcher: BareFetcher<unknown> = (resource, init) =>
   fetch(resource, init).then((res) => res.json());
 
-interface SWRConfigValueProps {
+interface SWRConfigContextProps {
   children: React.ReactNode;
 }
 
-export const SWRConfigValue = ({
+export const SWRConfigContext = ({
   children,
-}: SWRConfigValueProps): JSX.Element => (
+}: SWRConfigContextProps): JSX.Element => (
   <SWRConfig value={{ fetcher }}>{children}</SWRConfig>
 );

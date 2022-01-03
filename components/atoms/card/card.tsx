@@ -1,25 +1,21 @@
+import clsx from "clsx";
+
 interface CardProps {
-  wrapperProps?: Omit<
-    React.HTMLAttributes<HTMLDivElement>,
-    "className" | "children" | "onClick"
-  >;
   children?: React.ReactNode;
-  onClick?: React.HTMLAttributes<HTMLDivElement>["onClick"];
-  wrapperOverride?: string;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-const Card = (props: CardProps): JSX.Element => {
-  const { children, onClick, wrapperProps, wrapperOverride = "" } = props;
+export const Card = (props: CardProps): JSX.Element => {
+  const { children, onClick } = props;
 
   return (
     <div
-      className={`inline-block p-6 bg-primary-background rounded shadow hover:shadow-md transition-shadow duration-200 cursor-pointer ${wrapperOverride}`}
+      className={clsx(
+        "inline-block p-6 rounded border border-zinc-600 hover:border-zinc-400 transition-colors duration-150 cursor-pointer"
+      )}
       onClick={onClick}
-      {...wrapperProps}
     >
       {children}
     </div>
   );
 };
-
-export { Card };

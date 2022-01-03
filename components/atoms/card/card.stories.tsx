@@ -19,7 +19,7 @@ Card.args = {
         <Image
           src="https://picsum.photos/200/300"
           layout="fill"
-          className="object-fill"
+          className="object-cover"
           alt="Random photo"
         />
       </div>

@@ -17,7 +17,8 @@ export const ProjectCard = (props: ProjectCardProps): JSX.Element => {
           backgroundImage: `url(https://avatars.dicebear.com/api/identicon/${name}.svg)`,
         }}
       />
-      <p className="mb-2 text-base font-normal text-zinc-200 truncate">
+      {/* Hard code h-12 (48px) due to when line clamped, it is changed from 48px to 46px */}
+      <p className="mb-2 h-12 text-base font-normal text-zinc-200 break-words line-clamp-2">
         {name}
       </p>
       <p className="text-xs font-light text-zinc-400">{updatedAt}</p>

@@ -19,4 +19,8 @@ module.exports = {
       padding: "1.5rem",
     },
   },
+  plugins: [
+    require("@tailwindcss/line-clamp"),
+    // ...
+  ],
 };

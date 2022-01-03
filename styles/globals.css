@@ -4,6 +4,6 @@
 
 @layer base {
   body {
-    @apply text-black;
+    @apply bg-zinc-800 text-zinc-100;
   }
 }

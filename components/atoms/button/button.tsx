@@ -21,10 +21,10 @@ const SIZE_MAPS: Record<Size, string> = {
 
 const COLOR_MAPS: Record<Color, string> = {
   primary: clsx(
-    "text-black hover:text-white bg-white hover:bg-black border-white"
+    "text-zinc-800 hover:text-zinc-100 bg-zinc-100 hover:bg-zinc-800 border-zinc-100"
   ),
   secondary: clsx(
-    "text-white hover:text-black bg-black hover:bg-white border-black"
+    "text-zinc-100 hover:text-zinc-800 bg-zinc-800 hover:bg-zinc-100 border-zinc-800"
   ),
 };
 export const Button = (props: ButtonProps): JSX.Element => {

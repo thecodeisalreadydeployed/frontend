@@ -27,7 +27,7 @@ const Project = (): JSX.Element => {
           onChange={(e) => setSearchInput(e.target.value)}
           placeholder="Search..."
         />
-        <Button wrapperOverride="shrink-0">New Project</Button>
+        <Button>New Project</Button>
       </div>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {projects

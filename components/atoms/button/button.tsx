@@ -6,11 +6,11 @@ type Size = "sm" | "md" | "lg";
 
 interface ButtonProps {
   children?: React.ReactNode;
-  color: Color;
+  color?: Color;
   fullWidth?: boolean;
   id?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
-  size: Size;
+  size?: Size;
 }
 
 const SIZE_MAPS: Record<Size, string> = {

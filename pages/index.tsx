@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-import { formatDistanceToNow } from "date-fns";
+import { formatDistanceToNowStrict } from "date-fns";
 import useSWR from "swr";
 
 import { Button, Input, PageTitle } from "@atoms";
@@ -38,9 +38,9 @@ const Project = (): JSX.Element => {
             <ProjectCard
               projectId={project.id}
               name={project.name}
-              updatedAt={formatDistanceToNow(new Date(project.updatedAt), {
-                addSuffix: true,
-              })}
+              updatedAt={`${formatDistanceToNowStrict(
+                new Date(project.updatedAt)
+              )} ago`}
               key={index}
               onClick={() => router.push(`/${project.id}`)}
             />

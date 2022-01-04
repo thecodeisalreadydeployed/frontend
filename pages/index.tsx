@@ -34,6 +34,11 @@ const Project = (): JSX.Element => {
           ?.filter((project: FetchedProject) =>
             project.name.toLocaleLowerCase().includes(searchInput)
           )
+          .sort((a, b) => {
+            return (
+              new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime()
+            );
+          })
           .map((project, index) => (
             <ProjectCard
               projectId={project.id}

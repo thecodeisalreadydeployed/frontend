@@ -15,4 +15,6 @@ export const Input: ComponentStory<typeof Component> = (args): JSX.Element => (
 Input.args = {
   size: "md",
   placeholder: "Type me...",
+  type: "text",
+  autoComplete: false,
 };

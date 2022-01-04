@@ -24,7 +24,7 @@
           // Packages
           ["^@?\\w"],
           // Internal packages.
-          ["^(@atoms|@molecules|@organism|@templates|types)"],
+          ["^(@atoms|@molecules|@organisms|@templates|types)"],
           // Parent imports. Put `..` last.
           ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
           // Other relative imports. Put same-folder imports and `.` last.

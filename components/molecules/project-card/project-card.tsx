@@ -15,19 +15,6 @@ export const ProjectCard = (props: ProjectCardProps): JSX.Element => {
 
   return (
     <Card onClick={onClick}>
-      {/* <div
-        className="relative -mx-6 -mt-6 mb-6 h-8 bg-repeat-x opacity-60"
-        style={{
-          backgroundImage: `url(https://avatars.dicebear.com/api/identicon/${hash}.svg)`,
-        }}
-      /> */}
-      {/* <div className="overflow-hidden relative w-8 h-8 rounded-full">
-        <Image
-          src={`https://avatars.dicebear.com/api/identicon/${hash}.svg`}
-          layout="fill"
-          alt="Randomly generated icon"
-        />
-      </div> */}
       {/* Hard code h-12 (48px) due to when line clamped, it is changed from 48px to 46px */}
       <p className="mb-2 h-12 text-base font-normal text-zinc-200 break-words line-clamp-2">
         {name}

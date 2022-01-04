@@ -1,29 +1,13 @@
-import { variant } from "./variant";
+import clsx from "clsx";
 
-export type InputSize = "sm" | "md" | "lg";
-type InputType =
-  | "button"
-  | "checkbox"
-  | "color"
-  | "date"
-  | "datetime-local"
-  | "email"
-  | "file"
-  | "hidden"
-  | "image"
-  | "month"
-  | "number"
-  | "password"
-  | "radio"
-  | "range"
-  | "reset"
-  | "search"
-  | "submit"
-  | "tel"
-  | "text"
-  | "time"
-  | "url"
-  | "week";
+type InputSize = "sm" | "md" | "lg";
+type InputType = "text" | "search" | "password";
+
+const SIZE_MAPS: Record<InputSize, string> = {
+  sm: clsx("py-1.5 text-sm"),
+  md: clsx("py-2.5 text-sm"),
+  lg: clsx("py-3 text-base"),
+};
 
 interface InputProps {
   autoComplete?: boolean;
@@ -33,13 +17,11 @@ interface InputProps {
   placeholder?: string;
   size?: InputSize;
   spellCheck?: boolean;
-  type?: Exclude<InputType, "checkbox" | "radio">;
+  type?: InputType;
   value?: string;
-  wrapperOverride?: string;
-  wrapperProps?: Omit<React.InputHTMLAttributes<HTMLInputElement>, "className">;
 }
 
-const Input = (props: InputProps) => {
+export const Input = (props: InputProps): JSX.Element => {
   const {
     autoComplete = false,
     disabled = false,
@@ -50,16 +32,15 @@ const Input = (props: InputProps) => {
     spellCheck = false,
     type = "text",
     value,
-    wrapperOverride = "",
-    wrapperProps,
   } = props;
-
-  const { inputHeight, inputTextSize } = variant(size);
 
   return (
     <input
       autoComplete={autoComplete ? "on" : "off"}
-      className={`rounded border placeholder-[#A9A9A9] disabled:bg-primary-accent-1 disabled:cursor-not-allowed border-primary-accent-2 px-3 outline-none focus:border-primary-accent-5 w-full ${inputHeight} ${inputTextSize} ${wrapperOverride}`}
+      className={clsx(
+        "px-3 w-full placeholder:text-zinc-400 text-zinc-200 bg-zinc-800 rounded border border-zinc-600 focus:border-zinc-400 outline-none disabled:cursor-not-allowed",
+        SIZE_MAPS[size]
+      )}
       disabled={disabled}
       id={id}
       size={1}
@@ -68,9 +49,6 @@ const Input = (props: InputProps) => {
       spellCheck={spellCheck}
       type={type}
       value={value}
-      {...wrapperProps}
     />
   );
 };
-
-export { Input };

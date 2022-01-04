@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-import { formatDistanceToNow } from "date-fns";
+import { formatDistanceToNowStrict } from "date-fns";
 import useSWR from "swr";
 
 import { Button, Input, PageTitle } from "@atoms";
@@ -10,7 +10,7 @@ import { CreateApplicationModal } from "@organisms";
 import { HeaderLayout } from "@templates";
 import { App } from "types/api-schema";
 
-const Application = () => {
+const Application = (): JSX.Element => {
   const [searchInput, setSearchInput] = useState("");
   const [showCreateApplicationModal, setShowCreateApplicationModal] =
     useState(false);
@@ -40,21 +40,25 @@ const Application = () => {
           onChange={(e) => setSearchInput(e.target.value)}
           placeholder="Search..."
         />
-        <Button wrapperOverride="shrink-0" onClick={handleCreateNewApplication}>
-          New Application
-        </Button>
+        <Button onClick={handleCreateNewApplication}>New Application</Button>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {applications
           ?.filter((application) =>
             application.name.toLocaleLowerCase().includes(searchInput)
           )
+          .sort((a, b) => {
+            return (
+              new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime()
+            );
+          })
           .map((application, index) => (
             <ProjectCard
+              projectId={application.id}
               name={application.name}
-              updatedAt={formatDistanceToNow(new Date(application.updatedAt), {
-                addSuffix: true,
-              })}
+              updatedAt={`${formatDistanceToNowStrict(
+                new Date(application.updatedAt)
+              )} ago`}
               key={index}
               onClick={() => router.push(`/${projectId}/${application.id}`)}
             />

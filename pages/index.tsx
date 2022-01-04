@@ -36,6 +36,7 @@ const Project = (): JSX.Element => {
           )
           .map((project, index) => (
             <ProjectCard
+              projectId={project.id}
               name={project.name}
               updatedAt={formatDistanceToNow(new Date(project.updatedAt), {
                 addSuffix: true,

@@ -1,14 +1,15 @@
 import { Card } from "@atoms";
 interface ProjectCardProps {
+  projectId: string;
   name: string;
   updatedAt?: string;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 export const ProjectCard = (props: ProjectCardProps): JSX.Element => {
-  const { name, updatedAt = "N/A", onClick } = props;
+  const { projectId, name, updatedAt = "", onClick } = props;
 
-  const hash = name.replaceAll(" ", "");
+  const hash = (projectId ?? name).replaceAll(" ", "") ?? "";
 
   return (
     <Card onClick={onClick}>

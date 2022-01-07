@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { BreadcrumbDivider } from "@atoms";
 
-interface NavBreadCrumbProps {
+interface NavBreadcrumbProps {
   projectName?: string;
   applicationName?: string;
   onClickLogo?: React.ImgHTMLAttributes<HTMLImageElement>["onClick"];
@@ -10,7 +10,7 @@ interface NavBreadCrumbProps {
   onClickApplication?: React.HTMLAttributes<HTMLParagraphElement>["onClick"];
 }
 
-const NavBreadCrumb = (props: NavBreadCrumbProps): JSX.Element => {
+export const NavBreadcrumb = (props: NavBreadcrumbProps): JSX.Element => {
   const {
     applicationName,
     projectName,
@@ -56,5 +56,3 @@ const NavBreadCrumb = (props: NavBreadCrumbProps): JSX.Element => {
     </div>
   );
 };
-
-export { NavBreadCrumb };

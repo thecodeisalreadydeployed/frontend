@@ -1,9 +1,11 @@
-import { NavBreadCrumb } from "@molecules";
-import { GithubLogo } from "@atoms";
 import { useRouter } from "next/router";
+
 import useSWR from "swr";
 
-const Header = () => {
+import { GithubLogo } from "@atoms";
+import { NavBreadCrumb } from "@molecules";
+
+export const Header = (): JSX.Element => {
   const router = useRouter();
 
   const { project: projectId, application: applicationId } = router.query;
@@ -17,7 +19,7 @@ const Header = () => {
   );
 
   return (
-    <div className="bg-primary-background">
+    <div className="bg-zinc-800 border-b border-b-zinc-600">
       <nav className="container flex justify-between items-center h-16 sm:h-20">
         <NavBreadCrumb
           projectName={project?.name}
@@ -40,5 +42,3 @@ const Header = () => {
     </div>
   );
 };
-
-export { Header };

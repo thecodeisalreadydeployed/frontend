@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 
 import { GithubLogo } from "@atoms";
-import { NavBreadCrumb } from "@molecules";
+import { NavBreadcrumb } from "@molecules";
 
 export const Header = (): JSX.Element => {
   const router = useRouter();
@@ -21,7 +21,7 @@ export const Header = (): JSX.Element => {
   return (
     <div className="bg-zinc-800 border-b border-b-zinc-600">
       <nav className="container flex justify-between items-center h-16 sm:h-20">
-        <NavBreadCrumb
+        <NavBreadcrumb
           projectName={project?.name}
           applicationName={application?.name}
           onClickLogo={() => router.push("/")}

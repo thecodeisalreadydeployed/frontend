@@ -6,17 +6,26 @@ import useSWR from "swr";
 
 import { Button, Input, PageTitle } from "@atoms";
 import { ProjectCard } from "@molecules";
+import { CreateProjectModal } from "@organisms";
 import { HeaderLayout } from "@templates";
 import { Project as FetchedProject } from "types/api-schema";
 
 const Project = (): JSX.Element => {
   const [searchInput, setSearchInput] = useState("");
+  const [showCreateProjectModal, setShowCreateProjectModal] = useState(false);
   const router = useRouter();
 
   // NOTE: - Move localhost to env
   const { data: projects } = useSWR<FetchedProject[]>(
     "http://localhost:3001/projects/list"
   );
+
+  const handleCloseProjectModal = () => {
+    setShowCreateProjectModal(false);
+  };
+  const handleOpenProjectModal = () => {
+    setShowCreateProjectModal(true);
+  };
 
   return (
     <div className="container mt-6">
@@ -27,7 +36,7 @@ const Project = (): JSX.Element => {
           onChange={(e) => setSearchInput(e.target.value)}
           placeholder="Search..."
         />
-        <Button>New Project</Button>
+        <Button onClick={handleOpenProjectModal}>New Project</Button>
       </div>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {projects
@@ -51,6 +60,10 @@ const Project = (): JSX.Element => {
             />
           ))}
       </div>
+      <CreateProjectModal
+        showModal={showCreateProjectModal}
+        onClose={handleCloseProjectModal}
+      />
     </div>
   );
 };

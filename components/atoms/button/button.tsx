@@ -24,7 +24,7 @@ const COLOR_MAPS: Record<Color, string> = {
     "text-zinc-800 hover:text-zinc-100 bg-zinc-100 hover:bg-zinc-800 border-zinc-100"
   ),
   secondary: clsx(
-    "text-zinc-100 hover:text-zinc-800 bg-zinc-800 hover:bg-zinc-100 border-zinc-800"
+    "text-zinc-100 bg-zinc-800 border-zinc-800 hover:border-zinc-100"
   ),
 };
 export const Button = (props: ButtonProps): JSX.Element => {

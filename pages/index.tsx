@@ -14,7 +14,6 @@ const Project = (): JSX.Element => {
   const [showCreateProjectModal, setShowCreateProjectModal] = useState(false);
   const router = useRouter();
 
-  // NOTE: - Move localhost to env
   const { projects } = useGetProjects();
 
   const handleCloseProjectModal = () => {

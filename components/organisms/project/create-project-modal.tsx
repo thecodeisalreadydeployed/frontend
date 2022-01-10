@@ -57,13 +57,13 @@ export const CreateProjectModal = (
       <div className="w-screen max-w-[28rem] text-base font-normal text-zinc-200">
         <div className="p-6">
           <p className="mb-6 font-bold">New Project</p>
-          <label htmlFor={INPUT_ID.PRJ_NAME} className="block mb-3 text-sm">
+          <label className="block mb-3 text-sm" htmlFor={INPUT_ID.PRJ_NAME}>
             Name
           </label>
           <Input
             id={INPUT_ID.PRJ_NAME}
-            size="sm"
             placeholder="ie: TheCodeIsAlreadyDead"
+            size="sm"
             value={newProjectName}
             onChange={handleOnChangeInput}
           />
@@ -71,14 +71,14 @@ export const CreateProjectModal = (
 
         <div className="flex justify-end py-4 px-6 space-x-4">
           <Button
-            id={BUTTON_ID.CANCEL}
-            onClick={handleOnClickButton}
             color="secondary"
             fullWidth
+            id={BUTTON_ID.CANCEL}
+            onClick={handleOnClickButton}
           >
             Cancel
           </Button>
-          <Button id={BUTTON_ID.NEXT} onClick={handleOnClickButton} fullWidth>
+          <Button fullWidth id={BUTTON_ID.NEXT} onClick={handleOnClickButton}>
             Create
           </Button>
         </div>

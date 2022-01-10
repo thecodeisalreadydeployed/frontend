@@ -63,7 +63,6 @@ export const CreateProjectModal = (
           <Input
             id={INPUT_ID.PRJ_NAME}
             placeholder="ie: TheCodeIsAlreadyDead"
-            size="sm"
             value={newProjectName}
             onChange={handleOnChangeInput}
           />

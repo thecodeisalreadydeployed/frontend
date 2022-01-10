@@ -41,6 +41,13 @@
     ],
     "simple-import-sort/exports": "warn",
     "prettier/prettier": "warn",
-    "sort-destructure-keys/sort-destructure-keys": 1
+    "sort-destructure-keys/sort-destructure-keys": "warn",
+    "react/jsx-sort-props": [
+      "warn",
+      {
+        "callbacksLast": true,
+        "reservedFirst": true
+      }
+    ]
   }
 }

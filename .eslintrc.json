@@ -1,6 +1,11 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["tailwindcss", "simple-import-sort", "@typescript-eslint"],
+  "plugins": [
+    "sort-destructure-keys",
+    "tailwindcss",
+    "simple-import-sort",
+    "@typescript-eslint"
+  ],
   "extends": [
     "plugin:tailwindcss/recommended",
     "eslint:recommended",
@@ -35,6 +40,7 @@
       }
     ],
     "simple-import-sort/exports": "warn",
-    "prettier/prettier": "warn"
+    "prettier/prettier": "warn",
+    "sort-destructure-keys/sort-destructure-keys": 1
   }
 }

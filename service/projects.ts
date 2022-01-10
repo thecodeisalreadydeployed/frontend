@@ -1,6 +1,6 @@
-import { useSWRConfig } from "swr";
+import useSWR, { useSWRConfig } from "swr";
 
-import type { CreateProjectRequest } from "types/schema";
+import type { CreateProjectRequest, Project } from "types/schema";
 
 export const useCreateNewProject = (): {
   createNewProject: (name: string) => Promise<Response>;
@@ -27,5 +27,21 @@ export const useCreateNewProject = (): {
 
   return {
     createNewProject,
+  };
+};
+
+export const useGetProjects = (): {
+  projects: Project[] | undefined;
+  getProjectsError: unknown;
+  getProjectsIsValidating: boolean;
+} => {
+  const { data, error, isValidating } = useSWR<Project[]>(
+    `${process.env.NEXT_PUBLIC_HOST}/projects/list`
+  );
+
+  return {
+    projects: data,
+    getProjectsError: error,
+    getProjectsIsValidating: isValidating,
   };
 };

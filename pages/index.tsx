@@ -2,13 +2,12 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 
 import { formatDistanceToNowStrict } from "date-fns";
-import useSWR from "swr";
+import { useGetProjects } from "service";
 
 import { Button, Input, PageTitle } from "@atoms";
 import { ProjectCard } from "@molecules";
 import { CreateProjectModal } from "@organisms";
 import { HeaderLayout } from "@templates";
-import { Project as FetchedProject } from "types/schema";
 
 const Project = (): JSX.Element => {
   const [searchInput, setSearchInput] = useState("");
@@ -16,9 +15,7 @@ const Project = (): JSX.Element => {
   const router = useRouter();
 
   // NOTE: - Move localhost to env
-  const { data: projects } = useSWR<FetchedProject[]>(
-    "http://localhost:3001/projects/list"
-  );
+  const { projects } = useGetProjects();
 
   const handleCloseProjectModal = () => {
     setShowCreateProjectModal(false);
@@ -40,7 +37,7 @@ const Project = (): JSX.Element => {
       </div>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {projects
-          ?.filter((project: FetchedProject) =>
+          ?.filter((project) =>
             project.name.toLocaleLowerCase().includes(searchInput)
           )
           .sort((a, b) => {

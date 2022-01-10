@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import { DeploymentSummaryRow } from "@molecules";
 import { DeploymentStatus } from "@atoms";
-import { Deployment } from "types/api-schema";
+import { Deployment } from "types/schema";
 import { intervalToDuration, formatDistanceToNowStrict } from "date-fns";
 
 interface DeploymentListProps {

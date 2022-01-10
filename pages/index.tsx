@@ -8,7 +8,7 @@ import { Button, Input, PageTitle } from "@atoms";
 import { ProjectCard } from "@molecules";
 import { CreateProjectModal } from "@organisms";
 import { HeaderLayout } from "@templates";
-import { Project as FetchedProject } from "types/api-schema";
+import { Project as FetchedProject } from "types/schema";
 
 const Project = (): JSX.Element => {
   const [searchInput, setSearchInput] = useState("");

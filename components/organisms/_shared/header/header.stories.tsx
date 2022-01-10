@@ -1,6 +1,6 @@
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 
-// import { Project as FetchedProject } from "types/api-schema";
+// import { Project as FetchedProject } from "types/schema";
 import { Header as Component } from "./header";
 
 export default {

@@ -1,16 +1,18 @@
 import { useSWRConfig } from "swr";
 
+import type { CreateProjectRequest } from "types/schema";
+
 export const useCreateNewProject = (): {
   createNewProject: (name: string) => Promise<Response>;
 } => {
   const { mutate } = useSWRConfig();
 
   const createNewProject = async (name: string) => {
-    const project = {
-      name,
+    const project: CreateProjectRequest = {
+      Name: name,
     };
 
-    const response = await fetch("http://localhost:3001/projects/", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/projects`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -18,7 +20,7 @@ export const useCreateNewProject = (): {
       body: JSON.stringify(project),
     });
 
-    mutate("http://localhost:3001/projects/list");
+    mutate(`${process.env.NEXT_PUBLIC_HOST}/projects/list`);
 
     return response;
   };

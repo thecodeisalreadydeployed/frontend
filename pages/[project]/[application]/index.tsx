@@ -4,7 +4,7 @@ import useSWR from "swr";
 
 import { DeploymentList, TitleHeader } from "@organisms";
 import { HeaderLayout } from "@templates";
-import { App } from "types/api-schema";
+import { App } from "types/schema";
 
 const Overview = () => {
   const router = useRouter();

@@ -39,14 +39,14 @@ export const Button = (props: ButtonProps): JSX.Element => {
 
   return (
     <button
-      id={id}
-      onClick={onClick}
       className={clsx(
         "inline-flex justify-center items-center px-4 align-middle rounded border transition-colors duration-150 ease-linear",
         COLOR_MAPS[color],
         SIZE_MAPS[size],
         fullWidth && "w-full"
       )}
+      id={id}
+      onClick={onClick}
     >
       {children}
     </button>

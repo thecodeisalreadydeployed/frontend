@@ -9,7 +9,7 @@ interface ModalProps {
 }
 
 export const Modal = (props: ModalProps): JSX.Element => {
-  const { showModal, onClickOutside, children } = props;
+  const { children, onClickOutside, showModal } = props;
 
   useEffect(() => {
     const body = document.querySelector("body");
@@ -21,7 +21,7 @@ export const Modal = (props: ModalProps): JSX.Element => {
   return (
     <div
       className={clsx(
-        "fixed inset-0 z-50 bg-zinc-800/60 backdrop-blur-sm",
+        "fixed inset-0 z-50 bg-zinc-900/60 backdrop-blur-sm",
         !showModal && "hidden"
       )}
       onClick={onClickOutside}

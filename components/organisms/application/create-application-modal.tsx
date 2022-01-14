@@ -125,7 +125,7 @@ export const CreateApplicationModal = (
       <div className="flex overflow-hidden flex-col w-screen max-w-[56rem] h-screen max-h-[30rem] text-base font-normal text-zinc-200">
         <div className="flex flex-col p-6 min-h-0">
           <p className="mb-6 font-bold">New Application</p>
-          <div className="flex space-x-2 min-h-0 relative">
+          <div className="flex relative space-x-2 min-h-0">
             <div className="overflow-y-scroll space-y-3 w-1/2">
               <div>
                 <label

@@ -43,12 +43,12 @@ export const Input = (props: InputProps): JSX.Element => {
       )}
       disabled={disabled}
       id={id}
-      size={1}
-      onChange={onChange}
       placeholder={placeholder}
+      size={1}
       spellCheck={spellCheck}
       type={type}
       value={value}
+      onChange={onChange}
     />
   );
 };

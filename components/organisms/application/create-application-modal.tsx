@@ -1,14 +1,23 @@
 import { useState } from "react";
-import { Modal, Input, Button } from "@atoms";
+
+import { ChevronDownIcon } from "@heroicons/react/outline";
+
+import { Button, Input, Modal } from "@atoms";
+import { useScrollToBottom } from "utils/useScrollToBottom";
 
 interface CreateApplicationModalProps {
   onClose?: () => void;
   showModal: boolean;
 }
 
-enum ApplicationInput {
+enum BUTTON_ID {
+  NEXT = "create-application-modal-next-button",
+  CANCEL = "create-application-modal-cancel-button",
+}
+
+enum INPUT_ID {
   PROJECT_ID = "application-project-id",
-  NAME = "application-name",
+  APP_NAME = "application-name",
   REPO_URL = "application-repository-url",
   BUILD_SCRIPT = "application-build-script",
   INSTALL_CMD = "application-install-command",
@@ -16,12 +25,13 @@ enum ApplicationInput {
   OUTPUT_DIR = "application-output-directory",
   START_COMMAND = "application-start-command",
   COMMIT_SHA = "application-commit-sha",
+  BRANCH = "application-branch",
 }
 
-const CreateApplicationModal = (props: CreateApplicationModalProps) => {
+export const CreateApplicationModal = (
+  props: CreateApplicationModalProps
+): JSX.Element => {
   const { onClose: closeModal = () => null, showModal } = props;
-
-  const [currentStep, setCurrentStep] = useState(0);
 
   const [applicationProjectId, setApplicationProjectId] = useState("");
   const [applicationName, setApplicationName] = useState("");
@@ -34,6 +44,10 @@ const CreateApplicationModal = (props: CreateApplicationModalProps) => {
     useState("");
   const [applicationStartCommand, setApplicationStartCommand] = useState("");
   const [applicationCommitSha, setApplicationCommitSha] = useState("");
+  const [applicationBranch, setApplicationBranch] = useState("");
+
+  const [inputContainerRef, isInputContainerScrolledToBottom] =
+    useScrollToBottom();
 
   const resetInput = () => {
     setApplicationProjectId("");
@@ -47,153 +61,214 @@ const CreateApplicationModal = (props: CreateApplicationModalProps) => {
     setApplicationCommitSha("");
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
+  const handleOnInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.currentTarget;
 
     switch (id) {
-      case ApplicationInput.PROJECT_ID:
+      case INPUT_ID.PROJECT_ID:
         setApplicationProjectId(value);
-        return;
-      case ApplicationInput.NAME:
+        break;
+      case INPUT_ID.APP_NAME:
         setApplicationName(value);
-        return;
-      case ApplicationInput.REPO_URL:
+        break;
+      case INPUT_ID.REPO_URL:
         setApplicationRepoUrl(value);
-        return;
-      case ApplicationInput.BUILD_SCRIPT:
+        break;
+      case INPUT_ID.BUILD_SCRIPT:
         setApplicationBuildScript(value);
-        return;
-      case ApplicationInput.INSTALL_CMD:
+        break;
+      case INPUT_ID.INSTALL_CMD:
         setApplicationInstallCommand(value);
-        return;
-      case ApplicationInput.BUILD_CMD:
+        break;
+      case INPUT_ID.BUILD_CMD:
         setApplicationBuildCommand(value);
-        return;
-      case ApplicationInput.OUTPUT_DIR:
+        break;
+      case INPUT_ID.OUTPUT_DIR:
         setApplicationOutputDirectory(value);
-        return;
-      case ApplicationInput.START_COMMAND:
+        break;
+      case INPUT_ID.START_COMMAND:
         setApplicationStartCommand(value);
-        return;
-      case ApplicationInput.COMMIT_SHA:
+        break;
+      case INPUT_ID.COMMIT_SHA:
         setApplicationCommitSha(value);
-        return;
+        break;
+      case INPUT_ID.BRANCH:
+        setApplicationBranch(value);
+        break;
     }
   };
 
-  const handlePrimaryButtonClick = () => {
-    if (currentStep === 0) {
-      setCurrentStep((prev) => prev + 1);
+  const handleOnClickButton = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    const id = e.currentTarget.id;
+    switch (id) {
+      case BUTTON_ID.CANCEL:
+        closeModal();
+        break;
+      case BUTTON_ID.NEXT:
+        // await createNewProject(newProjectName);
+        closeModal();
+
+        break;
     }
   };
-  const handleSecondaryButtonClick = () => {
-    if (currentStep === 0) {
-      closeModal();
-      resetInput();
-    } else if (currentStep > 0) {
-      setCurrentStep((prev) => prev - 1);
-    }
-  };
-
-  const StepOne = (
-    <div>
-      <p className="mb-3">Project ID</p>
-      <Input
-        id={ApplicationInput.PROJECT_ID}
-        value={applicationProjectId}
-        onChange={handleInputChange}
-      />
-      <p className="mb-3">Name</p>
-      <Input
-        id={ApplicationInput.NAME}
-        value={applicationName}
-        onChange={handleInputChange}
-      />
-      <p className="mb-3">Repository URL</p>
-      <Input
-        id={ApplicationInput.REPO_URL}
-        value={applicationRepoUrl}
-        onChange={handleInputChange}
-      />
-    </div>
-  );
-
-  const StepTwo = (
-    <div className="flex space-x-4">
-      <div className="flex-1">
-        <p className="mb-3">Build Script</p>
-        <Input
-          id={ApplicationInput.BUILD_SCRIPT}
-          value={applicationBuildScript}
-          onChange={handleInputChange}
-        />
-        <p className="mb-3">Output Directory</p>
-        <Input
-          id={ApplicationInput.OUTPUT_DIR}
-          value={applicationOutputDirectory}
-          onChange={handleInputChange}
-        />
-        <p className="mb-3">Commit SHA</p>
-        <Input
-          id={ApplicationInput.COMMIT_SHA}
-          value={applicationCommitSha}
-          onChange={handleInputChange}
-        />
-      </div>
-      <div className="flex-1">
-        <p className="mb-3">Install Command</p>
-        <Input
-          id={ApplicationInput.INSTALL_CMD}
-          value={applicationInstallCommand}
-          onChange={handleInputChange}
-        />
-        <p className="mb-3">Build Command</p>
-        <Input
-          id={ApplicationInput.BUILD_CMD}
-          value={applicationBuildCommand}
-          onChange={handleInputChange}
-        />
-        <p className="mb-3">Start Command</p>
-        <Input
-          id={ApplicationInput.START_COMMAND}
-          value={applicationStartCommand}
-          onChange={handleInputChange}
-        />
-      </div>
-    </div>
-  );
 
   return (
     <Modal
+      showModal={showModal}
       onClickOutside={() => {
         closeModal();
         resetInput();
       }}
-      showModal={showModal}
     >
-      <div className="w-[90vw] lg:w-[446px]">
-        <div className="p-6">
-          <div className="flex mb-6">
-            <p className="">New Application</p>
+      <div className="flex overflow-hidden flex-col w-screen max-w-[56rem] h-screen max-h-[30rem] text-base font-normal text-zinc-200">
+        <div className="flex flex-col p-6 min-h-0">
+          <p className="mb-6 font-bold">New Application</p>
+          <div className="flex space-x-2 min-h-0 relative">
+            <div className="overflow-y-scroll space-y-3 w-1/2">
+              <div>
+                <label
+                  className="block mb-1 text-sm"
+                  htmlFor={INPUT_ID.APP_NAME}
+                >
+                  Name
+                </label>
+                <Input
+                  id={INPUT_ID.APP_NAME}
+                  placeholder="ie: TheCodeIsAlreadyDeployed"
+                  value={applicationName}
+                  onChange={handleOnInputChange}
+                />
+              </div>
+              <div>
+                <label
+                  className="block mb-1 text-sm"
+                  htmlFor={INPUT_ID.REPO_URL}
+                >
+                  Repository Url
+                </label>
+                <Input
+                  id={INPUT_ID.REPO_URL}
+                  placeholder="ie: https://github.com/thecodeisalreadydeployed/frontend"
+                  value={applicationRepoUrl}
+                  onChange={handleOnInputChange}
+                />
+              </div>
+              <div>
+                <label
+                  className="block mb-1 text-sm"
+                  htmlFor={INPUT_ID.BUILD_SCRIPT}
+                >
+                  Build Script
+                </label>
+                <Input
+                  id={INPUT_ID.BUILD_SCRIPT}
+                  placeholder="ie: ....."
+                  value={applicationBuildScript}
+                  onChange={handleOnInputChange}
+                />
+              </div>
+              <div>
+                <label
+                  className="block mb-1 text-sm"
+                  htmlFor={INPUT_ID.INSTALL_CMD}
+                >
+                  Install Command
+                </label>
+                <Input
+                  id={INPUT_ID.INSTALL_CMD}
+                  placeholder="ie: ....."
+                  value={applicationInstallCommand}
+                  onChange={handleOnInputChange}
+                />
+              </div>
+              <div>
+                <label
+                  className="block mb-1 text-sm"
+                  htmlFor={INPUT_ID.BUILD_CMD}
+                >
+                  Build Command
+                </label>
+                <Input
+                  id={INPUT_ID.BUILD_CMD}
+                  placeholder="ie: ....."
+                  value={applicationBuildCommand}
+                  onChange={handleOnInputChange}
+                />
+              </div>
+              <div>
+                <label
+                  className="block mb-1 text-sm"
+                  htmlFor={INPUT_ID.OUTPUT_DIR}
+                >
+                  Output Directory
+                </label>
+                <Input
+                  id={INPUT_ID.OUTPUT_DIR}
+                  placeholder="ie: ....."
+                  value={applicationOutputDirectory}
+                  onChange={handleOnInputChange}
+                />
+              </div>
+              <div>
+                <label
+                  className="block mb-1 text-sm"
+                  htmlFor={INPUT_ID.START_COMMAND}
+                >
+                  Start Command
+                </label>
+                <Input
+                  id={INPUT_ID.START_COMMAND}
+                  placeholder="ie: ....."
+                  value={applicationStartCommand}
+                  onChange={handleOnInputChange}
+                />
+              </div>
+              <div ref={inputContainerRef}>
+                <label className="block mb-1 text-sm" htmlFor={INPUT_ID.BRANCH}>
+                  Branch
+                </label>
+                <Input
+                  id={INPUT_ID.BRANCH}
+                  placeholder="ie: master"
+                  value={applicationBranch}
+                  onChange={handleOnInputChange}
+                />
+              </div>
+            </div>
+            <div className="p-4 w-1/2 bg-zinc-900 rounded">
+              <p>2</p>
+              <p>2</p>
+              <p>2</p>
+              <p>2</p>
+              <p>2</p>
+              <p>2</p>
+              <p>2</p>
+              <p>2</p>
+              <p>2</p>
+            </div>
+            {!isInputContainerScrolledToBottom && (
+              <div className="absolute -bottom-8 left-0 animate-bounce">
+                <ChevronDownIcon className="w-6 h-6" />
+              </div>
+            )}
           </div>
-          {currentStep === 0 && StepOne}
-          {currentStep === 1 && StepTwo}
         </div>
-        <div className="flex justify-end py-4 px-6 space-x-4">
+        <div className="flex justify-end py-4 px-6 space-x-2">
           <Button
-            variant="ghost"
-            onClick={handleSecondaryButtonClick}
+            color="secondary"
             fullWidth
+            id={BUTTON_ID.CANCEL}
+            onClick={handleOnClickButton}
           >
-            {currentStep === 0 ? "Cancel" : "Back"}
+            Cancel
           </Button>
-          <Button onClick={handlePrimaryButtonClick} fullWidth>
-            {currentStep === 1 ? "Create" : "Next"}
+          <Button fullWidth id={BUTTON_ID.NEXT} onClick={handleOnClickButton}>
+            Create
           </Button>
         </div>
       </div>
     </Modal>
   );
 };
-
-export { CreateApplicationModal };

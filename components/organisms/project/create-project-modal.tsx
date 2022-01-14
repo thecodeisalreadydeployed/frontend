@@ -10,8 +10,8 @@ interface CreateProjectModalProps {
 }
 
 enum BUTTON_ID {
-  NEXT = "next-button",
-  CANCEL = "cancel-button",
+  NEXT = "create-project-modal-next-button",
+  CANCEL = "create-project-modal-cancel-button",
 }
 
 enum INPUT_ID {
@@ -21,7 +21,7 @@ enum INPUT_ID {
 export const CreateProjectModal = (
   props: CreateProjectModalProps
 ): JSX.Element => {
-  const { showModal: visible, onClose: close = () => null } = props;
+  const { showModal: visible, onClose: closeModal = () => null } = props;
   const [newProjectName, setNewProjectName] = useState("");
   const { createNewProject } = useCreateNewProject();
 
@@ -42,22 +42,22 @@ export const CreateProjectModal = (
     const id = e.currentTarget.id;
     switch (id) {
       case BUTTON_ID.CANCEL:
-        close();
+        closeModal();
         break;
       case BUTTON_ID.NEXT:
         await createNewProject(newProjectName);
-        close();
+        closeModal();
 
         break;
     }
   };
 
   return (
-    <Modal showModal={visible} onClickOutside={close}>
+    <Modal showModal={visible} onClickOutside={closeModal}>
       <div className="w-screen max-w-[28rem] text-base font-normal text-zinc-200">
         <div className="p-6">
           <p className="mb-6 font-bold">New Project</p>
-          <label className="block mb-3 text-sm" htmlFor={INPUT_ID.PRJ_NAME}>
+          <label className="block mb-1 text-sm" htmlFor={INPUT_ID.PRJ_NAME}>
             Name
           </label>
           <Input
@@ -68,7 +68,7 @@ export const CreateProjectModal = (
           />
         </div>
 
-        <div className="flex justify-end py-4 px-6 space-x-4">
+        <div className="flex justify-end py-4 px-6 space-x-2">
           <Button
             color="secondary"
             fullWidth

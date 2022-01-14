@@ -3,7 +3,7 @@ import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import { CreateApplicationModal as Component } from "./create-application-modal";
 
 export default {
-  title: "Design System/Organisms/Shared/Create Application Modal",
+  title: "Design System/Organisms/Application/Create Application Modal",
   component: Component,
 } as ComponentMeta<typeof Component>;
 

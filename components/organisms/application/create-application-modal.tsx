@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 import { ChevronDownIcon } from "@heroicons/react/outline";
+import { useScrollToBottom } from "utils/useScrollToBottom";
 
 import { Button, Input, Modal } from "@atoms";
-import { useScrollToBottom } from "utils/useScrollToBottom";
 
 interface CreateApplicationModalProps {
   onClose?: () => void;
@@ -237,7 +237,7 @@ export const CreateApplicationModal = (
                 />
               </div>
             </div>
-            <div className="p-4 w-1/2 bg-zinc-900 rounded">
+            <div className="p-4 w-1/2 font-roboto-mono bg-zinc-900 rounded">
               <p>2</p>
               <p>2</p>
               <p>2</p>

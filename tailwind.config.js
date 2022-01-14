@@ -9,10 +9,9 @@ module.exports = {
       normal: 400,
       bold: 600,
     },
-    extend: {
-      fontFamily: {
-        sora: ["Sora", "sans-serif"],
-      },
+    fontFamily: {
+      inter: ["Inter", "sans-serif"],
+      "roboto-mono": ["Roboto Mono", "monospace"],
     },
     container: {
       center: true,

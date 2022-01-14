@@ -6,7 +6,7 @@ import { Button } from "@atoms";
 import { Modal as Component } from "./modal";
 
 export default {
-  title: "DesignSystem/Atoms/Modal",
+  title: "Design System/Atoms/Modal",
   component: Component,
 } as ComponentMeta<typeof Component>;
 

@@ -3,7 +3,7 @@ import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ProjectCard as ProjectCardComponent } from "./project-card";
 
 export default {
-  title: "DesignSystem/Molecules/Project Card",
+  title: "Design System/Molecules/Project Card",
   component: ProjectCardComponent,
 } as ComponentMeta<typeof ProjectCardComponent>;
 

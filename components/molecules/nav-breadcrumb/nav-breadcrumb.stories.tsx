@@ -3,7 +3,7 @@ import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import { NavBreadcrumb as Component } from "./nav-breadcrumb";
 
 export default {
-  title: "DesignSystem/Molecules/Nav Breadcrumb",
+  title: "Design System/Molecules/Nav Breadcrumb",
   component: Component,
 } as ComponentMeta<typeof Component>;
 

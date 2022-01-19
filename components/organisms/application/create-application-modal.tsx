@@ -1,9 +1,11 @@
 import { useState } from "react";
 
 import { ChevronDownIcon } from "@heroicons/react/outline";
+import useSWR from "swr";
 import { useScrollToBottom } from "utils/useScrollToBottom";
 
-import { Button, Input, Modal } from "@atoms";
+import { Button, Input, Modal, Select, SelectOption } from "@atoms";
+import type { Preset } from "types/schema";
 
 interface CreateApplicationModalProps {
   onClose?: () => void;
@@ -32,6 +34,17 @@ export const CreateApplicationModal = (
   props: CreateApplicationModalProps
 ): JSX.Element => {
   const { onClose: closeModal = () => null, showModal } = props;
+
+  const { data: presetsData } = useSWR<Preset[]>(
+    process.env.NEXT_PUBLIC_HOST + "/presets/list"
+  );
+
+  const selectOptions: Array<SelectOption> =
+    presetsData?.map((data, index) => ({
+      id: index,
+      name: data.name,
+      value: data.template,
+    })) ?? [];
 
   const [applicationProjectId, setApplicationProjectId] = useState("");
   const [applicationName, setApplicationName] = useState("");
@@ -162,12 +175,13 @@ export const CreateApplicationModal = (
                 >
                   Build Script
                 </label>
-                <Input
+                <Select selectOptions={selectOptions} />
+                {/* <Input
                   id={INPUT_ID.BUILD_SCRIPT}
                   placeholder="ie: ....."
                   value={applicationBuildScript}
                   onChange={handleOnInputChange}
-                />
+                /> */}
               </div>
               <div>
                 <label

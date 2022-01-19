@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
@@ -47,14 +47,20 @@ export const Select = (props: SelectProps): JSX.Element => {
     initialValue,
     onChangeSelection = () => null,
     placeholder = "Select",
-    selectOptions = [],
+    selectOptions,
     size = "md",
-    value: outsideValue = undefined,
+    value: outsideValue,
   } = props;
 
   const [selected, setSelected] = useState<SelectOption | undefined>(
     initialValue
   );
+
+  useEffect(() => {
+    if (initialValue) {
+      setSelected(initialValue);
+    }
+  }, [initialValue]);
 
   const value = outsideValue ?? selected;
 
@@ -100,7 +106,7 @@ export const Select = (props: SelectProps): JSX.Element => {
           leaveTo="opacity-0"
         >
           <Listbox.Options className="overflow-auto absolute py-1 mt-1 w-full max-h-40 bg-zinc-800 rounded-md border border-zinc-600 outline-none shadow-lg">
-            {selectOptions.map((option, optionIdx) => (
+            {selectOptions?.map((option, optionIdx) => (
               <Listbox.Option
                 key={optionIdx}
                 className={({ active }) =>

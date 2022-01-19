@@ -176,12 +176,6 @@ export const CreateApplicationModal = (
                   Build Script
                 </label>
                 <Select selectOptions={selectOptions} />
-                {/* <Input
-                  id={INPUT_ID.BUILD_SCRIPT}
-                  placeholder="ie: ....."
-                  value={applicationBuildScript}
-                  onChange={handleOnInputChange}
-                /> */}
               </div>
               <div>
                 <label

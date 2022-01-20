@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
@@ -6,10 +6,10 @@ import clsx from "clsx";
 
 type SelectSize = "sm" | "md" | "lg";
 
-export type SelectOption = {
-  id: number;
+export type SelectOption<T> = {
+  id: string;
   name: string;
-  value: string;
+  value: T;
 };
 
 interface CSSProps {
@@ -29,49 +29,35 @@ const CSS: CSSProps = {
   },
 };
 
-interface SelectProps {
+interface SelectProps<T> {
   disabled?: boolean;
   id?: string;
-  onChangeSelection?: (newSelection: SelectOption) => void;
+  onChangeSelection?: (newSelection: SelectOption<T> | undefined) => void;
   placeholder?: string;
   size?: SelectSize;
-  value?: SelectOption;
-  initialValue?: SelectOption;
-  selectOptions?: Array<SelectOption>;
+  value?: SelectOption<T>;
+  selectOptions?: Array<SelectOption<T>>;
 }
 
-export const Select = (props: SelectProps): JSX.Element => {
+export const Select = <T,>(props: SelectProps<T>): JSX.Element => {
   const {
     disabled = false,
     id,
-    initialValue,
     onChangeSelection = () => null,
     placeholder = "Select",
     selectOptions,
     size = "md",
-    value: outsideValue,
+    value,
   } = props;
-
-  const [selected, setSelected] = useState<SelectOption | undefined>(
-    initialValue
-  );
-
-  useEffect(() => {
-    if (initialValue) {
-      setSelected(initialValue);
-    }
-  }, [initialValue]);
-
-  const value = outsideValue ?? selected;
 
   return (
     <Listbox
       disabled={disabled}
-      value={value}
-      onChange={(newSelection) => {
-        if (newSelection === undefined) return;
-        setSelected(newSelection);
-        onChangeSelection(newSelection);
+      value={value?.id}
+      onChange={(id) => {
+        onChangeSelection(
+          id ? selectOptions?.find((option) => option.id === id) : undefined
+        );
       }}
     >
       <div
@@ -115,7 +101,7 @@ export const Select = (props: SelectProps): JSX.Element => {
                     active ? "text-zinc-100 bg-zinc-600" : "text-zinc-200"
                   )
                 }
-                value={option}
+                value={option.id}
               >
                 {({ selected }) => (
                   <>

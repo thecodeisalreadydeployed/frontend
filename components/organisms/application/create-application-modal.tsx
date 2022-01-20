@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ChevronDownIcon } from "@heroicons/react/outline";
 import useSWR from "swr";
@@ -39,17 +39,18 @@ export const CreateApplicationModal = (
     process.env.NEXT_PUBLIC_HOST + "/presets/list"
   );
 
-  const selectOptions: Array<SelectOption> =
-    presetsData?.map((data, index) => ({
-      id: index,
-      name: data.name,
-      value: data.template,
-    })) ?? [];
+  const selectOptions = presetsData?.map((data) => ({
+    id: data.id,
+    name: data.name,
+    value: data.template,
+  }));
 
   const [applicationProjectId, setApplicationProjectId] = useState("");
   const [applicationName, setApplicationName] = useState("");
   const [applicationRepoUrl, setApplicationRepoUrl] = useState("");
-  const [applicationBuildScript, setApplicationBuildScript] = useState("");
+  const [applicationBuildScript, setApplicationBuildScript] = useState<
+    SelectOption<string> | undefined
+  >();
   const [applicationInstallCommand, setApplicationInstallCommand] =
     useState("");
   const [applicationBuildCommand, setApplicationBuildCommand] = useState("");
@@ -66,7 +67,7 @@ export const CreateApplicationModal = (
     setApplicationProjectId("");
     setApplicationName("");
     setApplicationRepoUrl("");
-    setApplicationBuildScript("");
+    setApplicationBuildScript(undefined);
     setApplicationInstallCommand("");
     setApplicationBuildCommand("");
     setApplicationOutputDirectory("");
@@ -86,9 +87,6 @@ export const CreateApplicationModal = (
         break;
       case INPUT_ID.REPO_URL:
         setApplicationRepoUrl(value);
-        break;
-      case INPUT_ID.BUILD_SCRIPT:
-        setApplicationBuildScript(value);
         break;
       case INPUT_ID.INSTALL_CMD:
         setApplicationInstallCommand(value);
@@ -175,7 +173,13 @@ export const CreateApplicationModal = (
                 >
                   Build Script
                 </label>
-                <Select selectOptions={selectOptions} />
+                <Select
+                  selectOptions={selectOptions}
+                  value={applicationBuildScript}
+                  onChangeSelection={(newValue) =>
+                    setApplicationBuildScript(newValue)
+                  }
+                />
               </div>
               <div>
                 <label
@@ -246,15 +250,7 @@ export const CreateApplicationModal = (
               </div>
             </div>
             <div className="p-4 w-1/2 font-roboto-mono bg-zinc-900 rounded">
-              <p>2</p>
-              <p>2</p>
-              <p>2</p>
-              <p>2</p>
-              <p>2</p>
-              <p>2</p>
-              <p>2</p>
-              <p>2</p>
-              <p>2</p>
+              <p>{applicationBuildScript?.value}</p>
             </div>
             {!isInputContainerScrolledToBottom && (
               <div className="absolute -bottom-8 left-0 animate-bounce">

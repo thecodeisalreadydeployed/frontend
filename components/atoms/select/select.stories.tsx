@@ -25,19 +25,7 @@ const selectOptions: Array<SelectOption<string>> = [
   { id: "10", name: "Katelyn Rohan", value: "10" },
 ];
 
-export const Select: ComponentStory<typeof Component> = (args): JSX.Element => (
-  <div className="w-60">
-    <Component {...args} />
-  </div>
-);
-Select.args = {
-  size: "md",
-  selectOptions: selectOptions,
-};
-
-export const SelectWithValue: ComponentStory<typeof Component> = (
-  args
-): JSX.Element => {
+export const Select: ComponentStory<typeof Component> = (args): JSX.Element => {
   const [selectOption, setSelectOption] = useState<SelectOption<string>>();
 
   return (
@@ -54,7 +42,7 @@ export const SelectWithValue: ComponentStory<typeof Component> = (
     </div>
   );
 };
-SelectWithValue.args = {
+Select.args = {
   size: "md",
   selectOptions: selectOptions,
 };

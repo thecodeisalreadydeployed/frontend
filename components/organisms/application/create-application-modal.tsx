@@ -6,6 +6,7 @@ import { useScrollToBottom } from "utils/useScrollToBottom";
 
 import { Button, Input, Modal, Select, SelectOption } from "@atoms";
 import type { Preset } from "types/schema";
+import { useParseBuildScript } from "utils/use-parse-build-script";
 
 interface CreateApplicationModalProps {
   onClose?: () => void;
@@ -116,13 +117,25 @@ export const CreateApplicationModal = (
     switch (id) {
       case BUTTON_ID.CANCEL:
         closeModal();
+        resetInput();
         break;
       case BUTTON_ID.NEXT:
         // await createNewProject(newProjectName);
         closeModal();
+        resetInput();
         break;
     }
   };
+
+  const { parsedBuildScript } = useParseBuildScript(
+    applicationBuildScript?.value,
+    {
+      buildCommand: applicationBuildCommand,
+      installCommand: applicationInstallCommand,
+      outputDirectory: applicationOutputDirectory,
+      startCommand: applicationStartCommand,
+    }
+  );
 
   return (
     <Modal
@@ -248,8 +261,8 @@ export const CreateApplicationModal = (
                 />
               </div>
             </div>
-            <div className="overflow-y-scroll p-4 w-1/2 font-roboto-mono bg-zinc-900 rounded">
-              <p>{applicationBuildScript?.value}</p>
+            <div className="overflow-y-scroll p-4 w-1/2 font-roboto-mono text-sm bg-zinc-900 rounded">
+              <code className="whitespace-pre-wrap">{parsedBuildScript}</code>
             </div>
             {!isInputContainerScrolledToBottom && (
               <div className="absolute -bottom-8 left-0 animate-bounce">

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { ChevronDownIcon } from "@heroicons/react/outline";
 import useSWR from "swr";
@@ -120,7 +120,6 @@ export const CreateApplicationModal = (
       case BUTTON_ID.NEXT:
         // await createNewProject(newProjectName);
         closeModal();
-
         break;
     }
   };
@@ -136,8 +135,8 @@ export const CreateApplicationModal = (
       <div className="flex overflow-hidden flex-col w-screen max-w-[56rem] h-screen max-h-[30rem] text-base font-normal text-zinc-200">
         <div className="flex flex-col p-6 min-h-0">
           <p className="mb-6 font-bold">New Application</p>
-          <div className="flex relative space-x-2 min-h-0">
-            <div className="overflow-y-scroll space-y-3 w-1/2">
+          <div className="flex relative min-h-0">
+            <div className="overflow-y-scroll mr-2 space-y-3 w-1/2">
               <div>
                 <label
                   className="block mb-1 text-sm"
@@ -167,6 +166,17 @@ export const CreateApplicationModal = (
                 />
               </div>
               <div>
+                <label className="block mb-1 text-sm" htmlFor={INPUT_ID.BRANCH}>
+                  Branch
+                </label>
+                <Input
+                  id={INPUT_ID.BRANCH}
+                  placeholder="ie: master"
+                  value={applicationBranch}
+                  onChange={handleOnInputChange}
+                />
+              </div>
+              <div>
                 <label
                   className="block mb-1 text-sm"
                   htmlFor={INPUT_ID.BUILD_SCRIPT}
@@ -179,6 +189,20 @@ export const CreateApplicationModal = (
                   onChangeSelection={(newValue) =>
                     setApplicationBuildScript(newValue)
                   }
+                />
+              </div>
+              <div>
+                <label
+                  className="block mb-1 text-sm"
+                  htmlFor={INPUT_ID.OUTPUT_DIR}
+                >
+                  Output Directory
+                </label>
+                <Input
+                  id={INPUT_ID.OUTPUT_DIR}
+                  placeholder="ie: ....."
+                  value={applicationOutputDirectory}
+                  onChange={handleOnInputChange}
                 />
               </div>
               <div>
@@ -209,21 +233,7 @@ export const CreateApplicationModal = (
                   onChange={handleOnInputChange}
                 />
               </div>
-              <div>
-                <label
-                  className="block mb-1 text-sm"
-                  htmlFor={INPUT_ID.OUTPUT_DIR}
-                >
-                  Output Directory
-                </label>
-                <Input
-                  id={INPUT_ID.OUTPUT_DIR}
-                  placeholder="ie: ....."
-                  value={applicationOutputDirectory}
-                  onChange={handleOnInputChange}
-                />
-              </div>
-              <div>
+              <div ref={inputContainerRef}>
                 <label
                   className="block mb-1 text-sm"
                   htmlFor={INPUT_ID.START_COMMAND}
@@ -237,19 +247,8 @@ export const CreateApplicationModal = (
                   onChange={handleOnInputChange}
                 />
               </div>
-              <div ref={inputContainerRef}>
-                <label className="block mb-1 text-sm" htmlFor={INPUT_ID.BRANCH}>
-                  Branch
-                </label>
-                <Input
-                  id={INPUT_ID.BRANCH}
-                  placeholder="ie: master"
-                  value={applicationBranch}
-                  onChange={handleOnInputChange}
-                />
-              </div>
             </div>
-            <div className="p-4 w-1/2 font-roboto-mono bg-zinc-900 rounded">
+            <div className="overflow-y-scroll p-4 w-1/2 font-roboto-mono bg-zinc-900 rounded">
               <p>{applicationBuildScript?.value}</p>
             </div>
             {!isInputContainerScrolledToBottom && (

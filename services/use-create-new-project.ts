@@ -3,7 +3,7 @@ import { useSWRConfig } from "swr";
 import type { CreateProjectRequest } from "types/schema";
 
 export const useCreateNewProject = (): {
-  createNewProject: (name: string) => Promise<Response>;
+  createNewProject: typeof createNewProject;
 } => {
   const { mutate } = useSWRConfig();
 

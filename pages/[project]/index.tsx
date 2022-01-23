@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 
 import { formatDistanceToNowStrict } from "date-fns";
-import { useGetProjectApplications } from "service";
+import { useGetProjectApplications } from "services";
 
 import { Button, Input, PageTitle } from "@atoms";
 import { ProjectCard } from "@molecules";
@@ -35,9 +35,9 @@ const Application = (): JSX.Element => {
       <PageTitle>Applications</PageTitle>
       <div className="flex mb-6 space-x-4">
         <Input
+          placeholder="Search..."
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          placeholder="Search..."
         />
         <Button onClick={handleCreateNewApplication}>New Application</Button>
       </div>
@@ -53,20 +53,23 @@ const Application = (): JSX.Element => {
           })
           .map((application, index) => (
             <ProjectCard
-              projectId={application.id}
+              key={index}
               name={application.name}
+              projectId={application.id}
               updatedAt={`${formatDistanceToNowStrict(
                 new Date(application.updatedAt)
               )} ago`}
-              key={index}
               onClick={() => router.push(`/${projectId}/${application.id}`)}
             />
           ))}
       </div>
-      <CreateApplicationModal
-        showModal={showCreateApplicationModal}
-        onClose={handleCloseApplicationModal}
-      />
+      {typeof projectId === "string" && projectId && (
+        <CreateApplicationModal
+          projectId={projectId}
+          showModal={showCreateApplicationModal}
+          onClose={handleCloseApplicationModal}
+        />
+      )}
     </div>
   );
 };

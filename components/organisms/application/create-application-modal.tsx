@@ -1,16 +1,18 @@
 import { useState } from "react";
 
 import { ChevronDownIcon } from "@heroicons/react/outline";
+import { useCreateNewApplication } from "services";
 import useSWR from "swr";
+import { useParseBuildScript } from "utils/use-parse-build-script";
 import { useScrollToBottom } from "utils/useScrollToBottom";
 
 import { Button, Input, Modal, Select, SelectOption } from "@atoms";
 import type { Preset } from "types/schema";
-import { useParseBuildScript } from "utils/use-parse-build-script";
 
 interface CreateApplicationModalProps {
   onClose?: () => void;
   showModal: boolean;
+  projectId: string;
 }
 
 enum BUTTON_ID {
@@ -19,7 +21,6 @@ enum BUTTON_ID {
 }
 
 enum INPUT_ID {
-  PROJECT_ID = "application-project-id",
   APP_NAME = "application-name",
   REPO_URL = "application-repository-url",
   BUILD_SCRIPT = "application-build-script",
@@ -27,14 +28,13 @@ enum INPUT_ID {
   BUILD_CMD = "application-build-command",
   OUTPUT_DIR = "application-output-directory",
   START_COMMAND = "application-start-command",
-  COMMIT_SHA = "application-commit-sha",
   BRANCH = "application-branch",
 }
 
 export const CreateApplicationModal = (
   props: CreateApplicationModalProps
 ): JSX.Element => {
-  const { onClose: closeModal = () => null, showModal } = props;
+  const { onClose: closeModal = () => null, showModal, projectId } = props;
 
   const { data: presetsData } = useSWR<Preset[]>(
     process.env.NEXT_PUBLIC_HOST + "/presets/list"
@@ -46,7 +46,8 @@ export const CreateApplicationModal = (
     value: data.template,
   }));
 
-  const [applicationProjectId, setApplicationProjectId] = useState("");
+  const { createNewApplication } = useCreateNewApplication();
+
   const [applicationName, setApplicationName] = useState("");
   const [applicationRepoUrl, setApplicationRepoUrl] = useState("");
   const [applicationBuildScript, setApplicationBuildScript] = useState<
@@ -58,14 +59,12 @@ export const CreateApplicationModal = (
   const [applicationOutputDirectory, setApplicationOutputDirectory] =
     useState("");
   const [applicationStartCommand, setApplicationStartCommand] = useState("");
-  const [applicationCommitSha, setApplicationCommitSha] = useState("");
   const [applicationBranch, setApplicationBranch] = useState("");
 
   const [inputContainerRef, isInputContainerScrolledToBottom] =
     useScrollToBottom();
 
   const resetInput = () => {
-    setApplicationProjectId("");
     setApplicationName("");
     setApplicationRepoUrl("");
     setApplicationBuildScript(undefined);
@@ -73,16 +72,12 @@ export const CreateApplicationModal = (
     setApplicationBuildCommand("");
     setApplicationOutputDirectory("");
     setApplicationStartCommand("");
-    setApplicationCommitSha("");
   };
 
   const handleOnInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.currentTarget;
 
     switch (id) {
-      case INPUT_ID.PROJECT_ID:
-        setApplicationProjectId(value);
-        break;
       case INPUT_ID.APP_NAME:
         setApplicationName(value);
         break;
@@ -101,9 +96,6 @@ export const CreateApplicationModal = (
       case INPUT_ID.START_COMMAND:
         setApplicationStartCommand(value);
         break;
-      case INPUT_ID.COMMIT_SHA:
-        setApplicationCommitSha(value);
-        break;
       case INPUT_ID.BRANCH:
         setApplicationBranch(value);
         break;
@@ -120,7 +112,17 @@ export const CreateApplicationModal = (
         resetInput();
         break;
       case BUTTON_ID.NEXT:
-        // await createNewProject(newProjectName);
+        createNewApplication({
+          branch: applicationBranch,
+          buildCommand: applicationBuildCommand,
+          buildScript: applicationBuildScript?.value ?? "",
+          installCommand: applicationInstallCommand,
+          name: applicationName,
+          outputDirectory: applicationOutputDirectory,
+          projectId: projectId,
+          repositoryURL: applicationRepoUrl,
+          startCommand: applicationStartCommand,
+        });
         closeModal();
         resetInput();
         break;

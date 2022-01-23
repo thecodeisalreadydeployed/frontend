@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/router";
 
 import { formatDistanceToNowStrict } from "date-fns";
-import { useGetProjects } from "service";
+import { useGetProjects } from "services";
 
 import { Button, Input, PageTitle } from "@atoms";
 import { ProjectCard } from "@molecules";

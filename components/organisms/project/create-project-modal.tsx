@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { useCreateNewProject } from "service/projects";
+import { useCreateNewProject } from "service";
 
 import { Button, Input, Modal } from "@atoms";
 

@@ -2,13 +2,12 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 
 import { formatDistanceToNowStrict } from "date-fns";
-import useSWR from "swr";
+import { useGetProjectApplications } from "service";
 
 import { Button, Input, PageTitle } from "@atoms";
 import { ProjectCard } from "@molecules";
 import { CreateApplicationModal } from "@organisms";
 import { HeaderLayout } from "@templates";
-import { App } from "types/schema";
 
 const Application = (): JSX.Element => {
   const [searchInput, setSearchInput] = useState("");
@@ -19,8 +18,8 @@ const Application = (): JSX.Element => {
 
   const { project: projectId } = router.query;
 
-  const { data: applications } = useSWR<App[]>(
-    projectId ? `http://localhost:3001/projects/${projectId}/apps` : null
+  const { applications } = useGetProjectApplications(
+    typeof projectId === "string" ? projectId : undefined
   );
 
   const handleCreateNewApplication = () => {

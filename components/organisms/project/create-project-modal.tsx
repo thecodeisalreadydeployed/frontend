@@ -43,17 +43,24 @@ export const CreateProjectModal = (
     switch (id) {
       case BUTTON_ID.CANCEL:
         closeModal();
+        setNewProjectName("");
         break;
       case BUTTON_ID.NEXT:
         await createNewProject(newProjectName);
         closeModal();
-
+        setNewProjectName("");
         break;
     }
   };
 
   return (
-    <Modal isOpen={visible} onClose={closeModal}>
+    <Modal
+      isOpen={visible}
+      onClose={() => {
+        closeModal();
+        setNewProjectName("");
+      }}
+    >
       <div className="w-screen max-w-[28rem] text-base font-normal text-zinc-200">
         <div className="p-6">
           <p className="mb-6 font-bold">New Project</p>

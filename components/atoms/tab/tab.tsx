@@ -12,7 +12,7 @@ export const Tab = (props: TabProps): JSX.Element => {
   const { tabs } = props;
   return (
     <HeadlessTab.Group>
-      <HeadlessTab.List className="flex p-1 mb-6 space-x-1 bg-zinc-700/50 rounded-lg">
+      <HeadlessTab.List className="flex p-1 mb-6 space-x-1 bg-zinc-700/30 rounded-lg">
         {tabs.map((tab, index) => {
           return (
             <HeadlessTab

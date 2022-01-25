@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 
 import { formatDistanceToNowStrict } from "date-fns";
-import { useGetProjectApplications } from "services";
+import { useDeleteProject, useGetProjectApplications } from "services";
 
 import { Button, Input, PageTitle, Tab } from "@atoms";
 import { ProjectCard } from "@molecules";
@@ -21,6 +21,7 @@ const Application = (): JSX.Element => {
   const { applications } = useGetProjectApplications(
     typeof projectId === "string" ? projectId : undefined
   );
+  const { deleteProject } = useDeleteProject();
 
   const handleCreateNewApplication = () => {
     setShowCreateApplicationModal(true);
@@ -72,7 +73,20 @@ const Application = (): JSX.Element => {
     </div>
   );
 
-  const SettingsView = <div>Settings</div>;
+  const SettingsView = (
+    <div>
+      <button
+        onClick={() => {
+          if (typeof projectId === "string" && projectId) {
+            deleteProject(projectId);
+            router.replace("/");
+          }
+        }}
+      >
+        Delete Project
+      </button>
+    </div>
+  );
 
   return (
     <div className="container mt-6">

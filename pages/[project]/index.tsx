@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 
+import clsx from "clsx";
 import { formatDistanceToNowStrict } from "date-fns";
 import { useGetProjectApplications } from "services";
 
-import { Button, Input, PageTitle } from "@atoms";
+import { Button, Input, PageTitle, Tab } from "@atoms";
 import { ProjectCard } from "@molecules";
 import { CreateApplicationModal } from "@organisms";
 import { HeaderLayout } from "@templates";
@@ -30,9 +31,8 @@ const Application = (): JSX.Element => {
     setShowCreateApplicationModal(false);
   };
 
-  return (
-    <div className="container mt-6">
-      <PageTitle>Applications</PageTitle>
+  const OverviewView = (
+    <div>
       <div className="flex mb-6 space-x-4">
         <Input
           placeholder="Search..."
@@ -70,6 +70,20 @@ const Application = (): JSX.Element => {
           onClose={handleCloseApplicationModal}
         />
       )}
+    </div>
+  );
+
+  const SettingsView = <div>Settings</div>;
+
+  return (
+    <div className="container mt-6">
+      <PageTitle>Applications</PageTitle>
+      <Tab
+        tabs={[
+          { name: "Overview", panel: OverviewView },
+          { name: "Settings", panel: SettingsView },
+        ]}
+      />
     </div>
   );
 };

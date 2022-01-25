@@ -29,8 +29,6 @@ const DeploymentList = (props: DeploymentListProps): JSX.Element => {
 
   const { deployments } = useGetDeployments(applicationId);
 
-  console.log(deployments);
-
   return (
     <div className="my-12">
       <h2 className="text-2xl font-bold">Deployments</h2>

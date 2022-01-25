@@ -1,10 +1,10 @@
 interface PageTitleProps {
-  children: string;
+  children: React.ReactNode;
 }
 
-const PageTitle = (props: PageTitleProps) => {
+const PageTitle = (props: PageTitleProps): JSX.Element => {
   const { children } = props;
-  return <h1 className="mb-4 text-4xl font-medium reset">{children}</h1>;
+  return <h1 className="mb-4 text-4xl font-bold">{children}</h1>;
 };
 
 export { PageTitle };

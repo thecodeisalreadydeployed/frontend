@@ -6,8 +6,8 @@ export const useGetProjectApplications = (
   projectId: string | undefined
 ): {
   applications: App[] | undefined;
-  getProjectsError: unknown;
-  getProjectsIsValidating: boolean;
+  getProjectApplicationError: unknown;
+  getProjectApplicationIsValidating: boolean;
 } => {
   const { data, error, isValidating } = useSWR<App[]>(
     projectId && `${process.env.NEXT_PUBLIC_HOST}/projects/${projectId}/apps`
@@ -15,7 +15,7 @@ export const useGetProjectApplications = (
 
   return {
     applications: data,
-    getProjectsError: error,
-    getProjectsIsValidating: isValidating,
+    getProjectApplicationError: error,
+    getProjectApplicationIsValidating: isValidating,
   };
 };

@@ -1,22 +1,22 @@
 import { useRouter } from "next/router";
 
-import useSWR from "swr";
+import { useGetApplication } from "services";
 
-import { DeploymentList, TitleHeader } from "@organisms";
+import { PageTitle } from "@atoms";
+import { DeploymentList } from "@organisms";
 import { HeaderLayout } from "@templates";
-import { App } from "types/schema";
 
-const Overview = () => {
+const Overview = (): JSX.Element => {
   const router = useRouter();
   const { application: applicationId } = router.query;
 
-  const { data: application } = useSWR<App>(
-    applicationId ? `http://localhost:3001/apps/${applicationId}` : null
+  const { application } = useGetApplication(
+    typeof applicationId === "string" ? applicationId : undefined
   );
 
   return (
-    <div>
-      <TitleHeader applicationTitle={application?.name} />
+    <div className="container mt-6">
+      <PageTitle>{application?.name}</PageTitle>
       <DeploymentList applicationId={application?.id} />
     </div>
   );

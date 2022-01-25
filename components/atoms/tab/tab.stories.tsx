@@ -8,7 +8,7 @@ export default {
 } as ComponentMeta<typeof Component>;
 
 export const Tab: ComponentStory<typeof Component> = (args): JSX.Element => (
-  <div className="w-60">
+  <div className="w-full">
     <Component {...args} />
   </div>
 );

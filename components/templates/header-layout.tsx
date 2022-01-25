@@ -1,6 +1,6 @@
 import { Header } from "@organisms";
 
-const HeaderLayout = (page: React.ReactElement) => {
+const HeaderLayout = (page: React.ReactElement): JSX.Element => {
   return (
     <>
       <Header />

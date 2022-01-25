@@ -13,21 +13,21 @@ interface NavBreadcrumbProps {
 export const NavBreadcrumb = (props: NavBreadcrumbProps): JSX.Element => {
   const {
     applicationName,
-    projectName,
+    onClickApplication,
     onClickLogo,
     onClickProject,
-    onClickApplication,
+    projectName,
   } = props;
 
   return (
     <div className="flex items-center text-sm">
       <div className="overflow-hidden relative w-8 h-8 rounded-full ring-2 ring-zinc-400 cursor-pointer">
         <Image
-          src="https://avatars.githubusercontent.com/u/88529578?s=200&v=4"
           alt="Logo"
-          layout="fill"
           className="object-contain"
           draggable={false}
+          layout="fill"
+          src="https://avatars.githubusercontent.com/u/88529578?s=200&v=4"
           onClick={onClickLogo}
         />
       </div>

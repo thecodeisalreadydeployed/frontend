@@ -30,5 +30,5 @@ export const Modal: ComponentStory<typeof Component> = (args): JSX.Element => {
 };
 
 Modal.args = {
-  showModal: true,
+  isOpen: true,
 };

@@ -9,7 +9,7 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard = (props: ProjectCardProps): JSX.Element => {
-  const { projectId, name, updatedAt = "", onClick } = props;
+  const { name, onClick, projectId, updatedAt = "" } = props;
 
   const hash = (projectId ?? name).replaceAll(" ", "") ?? "";
 
@@ -23,9 +23,9 @@ export const ProjectCard = (props: ProjectCardProps): JSX.Element => {
         <p className="flex-1 text-xs font-light text-zinc-400">{updatedAt}</p>
         <div className="overflow-hidden relative w-8 h-8 rounded-full ring-2 ring-zinc-600">
           <Image
-            src={`https://avatars.dicebear.com/api/identicon/${hash}.svg`}
-            layout="fill"
             alt="Randomly generated icon"
+            layout="fill"
+            src={`https://avatars.dicebear.com/api/identicon/${hash}.svg`}
           />
         </div>
       </div>

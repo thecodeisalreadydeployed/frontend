@@ -1,5 +1,6 @@
 import React from "react";
-import { TWidth, THeight, TTextColor } from "styles/tailwind-type";
+
+import { THeight, TTextColor, TWidth } from "styles/tailwind-type";
 
 interface SVGProps {
   wrapperProps?: Omit<React.SVGProps<SVGSVGElement>, "className">;

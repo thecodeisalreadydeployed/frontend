@@ -1,28 +1,28 @@
 import type { SVGProps } from "./svg";
 
-const BreadcrumbDivider = (props: SVGProps) => {
+const BreadcrumbDivider = (props: SVGProps): JSX.Element => {
   const {
     color = "text-primary-accent-2",
     height,
-    width,
     onClick,
+    width,
     wrapperOverride,
     wrapperProps,
   } = props;
 
   return (
     <svg
-      onClick={onClick}
-      viewBox="0 0 24 24"
-      width="24"
+      className={`${color} ${height} ${width} ${wrapperOverride}`}
+      fill="none"
       height="24"
+      shapeRendering="geometricPrecision"
       stroke="currentColor"
-      strokeWidth="1"
       strokeLinecap="round"
       strokeLinejoin="round"
-      fill="none"
-      shapeRendering="geometricPrecision"
-      className={`${color} ${height} ${width} ${wrapperOverride}`}
+      strokeWidth="1"
+      viewBox="0 0 24 24"
+      width="24"
+      onClick={onClick}
       {...wrapperProps}
     >
       <path d="M16.88 3.549L7.12 20.451"></path>

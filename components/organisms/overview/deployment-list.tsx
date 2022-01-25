@@ -1,8 +1,9 @@
-import useSWR from "swr";
-import { DeploymentSummaryRow } from "@molecules";
+import { formatDistanceToNowStrict, intervalToDuration } from "date-fns";
+import { useGetDeployments } from "services";
+
 import { DeploymentStatus } from "@atoms";
+import { DeploymentSummaryRow } from "@molecules";
 import { Deployment } from "types/schema";
-import { intervalToDuration, formatDistanceToNowStrict } from "date-fns";
 
 interface DeploymentListProps {
   applicationId?: string;
@@ -23,22 +24,20 @@ const deploymentStatusApiMap = (status: string): DeploymentStatus => {
   }
 };
 
-const DeploymentList = (props: DeploymentListProps) => {
+const DeploymentList = (props: DeploymentListProps): JSX.Element => {
   const { applicationId } = props;
 
-  const { data: deployments } = useSWR(
-    applicationId
-      ? `http://localhost:3001/apps/${applicationId}/deployments`
-      : null
-  );
+  const { deployments } = useGetDeployments(applicationId);
+
+  console.log(deployments);
 
   return (
-    <div className="container my-12 reset">
-      <h2 className="text-2xl font-semibold">Deployments</h2>
-      <p className="mt-3.5 mb-6 text-sm text-primary-accent-6">
+    <div className="my-12">
+      <h2 className="text-2xl font-bold">Deployments</h2>
+      <p className="mt-3.5 mb-6 text-sm">
         Deployments that are currently being worked on.
       </p>
-      <div className="bg-primary-background rounded border divide-y border-primary-accent-2 divide-primary-accent-2">
+      <div className="rounded border border-zinc-600 divide-y divide-zinc-600">
         {deployments?.map((deployment: Deployment) => {
           const builtDate = new Date(deployment.builtAt);
           const updatedDate = new Date(deployment.updatedAt);
@@ -57,11 +56,11 @@ const DeploymentList = (props: DeploymentListProps) => {
               applicationName={deployment?.gitSource.commitMessage}
               author={deployment?.gitSource.commitAuthorName}
               // TODO: - fix edge case where the duration is more than 24 hours
+              deploymentStatus={deploymentStatusApiMap(deployment.state)}
               duration={`${
                 buildDuration.hours ? buildDuration.hours + "h" : ""
               } ${buildDuration.minutes}m ${buildDuration.seconds}s`}
               updatedAt={updatedToNow}
-              deploymentStatus={deploymentStatusApiMap(deployment.state)}
             />
           );
         })}

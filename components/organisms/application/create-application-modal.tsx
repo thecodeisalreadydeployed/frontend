@@ -141,8 +141,8 @@ export const CreateApplicationModal = (
 
   return (
     <Modal
-      showModal={showModal}
-      onClickOutside={() => {
+      isOpen={showModal}
+      onClose={() => {
         closeModal();
         resetInput();
       }}

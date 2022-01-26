@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-import { useGetApplication } from "services";
+import { useDeleteApplication, useGetApplication } from "services";
 
 import { Button, PageTitle, Sidebar, Tab } from "@atoms";
 import { DeploymentList } from "@organisms";
@@ -14,6 +14,8 @@ const Overview = (): JSX.Element => {
     typeof applicationId === "string" ? applicationId : undefined
   );
 
+  const { deleteApplication } = useDeleteApplication();
+
   const OverviewView = (
     <div>
       <DeploymentList applicationId={application?.id} />
@@ -22,12 +24,23 @@ const Overview = (): JSX.Element => {
 
   const SettingGeneralView = (
     <div className="space-y-3.5">
-      <p className="text-lg font-bold text-red-400">Delete Project</p>
+      <p className="text-lg font-bold text-red-400">Delete Application</p>
       <p>
         The application, including all of its deployments, will be permanently
         removed.
       </p>
-      <Button color="danger">Delete Application</Button>
+      <Button
+        color="danger"
+        onClick={() => {
+          if (typeof applicationId === "string" && applicationId) {
+            const projectId = application?.projectID;
+            deleteApplication(applicationId, projectId);
+            router.replace(projectId ? `/${projectId}` : "/");
+          }
+        }}
+      >
+        Delete Application
+      </Button>
     </div>
   );
   const SettingsView = (

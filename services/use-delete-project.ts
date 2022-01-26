@@ -16,8 +16,6 @@ export const useDeleteProject = (): {
       }
     );
 
-    console.log(response);
-
     mutate(`${process.env.NEXT_PUBLIC_HOST}/projects/list`);
 
     return response;

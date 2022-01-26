@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { formatDistanceToNowStrict } from "date-fns";
 import { useDeleteProject, useGetProjectApplications } from "services";
 
-import { Button, Input, PageTitle, Tab } from "@atoms";
+import { Button, Input, PageTitle, Sidebar, Tab } from "@atoms";
 import { ProjectCard } from "@molecules";
 import { CreateApplicationModal } from "@organisms";
 import { HeaderLayout } from "@templates";
@@ -73,7 +73,7 @@ const Application = (): JSX.Element => {
     </div>
   );
 
-  const SettingsView = (
+  const SettingGeneralView = (
     <div>
       <button
         onClick={() => {
@@ -86,6 +86,15 @@ const Application = (): JSX.Element => {
         Delete Project
       </button>
     </div>
+  );
+
+  const SettingsView = (
+    <Sidebar
+      menus={[
+        { name: "General", panel: SettingGeneralView },
+        { name: "Placeholder", panel: <div /> },
+      ]}
+    />
   );
 
   return (

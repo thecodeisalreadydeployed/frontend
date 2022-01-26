@@ -31,14 +31,6 @@ export const Modal = (props: ModalProps): JSX.Element => {
           >
             <Dialog.Overlay className="fixed inset-0 bg-black/50 backdrop-blur-sm" />
           </Transition.Child>
-
-          {/* This element is to trick the browser into centering the modal contents. */}
-          <span
-            aria-hidden="true"
-            className="inline-block h-screen align-middle"
-          >
-            &#8203;
-          </span>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"

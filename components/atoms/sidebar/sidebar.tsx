@@ -11,7 +11,10 @@ export interface SidebarProps {
 export const Sidebar = (props: SidebarProps): JSX.Element => {
   const { menus } = props;
   return (
-    <Tab.Group as="div" className="flex gap-x-6">
+    <Tab.Group
+      as="div"
+      className="flex gap-x-6 text-base font-normal text-zinc-200"
+    >
       <Tab.List className="flex flex-col space-y-1 w-1/4">
         {menus.map((menu, index) => {
           return (
@@ -22,7 +25,7 @@ export const Sidebar = (props: SidebarProps): JSX.Element => {
                   "py-2.5 px-4 text-sm font-bold leading-5 text-left rounded-lg outline-none",
                   selected
                     ? "bg-zinc-600 shadow"
-                    : "text-blue-100 hover:text-white hover:bg-white/[0.12]"
+                    : "text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.12]"
                 )
               }
             >

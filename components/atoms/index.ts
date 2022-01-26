@@ -7,4 +7,5 @@ export * from "./input";
 export * from "./modal";
 export * from "./page-title";
 export * from "./select";
+export * from "./sidebar";
 export * from "./tab";

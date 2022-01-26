@@ -74,8 +74,12 @@ const Application = (): JSX.Element => {
   );
 
   const SettingGeneralView = (
-    <div>
+    <div className="space-y-3.5">
       <p className="text-lg font-bold text-red-400">Delete Project</p>
+      <p>
+        The project, including all of its deployments, will be permanently
+        removed.
+      </p>
       <Button
         color="danger"
         onClick={() => {

@@ -20,7 +20,7 @@ const DeploymentSummaryRow = (
   } = props;
 
   return (
-    <div className="grid grid-cols-4 items-center p-4">
+    <div className="grid grid-cols-4 items-center p-4 bg-zinc-800 hover:bg-zinc-700 cursor-pointer">
       <div className="h-10">
         <p className="text-sm font-bold truncate cursor-pointer line-clamp-1">
           {applicationName}

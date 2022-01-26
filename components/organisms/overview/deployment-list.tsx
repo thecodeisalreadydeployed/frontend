@@ -35,7 +35,7 @@ const DeploymentList = (props: DeploymentListProps): JSX.Element => {
       <p className="mt-3.5 mb-6 text-sm text-zinc-400">
         Deployments that are currently being worked on.
       </p>
-      <div className="rounded border border-zinc-600 divide-y divide-zinc-600">
+      <div className="overflow-hidden rounded-lg border border-zinc-600 divide-y divide-zinc-600">
         {deployments?.map((deployment: Deployment) => {
           const builtDate = new Date(deployment.builtAt);
           const updatedDate = new Date(deployment.updatedAt);

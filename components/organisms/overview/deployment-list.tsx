@@ -30,9 +30,9 @@ const DeploymentList = (props: DeploymentListProps): JSX.Element => {
   const { deployments } = useGetDeployments(applicationId);
 
   return (
-    <div className="my-12">
+    <div>
       <h2 className="text-2xl font-bold">Deployments</h2>
-      <p className="mt-3.5 mb-6 text-sm">
+      <p className="mt-3.5 mb-6 text-sm text-zinc-400">
         Deployments that are currently being worked on.
       </p>
       <div className="rounded border border-zinc-600 divide-y divide-zinc-600">

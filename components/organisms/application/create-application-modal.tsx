@@ -275,9 +275,9 @@ export const CreateApplicationModal = (
         </div>
         <div className="flex justify-end py-4 px-6 space-x-2">
           <Button
-            color="secondary"
             fullWidth
             id={BUTTON_ID.CANCEL}
+            type="outline"
             onClick={handleOnClickButton}
           >
             Cancel

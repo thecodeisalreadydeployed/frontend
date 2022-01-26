@@ -75,7 +75,9 @@ const Application = (): JSX.Element => {
 
   const SettingGeneralView = (
     <div>
-      <button
+      <p className="text-lg font-bold text-red-400">Delete Project</p>
+      <Button
+        color="danger"
         onClick={() => {
           if (typeof projectId === "string" && projectId) {
             deleteProject(projectId);
@@ -84,7 +86,7 @@ const Application = (): JSX.Element => {
         }}
       >
         Delete Project
-      </button>
+      </Button>
     </div>
   );
 

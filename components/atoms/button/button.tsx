@@ -77,7 +77,7 @@ export const Button = (props: ButtonProps): JSX.Element => {
     <button
       className={clsx(
         "inline-flex justify-center items-center px-4 align-middle rounded-lg border transition-colors duration-150 ease-linear",
-        CSS.button.typeColorMap[`${type}_${color}`],
+        CSS.button.typeColorMap[`${type}_${color}` as const],
         CSS.button.sizeMap[size],
         fullWidth && "w-full"
       )}

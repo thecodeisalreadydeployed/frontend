@@ -1,17 +1,25 @@
-const baseColors = require("./theme/colors");
-const baseBorderRadii = require("./theme/border-radii");
-
 module.exports = {
-  mode: "jit",
-  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
-  darkMode: false,
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
-    extend: {},
-    colors: baseColors,
-    borderRadius: baseBorderRadii,
+    fontWeight: {
+      light: 200,
+      normal: 400,
+      bold: 600,
+    },
+    fontFamily: {
+      inter: ["Inter", "sans-serif"],
+      "roboto-mono": ["Roboto Mono", "monospace"],
+    },
+    container: {
+      center: true,
+      padding: "1.5rem",
+    },
   },
-  variants: {
-    extend: {},
-  },
-  plugins: [],
+  plugins: [
+    require("@tailwindcss/line-clamp"),
+    // ...
+  ],
 };

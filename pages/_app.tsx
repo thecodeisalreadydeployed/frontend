@@ -1,7 +1,15 @@
-import "styles.css";
-import type { AppProps } from "next/app";
+import { SWRConfigContext } from "utils/swr-fetcher";
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
-}
+import "styles/globals.css";
+
+const MyApp = ({ Component, pageProps }: AppPropsWithLayout): JSX.Element => {
+  const getLayout = Component.getLayout ?? ((page) => page);
+
+  return (
+    <SWRConfigContext>
+      {getLayout(<Component {...pageProps} />)}
+    </SWRConfigContext>
+  );
+};
+
 export default MyApp;

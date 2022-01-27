@@ -1,7 +1,53 @@
 {
-  "plugins": ["tailwindcss"],
-  "extends": ["next/core-web-vitals", "plugin:tailwindcss/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "sort-destructure-keys",
+    "tailwindcss",
+    "simple-import-sort",
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "plugin:tailwindcss/recommended",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "next/core-web-vitals",
+    "plugin:storybook/recommended",
+    "plugin:prettier/recommended"
+  ],
   "rules": {
-    "tailwindcss/no-custom-classname": "off"
+    "no-duplicate-imports": "error",
+    "simple-import-sort/imports": [
+      "warn",
+      {
+        "groups": [
+          // Node.js builtins. You could also generate this regex if you use a `.js` config.
+          [
+            "^(assert|buffer|child_process|cluster|console|constants|crypto|dgram|dns|domain|events|fs|http|https|module|net|os|path|punycode|querystring|readline|repl|stream|string_decoder|sys|timers|tls|tty|url|util|vm|zlib|freelist|v8|process|async_hooks|http2|perf_hooks)(/.*|$)"
+          ],
+          // Package related to 'react' and 'next/'.
+          ["^react", "next", "^next/"],
+          // Packages
+          ["^@?\\w"],
+          // Internal packages.
+          ["^(@atoms|@molecules|@organisms|@templates|types)"],
+          // Parent imports. Put `..` last.
+          ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+          // Other relative imports. Put same-folder imports and `.` last.
+          ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+          // Side effect imports.
+          ["^\\u0000"]
+        ]
+      }
+    ],
+    "simple-import-sort/exports": "warn",
+    "prettier/prettier": "warn",
+    "sort-destructure-keys/sort-destructure-keys": "warn",
+    "react/jsx-sort-props": [
+      "warn",
+      {
+        "callbacksLast": true,
+        "reservedFirst": true
+      }
+    ]
   }
 }

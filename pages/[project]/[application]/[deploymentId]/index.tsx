@@ -1,5 +1,7 @@
 import { useRouter } from "next/router";
 
+import clsx from "clsx";
+import format from "date-fns/format";
 import { useGetDeployment, useGetDeploymentEvents } from "services";
 
 import { Button, PageTitle, Sidebar, Tab } from "@atoms";
@@ -19,10 +21,29 @@ const Deployment = (): JSX.Element => {
   const OverviewView = (
     <div>
       <h2 className="text-2xl font-bold">Deployment Status</h2>
-      <div className="p-4 font-roboto-mono text-sm bg-zinc-900 rounded">
-        <code className="whitespace-pre-wrap">
+      <div className="p-4 mt-4 text-sm bg-zinc-900 rounded">
+        <code className="space-y-2 font-roboto-mono whitespace-pre-wrap">
           {events?.map((event) => {
-            return <p key={event.id}>{event.text}</p>;
+            const [hms, ms] = format(
+              new Date(event.exportedAt),
+              "HH:mm:ss.SSS"
+            ).split(".");
+
+            return (
+              <div key={event.id} className="flex gap-x-4 ">
+                <span className="shrink-0">
+                  <span>{hms}</span>.<span className="text-zinc-400">{ms}</span>
+                </span>
+                <span
+                  className={clsx(
+                    event.text.toLocaleLowerCase().includes("error") &&
+                      "text-red-400"
+                  )}
+                >
+                  {event.text}
+                </span>
+              </div>
+            );
           })}
         </code>
       </div>

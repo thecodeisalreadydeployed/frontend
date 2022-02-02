@@ -11,7 +11,8 @@ export const useGetDeploymentEvents = (
 } => {
   const { data, error, isValidating } = useSWR<Event[]>(
     deploymentId &&
-      `${process.env.NEXT_PUBLIC_HOST}/deployments/${deploymentId}/events`
+      `${process.env.NEXT_PUBLIC_HOST}/deployments/${deploymentId}/events`,
+    { refreshInterval: 1000 }
   );
 
   return {

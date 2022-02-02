@@ -75,7 +75,7 @@ export const CreateProjectModal = (
           />
         </div>
 
-        <div className="flex justify-end py-4 px-6 space-x-2">
+        <div className="flex gap-x-6 justify-end py-4 px-6">
           <Button
             fullWidth
             id={BUTTON_ID.CANCEL}

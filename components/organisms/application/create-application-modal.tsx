@@ -150,8 +150,8 @@ export const CreateApplicationModal = (
       <div className="flex overflow-hidden flex-col w-screen max-w-[56rem] h-screen max-h-[30rem] text-base font-normal text-zinc-200">
         <div className="flex flex-col p-6 min-h-0">
           <p className="mb-6 font-bold">New Application</p>
-          <div className="flex relative min-h-0">
-            <div className="overflow-y-scroll mr-2 space-y-3 w-1/2">
+          <div className="flex relative gap-x-6 min-h-0">
+            <div className="overflow-y-scroll space-y-3 w-1/2">
               <div>
                 <label
                   className="block mb-1 text-sm"
@@ -263,7 +263,7 @@ export const CreateApplicationModal = (
                 />
               </div>
             </div>
-            <div className="overflow-y-scroll p-4 w-1/2 font-roboto-mono text-sm bg-zinc-900 rounded">
+            <div className="overflow-y-scroll p-4 w-1/2 font-roboto-mono text-sm bg-zinc-900 rounded-lg">
               <code className="whitespace-pre-wrap">{parsedBuildScript}</code>
             </div>
             {!isInputContainerScrolledToBottom && (
@@ -273,7 +273,7 @@ export const CreateApplicationModal = (
             )}
           </div>
         </div>
-        <div className="flex justify-end py-4 px-6 space-x-2">
+        <div className="flex gap-x-6 justify-end py-4 px-6">
           <Button
             fullWidth
             id={BUTTON_ID.CANCEL}

@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 
 import clsx from "clsx";
@@ -11,6 +12,8 @@ const Deployment = (): JSX.Element => {
   const router = useRouter();
   const { deploymentId } = router.query;
 
+  const codeDivRef = useRef<HTMLDivElement>(null);
+
   const { deployment } = useGetDeployment(
     typeof deploymentId === "string" ? deploymentId : undefined
   );
@@ -18,10 +21,21 @@ const Deployment = (): JSX.Element => {
     typeof deploymentId === "string" ? deploymentId : undefined
   );
 
+  useEffect(() => {
+    if (codeDivRef.current) {
+      const scroll = codeDivRef.current.scrollHeight;
+
+      codeDivRef.current.scrollTop = scroll;
+    }
+  }, [events]);
+
   const OverviewView = (
     <div>
       <h2 className="text-2xl font-bold">Deployment Status</h2>
-      <div className="p-4 mt-4 text-xs bg-zinc-900 rounded">
+      <div
+        ref={codeDivRef}
+        className="overflow-y-scroll p-4 mt-4 max-h-[75vh] text-xs bg-zinc-900 rounded"
+      >
         <code className="space-y-1.5 font-roboto-mono whitespace-pre-wrap">
           {events?.map((event) => {
             const [hms, ms] = format(

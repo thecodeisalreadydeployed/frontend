@@ -34,9 +34,9 @@ const Deployment = (): JSX.Element => {
       <h2 className="text-2xl font-bold">Deployment Status</h2>
       <div
         ref={codeDivRef}
-        className="overflow-y-scroll p-4 mt-4 max-h-[75vh] text-xs bg-zinc-900 rounded"
+        className="overflow-y-scroll py-4 mt-4 max-h-[75vh] text-xs bg-zinc-900 rounded"
       >
-        <code className="space-y-1.5 font-roboto-mono whitespace-pre-wrap">
+        <code className="font-roboto-mono whitespace-pre-wrap">
           {events?.map((event) => {
             const [hms, ms] = format(
               new Date(event.exportedAt),
@@ -44,7 +44,10 @@ const Deployment = (): JSX.Element => {
             ).split(".");
 
             return (
-              <div key={event.id} className="flex gap-x-4 ">
+              <div
+                key={event.id}
+                className="flex gap-x-4 py-1 px-4 hover:bg-zinc-800/50"
+              >
                 <span className="shrink-0">
                   <span>{hms}</span>.<span className="text-zinc-400">{ms}</span>
                 </span>

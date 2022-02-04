@@ -21,8 +21,8 @@ const Deployment = (): JSX.Element => {
   const OverviewView = (
     <div>
       <h2 className="text-2xl font-bold">Deployment Status</h2>
-      <div className="p-4 mt-4 text-sm bg-zinc-900 rounded">
-        <code className="space-y-2 font-roboto-mono whitespace-pre-wrap">
+      <div className="p-4 mt-4 text-xs bg-zinc-900 rounded">
+        <code className="space-y-1.5 font-roboto-mono whitespace-pre-wrap">
           {events?.map((event) => {
             const [hms, ms] = format(
               new Date(event.exportedAt),

@@ -24,9 +24,7 @@ export const Code = (props: CodeProps): JSX.Element => {
 
   return (
     <pre className={clsx("rounded-lg", hideScollbar && "hide-scrollbar")}>
-      <code className={clsx("font-roboto-mono text-sm", prismLanguages)}>
-        {code}
-      </code>
+      <code className={clsx("text-sm", prismLanguages)}>{code}</code>
     </pre>
   );
 };

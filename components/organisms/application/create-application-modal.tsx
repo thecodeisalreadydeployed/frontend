@@ -6,7 +6,7 @@ import useSWR from "swr";
 import { useParseBuildScript } from "utils/use-parse-build-script";
 import { useScrollToBottom } from "utils/useScrollToBottom";
 
-import { Button, Input, Modal, Select, SelectOption } from "@atoms";
+import { Button, Code, Input, Modal, Select, SelectOption } from "@atoms";
 import type { Preset } from "types/schema";
 
 interface CreateApplicationModalProps {
@@ -150,8 +150,8 @@ export const CreateApplicationModal = (
       <div className="flex overflow-hidden flex-col w-screen max-w-[56rem] h-screen max-h-[30rem] text-base font-normal text-zinc-200">
         <div className="flex flex-col p-6 min-h-0">
           <p className="mb-6 font-bold">New Application</p>
-          <div className="flex relative gap-x-6 min-h-0">
-            <div className="overflow-y-scroll space-y-3 w-1/2">
+          <div className="grid relative grid-cols-2 gap-x-6 min-h-0">
+            <div className="overflow-y-scroll space-y-3 hide-scrollbar">
               <div>
                 <label
                   className="block mb-1 text-sm"
@@ -263,9 +263,7 @@ export const CreateApplicationModal = (
                 />
               </div>
             </div>
-            <div className="overflow-y-scroll p-4 w-1/2 font-roboto-mono text-sm bg-zinc-900 rounded-lg">
-              <code className="whitespace-pre-wrap">{parsedBuildScript}</code>
-            </div>
+            <Code code={parsedBuildScript} language="docker" />
             {!isInputContainerScrolledToBottom && (
               <div className="absolute -bottom-8 left-0 animate-bounce">
                 <ChevronDownIcon className="w-6 h-6" />

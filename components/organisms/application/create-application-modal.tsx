@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ChevronDownIcon } from "@heroicons/react/outline";
 import { useCreateNewApplication } from "services";
@@ -139,6 +139,12 @@ export const CreateApplicationModal = (
     }
   );
 
+  const [customScript, setCustomScript] = useState("");
+
+  useEffect(() => {
+    setCustomScript(parsedBuildScript);
+  }, [parsedBuildScript]);
+
   return (
     <Modal
       isOpen={showModal}
@@ -263,7 +269,11 @@ export const CreateApplicationModal = (
                 />
               </div>
             </div>
-            <Code code={parsedBuildScript} language="docker" />
+            <Code
+              code={customScript}
+              language="docker"
+              onChangeCode={(value) => setCustomScript(value)}
+            />
             {!isInputContainerScrolledToBottom && (
               <div className="absolute -bottom-8 left-0 animate-bounce">
                 <ChevronDownIcon className="w-6 h-6" />

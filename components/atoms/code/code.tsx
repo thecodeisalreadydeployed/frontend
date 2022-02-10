@@ -1,30 +1,64 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useRef } from "react";
 
 import clsx from "clsx";
-import Prism from "prismjs";
+import Highlight, { defaultProps, Language, Prism } from "prism-react-renderer";
+import { useEditable } from "use-editable";
 
-import "prismjs/components/prism-docker";
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(typeof global !== "undefined" ? global : window).Prism = Prism as any;
+require("prismjs/components/prism-docker");
 
-type Language = "docker";
+type AdditionalLanguage = "docker";
 
 interface CodeProps {
-  language: Language;
-  code: React.ReactNode;
-  hideScollbar?: boolean;
+  language: Language | AdditionalLanguage;
+  code: string;
+  onChangeCode?: (code: string) => void;
 }
 
 export const Code = (props: CodeProps): JSX.Element => {
-  const { code, hideScollbar = true, language } = props;
+  const { code, language, onChangeCode = () => null } = props;
 
-  useEffect(() => {
-    Prism.highlightAll();
-  }, [code]);
+  const editorRef = useRef(null);
 
-  const prismLanguages = `language-${language}`;
+  const onEditableChange = useCallback(
+    (code) => {
+      onChangeCode(code.slice(0, -1));
+    },
+    [onChangeCode]
+  );
+
+  useEditable(editorRef, onEditableChange, { disabled: false });
 
   return (
-    <pre className={clsx("rounded-lg", hideScollbar && "hide-scrollbar")}>
-      <code className={clsx("text-sm", prismLanguages)}>{code}</code>
-    </pre>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    <Highlight {...defaultProps} code={code} language={language as any}>
+      {({ className, getTokenProps, tokens }) => (
+        <pre
+          ref={editorRef}
+          className={clsx(
+            "overflow-scroll p-4 font-roboto-mono text-sm !whitespace-pre bg-zinc-900 rounded-lg outline-none",
+            className
+          )}
+        >
+          {tokens.map((line, i) => (
+            <React.Fragment key={i}>
+              {line
+                .filter((token) => !token.empty)
+                .map((token, key) => (
+                  <span
+                    key={key}
+                    {...getTokenProps({
+                      token,
+                      key,
+                    })}
+                  />
+                ))}
+              {`\n`}
+            </React.Fragment>
+          ))}
+        </pre>
+      )}
+    </Highlight>
   );
 };

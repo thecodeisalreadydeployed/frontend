@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600&family=Roboto+Mono&display=swap");
-@import "prism-theme.css";
+/* @import "prism-theme.css"; */
 
 @tailwind base;
 @tailwind components;

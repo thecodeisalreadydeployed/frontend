@@ -8,6 +8,7 @@ import { useScrollToBottom } from "utils/useScrollToBottom";
 
 import { Button, Code, Input, Modal, Select, SelectOption } from "@atoms";
 import type { Preset } from "types/schema";
+import clsx from "clsx";
 
 interface CreateApplicationModalProps {
   onClose?: () => void;
@@ -60,6 +61,9 @@ export const CreateApplicationModal = (
     useState("");
   const [applicationStartCommand, setApplicationStartCommand] = useState("");
   const [applicationBranch, setApplicationBranch] = useState("");
+  const [customCode, setCustomCode] = useState("");
+
+  const [lockInput, setLockInput] = useState(false);
 
   const [inputContainerRef, isInputContainerScrolledToBottom] =
     useScrollToBottom();
@@ -110,6 +114,8 @@ export const CreateApplicationModal = (
       case BUTTON_ID.CANCEL:
         closeModal();
         resetInput();
+        setLockInput(false);
+        setCustomCode("");
         break;
       case BUTTON_ID.NEXT:
         createNewApplication({
@@ -139,10 +145,8 @@ export const CreateApplicationModal = (
     }
   );
 
-  const [customScript, setCustomScript] = useState("");
-
   useEffect(() => {
-    setCustomScript(parsedBuildScript);
+    setCustomCode(parsedBuildScript);
   }, [parsedBuildScript]);
 
   return (
@@ -151,12 +155,19 @@ export const CreateApplicationModal = (
       onClose={() => {
         closeModal();
         resetInput();
+        setLockInput(false);
+        setCustomCode("");
       }}
     >
       <div className="flex overflow-hidden flex-col w-screen max-w-[56rem] h-screen max-h-[30rem] text-base font-normal text-zinc-200">
         <div className="flex flex-col p-6 min-h-0">
           <p className="mb-6 font-bold">New Application</p>
-          <div className="grid relative grid-cols-2 gap-x-6 min-h-0">
+          <div
+            className={clsx(
+              "grid relative gap-x-6 min-h-0",
+              lockInput ? "grid-cols-3" : "grid-cols-2"
+            )}
+          >
             <div className="overflow-y-scroll space-y-3 hide-scrollbar">
               <div>
                 <label
@@ -205,6 +216,7 @@ export const CreateApplicationModal = (
                   Build Script
                 </label>
                 <Select
+                  disabled={lockInput}
                   selectOptions={selectOptions}
                   value={applicationBuildScript}
                   onChangeSelection={(newValue) =>
@@ -220,6 +232,7 @@ export const CreateApplicationModal = (
                   Output Directory
                 </label>
                 <Input
+                  disabled={lockInput}
                   id={INPUT_ID.OUTPUT_DIR}
                   placeholder="ie: ....."
                   value={applicationOutputDirectory}
@@ -234,6 +247,7 @@ export const CreateApplicationModal = (
                   Install Command
                 </label>
                 <Input
+                  disabled={lockInput}
                   id={INPUT_ID.INSTALL_CMD}
                   placeholder="ie: ....."
                   value={applicationInstallCommand}
@@ -248,6 +262,7 @@ export const CreateApplicationModal = (
                   Build Command
                 </label>
                 <Input
+                  disabled={lockInput}
                   id={INPUT_ID.BUILD_CMD}
                   placeholder="ie: ....."
                   value={applicationBuildCommand}
@@ -262,6 +277,7 @@ export const CreateApplicationModal = (
                   Start Command
                 </label>
                 <Input
+                  disabled={lockInput}
                   id={INPUT_ID.START_COMMAND}
                   placeholder="ie: ....."
                   value={applicationStartCommand}
@@ -269,11 +285,15 @@ export const CreateApplicationModal = (
                 />
               </div>
             </div>
-            <Code
-              code={customScript}
-              language="docker"
-              onChangeCode={(value) => setCustomScript(value)}
-            />
+            <div className={clsx("grid", lockInput && "col-span-2")}>
+              <Code
+                code={customCode}
+                editable
+                language="docker"
+                onChangeCode={(value) => setCustomCode(value)}
+                onClick={() => setLockInput(true)}
+              />
+            </div>
             {!isInputContainerScrolledToBottom && (
               <div className="absolute -bottom-8 left-0 animate-bounce">
                 <ChevronDownIcon className="w-6 h-6" />

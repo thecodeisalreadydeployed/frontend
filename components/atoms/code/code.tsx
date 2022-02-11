@@ -1,8 +1,15 @@
-import React, { useCallback, useRef } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 
 import clsx from "clsx";
 import Highlight, { defaultProps, Language, Prism } from "prism-react-renderer";
 import { useEditable } from "use-editable";
+import { useOnClickOutside } from "utils/use-on-click-outside";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 (typeof global !== "undefined" ? global : window).Prism = Prism as any;
@@ -14,12 +21,25 @@ interface CodeProps {
   language: Language | AdditionalLanguage;
   code: string;
   onChangeCode?: (code: string) => void;
+  editable?: boolean;
+  onClick?: React.MouseEventHandler<HTMLPreElement>;
 }
 
 export const Code = (props: CodeProps): JSX.Element => {
-  const { code, language, onChangeCode = () => null } = props;
+  const {
+    code,
+    language,
+    onChangeCode = () => null,
+    editable = false,
+    onClick = () => null,
+  } = props;
 
-  const editorRef = useRef(null);
+  const editorRef = useRef<HTMLPreElement>(null);
+  const [isEditable, setIsEditable] = useState(false);
+
+  useOnClickOutside(editorRef, () => {
+    setIsEditable(false);
+  });
 
   const onEditableChange = useCallback(
     (code) => {
@@ -28,7 +48,9 @@ export const Code = (props: CodeProps): JSX.Element => {
     [onChangeCode]
   );
 
-  useEditable(editorRef, onEditableChange, { disabled: false });
+  useEditable(editorRef, onEditableChange, {
+    disabled: !isEditable,
+  });
 
   return (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -36,10 +58,18 @@ export const Code = (props: CodeProps): JSX.Element => {
       {({ className, getTokenProps, tokens }) => (
         <pre
           ref={editorRef}
+          autoCapitalize="off"
+          autoCorrect="off"
           className={clsx(
-            "overflow-scroll p-4 font-roboto-mono text-sm !whitespace-pre bg-zinc-900 rounded-lg outline-none",
-            className
+            "overflow-scroll p-4 font-mono text-sm !whitespace-pre bg-zinc-900 rounded-lg outline-none",
+            className,
+            isEditable ? "ring-1 ring-zinc-500" : "cursor-pointer"
           )}
+          spellCheck={false}
+          onClick={(e) => {
+            onClick(e);
+            editable && setIsEditable(true);
+          }}
         >
           {tokens.map((line, i) => (
             <React.Fragment key={i}>

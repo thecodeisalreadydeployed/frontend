@@ -34,9 +34,9 @@ const Deployment = (): JSX.Element => {
       <h2 className="text-2xl font-bold">Deployment Status</h2>
       <div
         ref={codeDivRef}
-        className="overflow-y-scroll py-4 mt-4 max-h-[75vh] text-xs bg-zinc-900 rounded"
+        className="overflow-y-scroll py-4 mt-4 max-h-[75vh] text-sm bg-zinc-900 rounded"
       >
-        <code className="font-roboto-mono whitespace-pre-wrap">
+        <code className="font-mono whitespace-pre-wrap">
           {events?.map((event) => {
             const [hms, ms] = format(
               new Date(event.exportedAt),

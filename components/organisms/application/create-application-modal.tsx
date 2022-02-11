@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
-import { ChevronDownIcon } from "@heroicons/react/outline";
+import { ChevronDownIcon, XIcon } from "@heroicons/react/solid";
+import clsx from "clsx";
 import { useCreateNewApplication } from "services";
 import useSWR from "swr";
 import { useParseBuildScript } from "utils/use-parse-build-script";
@@ -8,7 +9,6 @@ import { useScrollToBottom } from "utils/useScrollToBottom";
 
 import { Button, Code, Input, Modal, Select, SelectOption } from "@atoms";
 import type { Preset } from "types/schema";
-import clsx from "clsx";
 
 interface CreateApplicationModalProps {
   onClose?: () => void;
@@ -285,7 +285,18 @@ export const CreateApplicationModal = (
                 />
               </div>
             </div>
-            <div className={clsx("grid", lockInput && "col-span-2")}>
+            <div className={clsx("grid relative", lockInput && "col-span-2")}>
+              {lockInput && (
+                <div
+                  className="flex absolute top-2 right-2 justify-center items-center bg-zinc-700/50 hover:bg-zinc-600/50 rounded-lg cursor-pointer"
+                  onClick={() => {
+                    setCustomCode(parsedBuildScript);
+                    setLockInput(false);
+                  }}
+                >
+                  <XIcon className="m-1 w-4 h-4 text-zinc-200/50 hover:text-zinc-100/50" />
+                </div>
+              )}
               <Code
                 code={customCode}
                 editable

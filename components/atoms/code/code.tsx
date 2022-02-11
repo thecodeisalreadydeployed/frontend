@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useRef, useState } from "react";
 
 import clsx from "clsx";
 import Highlight, { defaultProps, Language, Prism } from "prism-react-renderer";

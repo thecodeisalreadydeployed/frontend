@@ -66,7 +66,7 @@ export const Select = <T,>(props: SelectProps<T>): JSX.Element => {
       >
         <Listbox.Button
           className={clsx(
-            "relative pr-10 pl-3 w-full text-left bg-zinc-800 rounded-lg border border-zinc-600 outline-none cursor-pointer disabled:cursor-not-allowed disabled:bg-zinc-700",
+            "relative pr-10 pl-3 w-full text-left bg-zinc-800 disabled:bg-zinc-700 rounded-lg border border-zinc-600 outline-none cursor-pointer disabled:cursor-not-allowed",
             CSS.listBoxButton[size]
           )}
         >

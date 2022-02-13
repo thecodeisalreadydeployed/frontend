@@ -1,8 +1,8 @@
-import NextAuth, { User } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+import NextAuth from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
 
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { FirebaseAdapter } from "utils/firebase-adaptor";
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_APIKEY,
@@ -13,37 +13,16 @@ const firebaseConfig = {
   appId: process.env.FIREBASE_APPID,
 };
 
-initializeApp(firebaseConfig);
-
-const auth = getAuth();
+const app = initializeApp(firebaseConfig);
 
 export default NextAuth({
   providers: [
-    CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        email: { label: "Email", type: "text" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials) {
-        return signInWithEmailAndPassword(
-          auth,
-          credentials?.email ?? "",
-          credentials?.password ?? ""
-        )
-          .then((userCredential): User => {
-            return {
-              id: userCredential.user.uid,
-              name: userCredential.user.displayName,
-              email: userCredential.user.email,
-            };
-          })
-          .catch(() => {
-            return null;
-          });
-      },
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
     }),
   ],
+  adapter: FirebaseAdapter(app),
   pages: {
     signIn: "/sign-in",
   },

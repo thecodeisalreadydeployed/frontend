@@ -8,6 +8,7 @@ export const Auth = (props: AuthProps): JSX.Element => {
   const { children } = props;
 
   const { data: session } = useSession({ required: true });
+
   const isUser = !!session?.user;
 
   if (isUser) {

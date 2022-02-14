@@ -1,5 +1,5 @@
 import "styles/globals.css";
-import { SWRConfigContext } from "utils/swr-fetcher";
+// import { SWRConfigContext } from "contexts/swr-fetcher";
 import * as NextImage from "next/image";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 
@@ -26,8 +26,8 @@ export const parameters = {
 
 export const decorators = [
   (Story) => (
-    <SWRConfigContext>
-      <Story />
-    </SWRConfigContext>
+    // <SWRConfigContext>
+    <Story />
+    // </SWRConfigContext>
   ),
 ];

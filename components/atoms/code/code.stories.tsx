@@ -8,14 +8,14 @@ export default {
 } as ComponentMeta<typeof Component>;
 
 export const Code: ComponentStory<typeof Component> = (args): JSX.Element => {
-  const code = `
-function greeting() {
-    return "Hello World";
-}
-  `;
-
-  return <Component {...args} code={code} />;
+  return <Component {...args} />;
 };
+
+const code = `function greeting() {
+    return "Hello World";
+}`;
+
 Code.args = {
   language: "javascript",
+  code: code,
 };

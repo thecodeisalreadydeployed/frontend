@@ -10,7 +10,7 @@ interface SWRConfigContextProps {
 export const SWRConfigContext = ({
   children,
 }: SWRConfigContextProps): JSX.Element => {
-  const { data: session } = useSession({ required: true });
+  const { data: session } = useSession();
 
   const token = session?.accessToken;
 

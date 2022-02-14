@@ -5,7 +5,7 @@ import clsx from "clsx";
 import { useCreateNewApplication } from "services";
 import useSWR from "swr";
 import { useParseBuildScript } from "utils/use-parse-build-script";
-import { useScrollToBottom } from "utils/useScrollToBottom";
+import { useScrollToBottom } from "utils/use-scroll-to-bottom";
 
 import { Button, Code, Input, Modal, Select, SelectOption } from "@atoms";
 import type { Preset } from "types/schema";

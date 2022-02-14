@@ -22,6 +22,18 @@ export default NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
     }),
   ],
+  callbacks: {
+    async jwt({ account, token }) {
+      if (account) {
+        token.accessToken = account.id_token;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.accessToken = token.accessToken;
+      return session;
+    },
+  },
   adapter: FirebaseAdapter(app),
   pages: {
     signIn: "/sign-in",

@@ -2,16 +2,16 @@ import Image from "next/image";
 
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { Card as CardComponent } from "./card";
+import { Card as Component } from "./card";
 
 export default {
   title: "Design System/Atoms/Card",
-  component: CardComponent,
-} as ComponentMeta<typeof CardComponent>;
+  component: Component,
+} as ComponentMeta<typeof Component>;
 
-export const Card: ComponentStory<typeof CardComponent> = (
-  args
-): JSX.Element => <CardComponent {...args} />;
+export const Card: ComponentStory<typeof Component> = (args): JSX.Element => (
+  <Component {...args} />
+);
 Card.args = {
   children: (
     <div className="w-40 h-40">

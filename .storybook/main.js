@@ -6,18 +6,8 @@ module.exports = {
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
-    "storybook-addon-next-router",
-    {
-      name: "@storybook/addon-postcss",
-      options: {
-        cssLoaderOptions: {
-          importLoaders: 1,
-        },
-        postcssLoaderOptions: {
-          implementation: require("postcss"),
-        },
-      },
-    },
+    "storybook-dark-mode",
+    "storybook-addon-next",
   ],
   framework: "@storybook/react",
   core: {

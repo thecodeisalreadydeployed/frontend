@@ -2,11 +2,12 @@ import type { NextPage } from "next";
 import type { AppProps } from "next/app";
 
 declare global {
-  type NextPageWithLayout = NextPage & {
+  type CustomNextPage = NextPage & {
     getLayout?: (page: React.ReactElement) => React.ReactNode;
+    auth?: boolean;
   };
 
-  type AppPropsWithLayout = AppProps & {
-    Component: NextPageWithLayout;
+  type CustomAppProps = AppProps & {
+    Component: CustomNextPage;
   };
 }

@@ -5,6 +5,7 @@ const HeaderLayout = (page: React.ReactElement): JSX.Element => {
     <>
       <Header />
       {page}
+      <div className="mt-16" />
     </>
   );
 };

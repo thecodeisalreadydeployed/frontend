@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { ChevronDownIcon } from "@heroicons/react/outline";
+import { ChevronDownIcon, XIcon } from "@heroicons/react/solid";
+import clsx from "clsx";
 import { useCreateNewApplication } from "services";
 import useSWR from "swr";
 import { useParseBuildScript } from "utils/use-parse-build-script";
-import { useScrollToBottom } from "utils/useScrollToBottom";
+import { useScrollToBottom } from "utils/use-scroll-to-bottom";
 
-import { Button, Input, Modal, Select, SelectOption } from "@atoms";
+import { Button, Code, Input, Modal, Select, SelectOption } from "@atoms";
 import type { Preset } from "types/schema";
 
 interface CreateApplicationModalProps {
@@ -60,6 +61,9 @@ export const CreateApplicationModal = (
     useState("");
   const [applicationStartCommand, setApplicationStartCommand] = useState("");
   const [applicationBranch, setApplicationBranch] = useState("");
+  const [customCode, setCustomCode] = useState("");
+
+  const [lockInput, setLockInput] = useState(false);
 
   const [inputContainerRef, isInputContainerScrolledToBottom] =
     useScrollToBottom();
@@ -110,6 +114,8 @@ export const CreateApplicationModal = (
       case BUTTON_ID.CANCEL:
         closeModal();
         resetInput();
+        setLockInput(false);
+        setCustomCode("");
         break;
       case BUTTON_ID.NEXT:
         createNewApplication({
@@ -139,19 +145,30 @@ export const CreateApplicationModal = (
     }
   );
 
+  useEffect(() => {
+    setCustomCode(parsedBuildScript);
+  }, [parsedBuildScript]);
+
   return (
     <Modal
       isOpen={showModal}
       onClose={() => {
         closeModal();
         resetInput();
+        setLockInput(false);
+        setCustomCode("");
       }}
     >
       <div className="flex overflow-hidden flex-col w-screen max-w-[56rem] h-screen max-h-[30rem] text-base font-normal text-zinc-200">
         <div className="flex flex-col p-6 min-h-0">
           <p className="mb-6 font-bold">New Application</p>
-          <div className="flex relative min-h-0">
-            <div className="overflow-y-scroll mr-2 space-y-3 w-1/2">
+          <div
+            className={clsx(
+              "grid relative gap-x-6 min-h-0",
+              lockInput ? "grid-cols-3" : "grid-cols-2"
+            )}
+          >
+            <div className="overflow-y-scroll space-y-3 hide-scrollbar">
               <div>
                 <label
                   className="block mb-1 text-sm"
@@ -199,6 +216,7 @@ export const CreateApplicationModal = (
                   Build Script
                 </label>
                 <Select
+                  disabled={lockInput}
                   selectOptions={selectOptions}
                   value={applicationBuildScript}
                   onChangeSelection={(newValue) =>
@@ -214,6 +232,7 @@ export const CreateApplicationModal = (
                   Output Directory
                 </label>
                 <Input
+                  disabled={lockInput}
                   id={INPUT_ID.OUTPUT_DIR}
                   placeholder="ie: ....."
                   value={applicationOutputDirectory}
@@ -228,6 +247,7 @@ export const CreateApplicationModal = (
                   Install Command
                 </label>
                 <Input
+                  disabled={lockInput}
                   id={INPUT_ID.INSTALL_CMD}
                   placeholder="ie: ....."
                   value={applicationInstallCommand}
@@ -242,6 +262,7 @@ export const CreateApplicationModal = (
                   Build Command
                 </label>
                 <Input
+                  disabled={lockInput}
                   id={INPUT_ID.BUILD_CMD}
                   placeholder="ie: ....."
                   value={applicationBuildCommand}
@@ -256,6 +277,7 @@ export const CreateApplicationModal = (
                   Start Command
                 </label>
                 <Input
+                  disabled={lockInput}
                   id={INPUT_ID.START_COMMAND}
                   placeholder="ie: ....."
                   value={applicationStartCommand}
@@ -263,8 +285,25 @@ export const CreateApplicationModal = (
                 />
               </div>
             </div>
-            <div className="overflow-y-scroll p-4 w-1/2 font-roboto-mono text-sm bg-zinc-900 rounded">
-              <code className="whitespace-pre-wrap">{parsedBuildScript}</code>
+            <div className={clsx("grid relative", lockInput && "col-span-2")}>
+              {lockInput && (
+                <div
+                  className="flex absolute top-2 right-2 justify-center items-center bg-zinc-700/50 hover:bg-zinc-600/50 rounded-lg cursor-pointer"
+                  onClick={() => {
+                    setCustomCode(parsedBuildScript);
+                    setLockInput(false);
+                  }}
+                >
+                  <XIcon className="m-1 w-4 h-4 text-zinc-200/50 hover:text-zinc-100/50" />
+                </div>
+              )}
+              <Code
+                code={customCode}
+                editable
+                language="docker"
+                onChangeCode={(value) => setCustomCode(value)}
+                onClick={() => setLockInput(true)}
+              />
             </div>
             {!isInputContainerScrolledToBottom && (
               <div className="absolute -bottom-8 left-0 animate-bounce">
@@ -273,7 +312,7 @@ export const CreateApplicationModal = (
             )}
           </div>
         </div>
-        <div className="flex justify-end py-4 px-6 space-x-2">
+        <div className="flex gap-x-6 justify-end py-4 px-6">
           <Button
             fullWidth
             id={BUTTON_ID.CANCEL}

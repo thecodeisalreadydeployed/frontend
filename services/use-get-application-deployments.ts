@@ -2,7 +2,7 @@ import useSWR from "swr";
 
 import type { Deployment } from "types/schema";
 
-export const useGetDeployments = (
+export const useGetApplicationDeployments = (
   applicationId: string | undefined
 ): {
   deployments: Deployment[] | undefined;

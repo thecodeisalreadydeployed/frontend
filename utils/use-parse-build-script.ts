@@ -25,6 +25,6 @@ export const useParseBuildScript = (
   });
 
   return {
-    parsedBuildScript,
+    parsedBuildScript: parsedBuildScript.trim(),
   };
 };

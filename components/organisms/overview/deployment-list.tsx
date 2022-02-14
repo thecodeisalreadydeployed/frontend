@@ -1,5 +1,8 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
+
 import { formatDistanceToNowStrict, intervalToDuration } from "date-fns";
-import { useGetDeployments } from "services";
+import { useGetApplicationDeployments } from "services";
 
 import { DeploymentStatus } from "@atoms";
 import { DeploymentSummaryRow } from "@molecules";
@@ -26,8 +29,9 @@ const deploymentStatusApiMap = (status: string): DeploymentStatus => {
 
 const DeploymentList = (props: DeploymentListProps): JSX.Element => {
   const { applicationId } = props;
+  const router = useRouter();
 
-  const { deployments } = useGetDeployments(applicationId);
+  const { deployments } = useGetApplicationDeployments(applicationId);
 
   return (
     <div>
@@ -49,17 +53,23 @@ const DeploymentList = (props: DeploymentListProps): JSX.Element => {
           const updatedToNow = formatDistanceToNowStrict(updatedDate);
 
           return (
-            <DeploymentSummaryRow
+            <Link
               key={deployment?.id}
-              applicationName={deployment?.gitSource.commitMessage}
-              author={deployment?.gitSource.commitAuthorName}
-              // TODO: - fix edge case where the duration is more than 24 hours
-              deploymentStatus={deploymentStatusApiMap(deployment.state)}
-              duration={`${
-                buildDuration.hours ? buildDuration.hours + "h" : ""
-              } ${buildDuration.minutes}m ${buildDuration.seconds}s`}
-              updatedAt={updatedToNow}
-            />
+              href={`${router.asPath}/${deployment.id}`}
+            >
+              <a>
+                <DeploymentSummaryRow
+                  applicationName={deployment?.gitSource.commitMessage}
+                  author={deployment?.gitSource.commitAuthorName}
+                  // TODO: - fix edge case where the duration is more than 24 hours
+                  deploymentStatus={deploymentStatusApiMap(deployment.state)}
+                  duration={`${
+                    buildDuration.hours ? buildDuration.hours + "h" : ""
+                  } ${buildDuration.minutes}m ${buildDuration.seconds}s`}
+                  updatedAt={updatedToNow}
+                />
+              </a>
+            </Link>
           );
         })}
       </div>

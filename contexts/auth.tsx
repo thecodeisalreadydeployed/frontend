@@ -1,5 +1,3 @@
-import { useSession } from "next-auth/react";
-
 interface AuthProps {
   children: JSX.Element;
 }
@@ -7,13 +5,7 @@ interface AuthProps {
 export const Auth = (props: AuthProps): JSX.Element => {
   const { children } = props;
 
-  const { data: session } = useSession({ required: true });
-
-  const isUser = !!session?.user;
-
-  if (isUser) {
-    return children;
-  }
+  return children;
 
   return (
     <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">

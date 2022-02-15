@@ -1,9 +1,9 @@
 import React, { useCallback, useRef, useState } from "react";
 
 import clsx from "clsx";
+import { useOnClickOutside } from "hooks";
 import Highlight, { defaultProps, Language, Prism } from "prism-react-renderer";
 import { useEditable } from "use-editable";
-import { useOnClickOutside } from "utils/use-on-click-outside";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 (typeof global !== "undefined" ? global : window).Prism = Prism as any;

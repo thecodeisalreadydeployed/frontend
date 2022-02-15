@@ -5,10 +5,10 @@ const buildScriptParametersPlaceholder = {
   startCommand: "{{.StartCommand}}",
 };
 
-export const useParseBuildScript = (
+export const parseBuildScript = (
   buildScript: string | undefined = "",
   parameters: typeof buildScriptParametersPlaceholder
-): { parsedBuildScript: string } => {
+): string => {
   let parsedBuildScript = buildScript;
 
   const parametersArray = Object.keys(parameters) as Array<
@@ -24,7 +24,5 @@ export const useParseBuildScript = (
     );
   });
 
-  return {
-    parsedBuildScript: parsedBuildScript.trim(),
-  };
+  return parsedBuildScript.trim();
 };

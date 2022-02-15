@@ -1,4 +1,3 @@
-import { signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import useSWR from "swr";
@@ -20,7 +19,7 @@ export const Header = (): JSX.Element => {
   );
 
   const handleLogout = () => {
-    signOut();
+    //
   };
 
   return (

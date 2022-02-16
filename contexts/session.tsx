@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 import {
-  fetchSignInMethodsForEmail,
   getRedirectResult,
   GoogleAuthProvider,
   onAuthStateChanged,

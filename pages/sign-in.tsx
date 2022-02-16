@@ -1,9 +1,23 @@
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+
+import { useSession } from "contexts";
+
 import { Button } from "@atoms";
 
 const SignIn = (): JSX.Element => {
+  const router = useRouter();
+  const { login, user } = useSession();
+
   const handleSignIn = () => {
-    //
+    login();
   };
+
+  useEffect(() => {
+    if (user) {
+      router.push("/");
+    }
+  }, [router, user]);
 
   return (
     <div className="overflow-hidden w-screen h-screen bg-zinc-500">
@@ -23,5 +37,7 @@ const SignIn = (): JSX.Element => {
     </div>
   );
 };
+
+SignIn.auth = false;
 
 export default SignIn;

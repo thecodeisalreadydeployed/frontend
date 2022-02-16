@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 
+import { useSession } from "contexts";
 import useSWR from "swr";
 
 import { Button, GithubLogo } from "@atoms";
@@ -7,6 +8,7 @@ import { NavBreadcrumb } from "@molecules";
 
 export const Header = (): JSX.Element => {
   const router = useRouter();
+  const { logout, user } = useSession();
 
   const { application: applicationId, project: projectId } = router.query;
 
@@ -19,7 +21,7 @@ export const Header = (): JSX.Element => {
   );
 
   const handleLogout = () => {
-    //
+    logout();
   };
 
   return (
@@ -35,6 +37,10 @@ export const Header = (): JSX.Element => {
           onClickProject={() => router.push(`/${projectId}`)}
         />
         <div className="flex items-center space-x-4">
+          <p className="font-bold">{user?.displayName}</p>
+          <Button size="sm" onClick={handleLogout}>
+            Logout
+          </Button>
           <GithubLogo
             height="h-8"
             width="w-8"
@@ -43,9 +49,6 @@ export const Header = (): JSX.Element => {
               router.push("https://github.com/thecodeisalreadydeployed")
             }
           />
-          <Button size="sm" onClick={handleLogout}>
-            Logout
-          </Button>
         </div>
       </nav>
       <div className="[background:linear-gradient(to_right,rgb(249,199,45),rgb(240,90,42),rgb(241,87,63),rgb(241,71,163),rgb(46,237,224))] w-full h-0.5"></div>

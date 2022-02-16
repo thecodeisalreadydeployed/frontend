@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 
 import { ChevronDownIcon, XIcon } from "@heroicons/react/solid";
 import clsx from "clsx";
+import { useScrollToBottom } from "hooks";
 import { useCreateNewApplication } from "services";
 import useSWR from "swr";
-import { useParseBuildScript } from "utils/use-parse-build-script";
-import { useScrollToBottom } from "utils/use-scroll-to-bottom";
+import { parseBuildScript } from "utils";
 
 import { Button, Code, Input, Modal, Select, SelectOption } from "@atoms";
 import type { Preset } from "types/schema";
@@ -135,15 +135,12 @@ export const CreateApplicationModal = (
     }
   };
 
-  const { parsedBuildScript } = useParseBuildScript(
-    applicationBuildScript?.value,
-    {
-      buildCommand: applicationBuildCommand,
-      installCommand: applicationInstallCommand,
-      outputDirectory: applicationOutputDirectory,
-      startCommand: applicationStartCommand,
-    }
-  );
+  const parsedBuildScript = parseBuildScript(applicationBuildScript?.value, {
+    buildCommand: applicationBuildCommand,
+    installCommand: applicationInstallCommand,
+    outputDirectory: applicationOutputDirectory,
+    startCommand: applicationStartCommand,
+  });
 
   useEffect(() => {
     setCustomCode(parsedBuildScript);

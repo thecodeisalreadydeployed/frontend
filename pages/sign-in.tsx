@@ -1,30 +1,23 @@
-import { GetServerSideProps } from "next";
-import { BuiltInProviderType } from "next-auth/providers";
-import {
-  ClientSafeProvider,
-  getCsrfToken,
-  getProviders,
-  getSession,
-  LiteralUnion,
-  signIn,
-} from "next-auth/react";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+
+import { useSession } from "contexts";
 
 import { Button } from "@atoms";
 
-interface SignInProps {
-  providers: Record<
-    LiteralUnion<BuiltInProviderType, string>,
-    ClientSafeProvider
-  >;
-}
-const SignIn = (props: SignInProps): JSX.Element => {
-  const { providers } = props;
+const SignIn = (): JSX.Element => {
+  const router = useRouter();
+  const { login, user } = useSession();
 
   const handleSignIn = () => {
-    if (!providers?.google?.id) return;
-
-    signIn(providers.google.id);
+    login();
   };
+
+  useEffect(() => {
+    if (user) {
+      router.push("/");
+    }
+  }, [router, user]);
 
   return (
     <div className="overflow-hidden w-screen h-screen bg-zinc-500">
@@ -43,24 +36,6 @@ const SignIn = (props: SignInProps): JSX.Element => {
       </div>
     </div>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { req } = context;
-  const session = await getSession({ req });
-
-  if (session) {
-    return {
-      redirect: { destination: "/" },
-      props: {},
-    };
-  }
-  return {
-    props: {
-      providers: await getProviders(),
-      csrfToken: await getCsrfToken(),
-    },
-  };
 };
 
 SignIn.auth = false;

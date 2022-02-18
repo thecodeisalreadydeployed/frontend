@@ -121,7 +121,7 @@ export const CreateApplicationModal = (
         createNewApplication({
           branch: applicationBranch,
           buildCommand: applicationBuildCommand,
-          buildScript: applicationBuildScript?.value ?? "",
+          buildScript: customCode,
           installCommand: applicationInstallCommand,
           name: applicationName,
           outputDirectory: applicationOutputDirectory,

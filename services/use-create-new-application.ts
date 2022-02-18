@@ -1,3 +1,4 @@
+import { useSession } from "contexts";
 import { useSWRConfig } from "swr";
 
 import type { CreateAppRequest } from "types/schema";
@@ -18,6 +19,7 @@ export const useCreateNewApplication = (): {
   createNewApplication: typeof createNewApplication;
 } => {
   const { mutate } = useSWRConfig();
+  const { user } = useSession();
 
   const createNewApplication = async (
     parameters: createNewApplicationProps
@@ -46,10 +48,13 @@ export const useCreateNewApplication = (): {
       StartCommand: startCommand,
     };
 
+    const idToken = await user?.getIdToken();
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/apps`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
+        Authorization: "Bearer " + idToken,
       },
       body: JSON.stringify(application),
     });

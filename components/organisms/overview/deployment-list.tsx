@@ -4,28 +4,12 @@ import { useRouter } from "next/router";
 import { formatDistanceToNowStrict, intervalToDuration } from "date-fns";
 import { useGetApplicationDeployments } from "services";
 
-import { DeploymentStatus } from "@atoms";
 import { DeploymentSummaryRow } from "@molecules";
 import { Deployment } from "types/schema";
 
 interface DeploymentListProps {
   applicationId?: string;
 }
-
-const deploymentStatusApiMap = (status: string): DeploymentStatus => {
-  switch (status) {
-    case "DeploymentStateReady":
-      return "ready";
-    case "DeploymentStateError":
-      return "error";
-    case "DeploymentStateBuilding":
-      return "building";
-    case "DeploymentStateQueueing":
-      return "queueing";
-    default:
-      return "error";
-  }
-};
 
 const DeploymentList = (props: DeploymentListProps): JSX.Element => {
   const { applicationId } = props;
@@ -62,7 +46,7 @@ const DeploymentList = (props: DeploymentListProps): JSX.Element => {
                   applicationName={deployment?.gitSource.commitMessage}
                   author={deployment?.gitSource.commitAuthorName}
                   // TODO: - fix edge case where the duration is more than 24 hours
-                  deploymentStatus={deploymentStatusApiMap(deployment.state)}
+                  deploymentStatus={deployment.state}
                   duration={`${
                     buildDuration.hours ? buildDuration.hours + "h" : ""
                   } ${buildDuration.minutes}m ${buildDuration.seconds}s`}

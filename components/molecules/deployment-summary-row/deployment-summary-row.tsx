@@ -1,11 +1,12 @@
-import { DeploymentStatus, DeploymentStatusDot } from "@atoms";
+import { DeploymentStatusDot } from "@atoms";
+import { DeploymentState } from "types/schema";
 
 interface DeploymentSummaryRowProps {
   applicationName: string;
   duration?: string;
   updatedAt?: string;
   author?: string;
-  deploymentStatus?: DeploymentStatus;
+  deploymentStatus?: DeploymentState;
 }
 
 const DeploymentSummaryRow = (
@@ -14,7 +15,7 @@ const DeploymentSummaryRow = (
   const {
     applicationName,
     author,
-    deploymentStatus = "ready",
+    deploymentStatus = DeploymentState.DeploymentStateQueueing,
     duration,
     updatedAt,
   } = props;

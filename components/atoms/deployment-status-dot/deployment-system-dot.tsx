@@ -1,35 +1,39 @@
 import clsx from "clsx";
 
-export type Status = "ready" | "error" | "building" | "queueing";
+import { DeploymentState } from "types/schema";
 
 interface CSSProps {
-  dot: Record<Status, string>;
+  dot: Record<DeploymentState, string>;
 }
 
 const CSS: CSSProps = {
   dot: {
-    building: clsx("bg-yellow-400"),
-    error: clsx("bg-red-400"),
-    queueing: clsx("bg-yellow-400"),
-    ready: clsx("bg-green-400"),
+    [DeploymentState.DeploymentStateQueueing]: clsx("bg-yellow-400"),
+    [DeploymentState.DeploymentStateBuilding]: clsx("bg-yellow-400"),
+    [DeploymentState.DeploymentStateBuildSucceeded]: clsx("bg-blue-400"),
+    [DeploymentState.DeploymentStateCommitted]: clsx("bg-blue-400"),
+    [DeploymentState.DeploymentStateReady]: clsx("bg-green-400"),
+    [DeploymentState.DeploymentStateError]: clsx("bg-red-400"),
   },
 };
 
 interface KProps {
-  label: Record<Status, string>;
+  label: Record<DeploymentState, string>;
 }
 
 const K: KProps = {
   label: {
-    building: "Building",
-    error: "Error",
-    queueing: "Queueing",
-    ready: "Ready",
+    [DeploymentState.DeploymentStateQueueing]: "Queueing",
+    [DeploymentState.DeploymentStateBuilding]: "Building",
+    [DeploymentState.DeploymentStateBuildSucceeded]: "Build Succeeded",
+    [DeploymentState.DeploymentStateCommitted]: "Committed",
+    [DeploymentState.DeploymentStateReady]: "Ready",
+    [DeploymentState.DeploymentStateError]: "Error",
   },
 };
 
 interface DeploymentStatusDotProps {
-  status: Status;
+  status: DeploymentState;
 }
 
 const DeploymentStatusDot = (props: DeploymentStatusDotProps): JSX.Element => {

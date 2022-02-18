@@ -26,7 +26,7 @@ export interface BuildConfiguration {
 export enum DeploymentState {
   DeploymentStateQueueing = "DeploymentStateQueueing",
   DeploymentStateBuilding = "DeploymentStateBuilding",
-  DeploymentStateBuildSucceede = "DeploymentStateBuildSucceeded",
+  DeploymentStateBuildSucceeded = "DeploymentStateBuildSucceeded",
   DeploymentStateCommitted = "DeploymentStateCommitted",
   DeploymentStateReady = "DeploymentStateReady",
   DeploymentStateError = "DeploymentStateError",

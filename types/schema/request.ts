@@ -1,15 +1,11 @@
 import type { EventType } from "./model";
 
 export interface CreateAppRequest {
-  ProjectID: string;
-  Name: string;
-  RepositoryURL: string;
-  BuildScript: string;
-  InstallCommand: string;
-  BuildCommand: string;
-  OutputDirectory: string;
-  StartCommand: string;
-  Branch: string;
+  projectID: string;
+  name: string;
+  repositoryURL: string;
+  buildScript: string;
+  branch: string;
 }
 
 export interface ValidateBuildScriptRequest {

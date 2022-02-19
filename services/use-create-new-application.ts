@@ -5,13 +5,9 @@ import type { CreateAppRequest } from "types/schema";
 
 interface createNewApplicationProps {
   branch: string;
-  buildCommand: string;
-  installCommand: string;
   name: string;
-  outputDirectory: string;
   projectId: string;
   repositoryURL: string;
-  startCommand: string;
   buildScript: string;
 }
 
@@ -24,28 +20,14 @@ export const useCreateNewApplication = (): {
   const createNewApplication = async (
     parameters: createNewApplicationProps
   ) => {
-    const {
-      branch,
-      buildCommand,
-      buildScript,
-      installCommand,
-      name,
-      outputDirectory,
-      projectId,
-      repositoryURL,
-      startCommand,
-    } = parameters;
+    const { branch, buildScript, name, projectId, repositoryURL } = parameters;
 
     const application: CreateAppRequest = {
-      Branch: branch,
-      BuildCommand: buildCommand,
-      BuildScript: buildScript,
-      InstallCommand: installCommand,
-      Name: name,
-      OutputDirectory: outputDirectory,
-      ProjectID: projectId,
-      RepositoryURL: repositoryURL,
-      StartCommand: startCommand,
+      branch: branch,
+      buildScript: buildScript,
+      name: name,
+      projectID: projectId,
+      repositoryURL: repositoryURL,
     };
 
     const idToken = await user?.getIdToken();

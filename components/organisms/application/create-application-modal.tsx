@@ -120,14 +120,10 @@ export const CreateApplicationModal = (
       case BUTTON_ID.NEXT:
         createNewApplication({
           branch: applicationBranch,
-          buildCommand: applicationBuildCommand,
           buildScript: customCode,
-          installCommand: applicationInstallCommand,
           name: applicationName,
-          outputDirectory: applicationOutputDirectory,
           projectId: projectId,
           repositoryURL: applicationRepoUrl,
-          startCommand: applicationStartCommand,
         });
         closeModal();
         resetInput();

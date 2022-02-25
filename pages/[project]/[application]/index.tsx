@@ -40,7 +40,11 @@ const Overview = (): JSX.Element => {
         </div>
         <div className="flex space-x-2">
           <Button onClick={handleOnClickDeploy}>Deploy</Button>
-          <a href="https://www.google.com" rel="noreferrer" target="_blank">
+          <a
+            href={`https://${applicationId}.svc.deploys.dev`}
+            rel="noreferrer"
+            target="_blank"
+          >
             <Button>
               <p>Open Application</p>
               <ExternalLinkIcon className="ml-1 w-4 h-4" />

@@ -1,3 +1,5 @@
+import clsx from "clsx";
+
 import { DeploymentStatusDot } from "@atoms";
 import { DeploymentState } from "types/schema";
 
@@ -30,7 +32,15 @@ const DeploymentSummaryRow = (
       </div>
       <div className="flex flex-col justify-between h-10">
         <DeploymentStatusDot status={deploymentStatus} />
-        <p className="text-sm line-clamp-1">{duration}</p>
+        <p
+          className={clsx(
+            "text-sm truncate",
+            deploymentStatus === DeploymentState.DeploymentStateQueueing &&
+              "hidden"
+          )}
+        >
+          {duration}
+        </p>
       </div>
       <div className="col-span-2 text-right">
         <p className="text-sm line-clamp-1">

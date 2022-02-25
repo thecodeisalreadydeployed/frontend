@@ -5,22 +5,6 @@ type Color = "primary" | "danger";
 type Size = "sm" | "md" | "lg";
 type Type = "outline" | "solid";
 
-// const SIZE_MAPS: Record<Size, string> = {
-//   sm: clsx("py-1.5 text-sm"),
-//   md: clsx("py-2.5 text-sm"),
-//   lg: clsx("py-3 text-base"),
-// };
-
-// const COLOR_MAPS: Record<Color, string> = {
-//   primary: clsx(
-//     "text-zinc-800 hover:text-zinc-100 bg-zinc-100 hover:bg-zinc-800 border-zinc-100"
-//   ),
-//   secondary: clsx(
-//     "text-zinc-100 bg-zinc-800 border-zinc-800 hover:border-zinc-100"
-//   ),
-//   danger: clsx("text-zinc-200 bg-red-700 border-red-700 hover:border-red-100"),
-// };
-
 interface CSSProps {
   button: {
     typeColorMap: Record<`${Type}_${Color}`, string>;

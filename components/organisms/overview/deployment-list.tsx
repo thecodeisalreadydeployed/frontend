@@ -25,13 +25,13 @@ const DeploymentList = (props: DeploymentListProps): JSX.Element => {
           ?.slice()
           .reverse()
           .map((deployment: Deployment) => {
-            const builtDate = new Date(deployment.builtAt);
+            // const builtDate = new Date(deployment.builtAt);
             const updatedDate = new Date(deployment.updatedAt);
             const createdDate = new Date(deployment.createdAt);
 
             const buildDuration = intervalToDuration({
-              start: builtDate,
-              end: createdDate,
+              start: createdDate,
+              end: updatedDate,
             });
 
             const updatedToNow = formatDistanceToNowStrict(updatedDate);

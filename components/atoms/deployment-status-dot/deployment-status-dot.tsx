@@ -41,7 +41,14 @@ const DeploymentStatusDot = (props: DeploymentStatusDotProps): JSX.Element => {
 
   return (
     <div className="inline-flex items-center space-x-2">
-      <div className={clsx("w-2.5 h-2.5 rounded-full", CSS.dot[status])} />
+      <div
+        className={clsx(
+          "w-2.5 h-2.5 rounded-full",
+          CSS.dot[status],
+          status === DeploymentState.DeploymentStateQueueing && "animate-pulse",
+          status === DeploymentState.DeploymentStateBuilding && "animate-pulse"
+        )}
+      />
       <p className="text-sm text-zinc-200">{K.label[status]}</p>
     </div>
   );

@@ -6,5 +6,6 @@ export * from "./use-get-application";
 export * from "./use-get-application-deployments";
 export * from "./use-get-deployment";
 export * from "./use-get-deployment-events";
+export * from "./use-get-project";
 export * from "./use-get-project-applications";
 export * from "./use-get-projects";

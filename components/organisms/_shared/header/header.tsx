@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 
 import { useSession } from "contexts";
-import useSWR from "swr";
+import { useGetApplication, useGetProject } from "services";
 
 import { Button, GithubLogo } from "@atoms";
 import { NavBreadcrumb } from "@molecules";
@@ -12,12 +12,12 @@ export const Header = (): JSX.Element => {
 
   const { application: applicationId, project: projectId } = router.query;
 
-  const { data: project } = useSWR(
-    projectId ? `http://localhost:3001/projects/${projectId}` : null
+  const { project } = useGetProject(
+    typeof projectId === "string" ? projectId : ""
   );
 
-  const { data: application } = useSWR(
-    applicationId ? `http://localhost:3001/apps/${applicationId}` : null
+  const { application } = useGetApplication(
+    typeof applicationId === "string" ? applicationId : ""
   );
 
   const handleLogout = () => {

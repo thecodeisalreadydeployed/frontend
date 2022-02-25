@@ -16,46 +16,46 @@ const DeploymentList = (props: DeploymentListProps): JSX.Element => {
   const router = useRouter();
 
   const { deployments } = useGetApplicationDeployments(applicationId);
+  console.log(deployments);
 
   return (
     <div>
-      <h2 className="text-2xl font-bold">Deployments</h2>
-      <p className="mt-3.5 mb-6 text-sm text-zinc-400">
-        Deployments that are currently being worked on.
-      </p>
       <div className="overflow-hidden rounded-lg border border-zinc-600 divide-y divide-zinc-600">
-        {deployments?.map((deployment: Deployment) => {
-          const builtDate = new Date(deployment.builtAt);
-          const updatedDate = new Date(deployment.updatedAt);
-          const createdDate = new Date(deployment.createdAt);
+        {deployments
+          ?.slice()
+          .reverse()
+          .map((deployment: Deployment) => {
+            const builtDate = new Date(deployment.builtAt);
+            const updatedDate = new Date(deployment.updatedAt);
+            const createdDate = new Date(deployment.createdAt);
 
-          const buildDuration = intervalToDuration({
-            start: builtDate,
-            end: createdDate,
-          });
+            const buildDuration = intervalToDuration({
+              start: builtDate,
+              end: createdDate,
+            });
 
-          const updatedToNow = formatDistanceToNowStrict(updatedDate);
+            const updatedToNow = formatDistanceToNowStrict(updatedDate);
 
-          return (
-            <Link
-              key={deployment?.id}
-              href={`${router.asPath}/${deployment.id}`}
-            >
-              <a>
-                <DeploymentSummaryRow
-                  applicationName={deployment?.gitSource.commitMessage}
-                  author={deployment?.gitSource.commitAuthorName}
-                  // TODO: - fix edge case where the duration is more than 24 hours
-                  deploymentStatus={deployment.state}
-                  duration={`${
-                    buildDuration.hours ? buildDuration.hours + "h" : ""
-                  } ${buildDuration.minutes}m ${buildDuration.seconds}s`}
-                  updatedAt={updatedToNow}
-                />
-              </a>
-            </Link>
-          );
-        })}
+            return (
+              <Link
+                key={deployment?.id}
+                href={`${router.asPath}/${deployment.id}`}
+              >
+                <a>
+                  <DeploymentSummaryRow
+                    applicationName={deployment?.gitSource.commitMessage}
+                    author={deployment?.gitSource.commitAuthorName}
+                    // TODO: - fix edge case where the duration is more than 24 hours
+                    deploymentStatus={deployment.state}
+                    duration={`${
+                      buildDuration.hours ? buildDuration.hours + "h" : ""
+                    } ${buildDuration.minutes}m ${buildDuration.seconds}s`}
+                    updatedAt={updatedToNow}
+                  />
+                </a>
+              </Link>
+            );
+          })}
       </div>
     </div>
   );

@@ -19,10 +19,6 @@ const DeploymentList = (props: DeploymentListProps): JSX.Element => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold">Deployments</h2>
-      <p className="mt-3.5 mb-6 text-sm text-zinc-400">
-        Deployments that are currently being worked on.
-      </p>
       <div className="overflow-hidden rounded-lg border border-zinc-600 divide-y divide-zinc-600">
         {deployments?.map((deployment: Deployment) => {
           const builtDate = new Date(deployment.builtAt);

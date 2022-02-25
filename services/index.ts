@@ -2,6 +2,7 @@ export * from "./use-create-new-application";
 export * from "./use-create-new-project";
 export * from "./use-delete-application";
 export * from "./use-delete-project";
+export * from "./use-deploy-application";
 export * from "./use-get-application";
 export * from "./use-get-application-deployments";
 export * from "./use-get-deployment";

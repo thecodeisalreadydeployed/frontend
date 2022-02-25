@@ -1,6 +1,10 @@
 import { useRouter } from "next/router";
 
-import { useDeleteApplication, useGetApplication } from "services";
+import {
+  useDeleteApplication,
+  useDeployApplication,
+  useGetApplication,
+} from "services";
 
 import { Button, PageTitle, Sidebar, Tab } from "@atoms";
 import { DeploymentList } from "@organisms";
@@ -16,8 +20,27 @@ const Overview = (): JSX.Element => {
 
   const { deleteApplication } = useDeleteApplication();
 
+  const { deployApplication } = useDeployApplication();
+
+  const handleOnClickDeploy = () => {
+    if (application?.id) {
+      deployApplication(application.id);
+    }
+  };
+
   const OverviewView = (
     <div>
+      <div className="flex justify-between items-end mb-6">
+        <div>
+          <h2 className="text-2xl font-bold">Deployments</h2>
+          <p className="mt-3.5 text-sm text-zinc-400">
+            Deployments that are currently being worked on.
+          </p>
+        </div>
+        <div>
+          <Button onClick={handleOnClickDeploy}>Deploy</Button>
+        </div>
+      </div>
       <DeploymentList applicationId={application?.id} />
     </div>
   );

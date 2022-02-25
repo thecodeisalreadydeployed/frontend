@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 
+import { ExternalLinkIcon } from "@heroicons/react/outline";
 import {
   useDeleteApplication,
   useDeployApplication,
@@ -37,8 +38,14 @@ const Overview = (): JSX.Element => {
             Deployments that are currently being worked on.
           </p>
         </div>
-        <div>
+        <div className="flex space-x-2">
           <Button onClick={handleOnClickDeploy}>Deploy</Button>
+          <a href="https://www.google.com" rel="noreferrer" target="_blank">
+            <Button>
+              <p>Open Application</p>
+              <ExternalLinkIcon className="ml-1 w-4 h-4" />
+            </Button>
+          </a>
         </div>
       </div>
       <DeploymentList applicationId={application?.id} />

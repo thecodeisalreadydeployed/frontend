@@ -16,22 +16,24 @@ const DeploymentList = (props: DeploymentListProps): JSX.Element => {
   const router = useRouter();
 
   const { deployments } = useGetApplicationDeployments(applicationId);
-  console.log(deployments);
 
   return (
     <div>
       <div className="overflow-hidden rounded-lg border border-zinc-600 divide-y divide-zinc-600">
         {deployments
-          ?.slice()
-          .reverse()
+          ?.sort((a, b) => {
+            return (
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+            );
+          })
           .map((deployment: Deployment) => {
-            // const builtDate = new Date(deployment.builtAt);
+            const builtDate = new Date(deployment.builtAt);
             const updatedDate = new Date(deployment.updatedAt);
             const createdDate = new Date(deployment.createdAt);
 
             const buildDuration = intervalToDuration({
               start: createdDate,
-              end: updatedDate,
+              end: builtDate,
             });
 
             const updatedToNow = formatDistanceToNowStrict(updatedDate);

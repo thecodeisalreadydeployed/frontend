@@ -11,7 +11,8 @@ export const useGetApplicationDeployments = (
 } => {
   const { data, error, isValidating } = useSWR<Deployment[]>(
     applicationId &&
-      `${process.env.NEXT_PUBLIC_HOST}/apps/${applicationId}/deployments`
+      `${process.env.NEXT_PUBLIC_HOST}/apps/${applicationId}/deployments`,
+    { refreshInterval: 1000 }
   );
 
   return {

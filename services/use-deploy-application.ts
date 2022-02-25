@@ -19,8 +19,6 @@ export const useDeployApplication = (): {
         },
       }
     );
-
-    // mutate(`${process.env.NEXT_PUBLIC_HOST}/${projectId}/${applicationId}`);
     mutate(`${process.env.NEXT_PUBLIC_HOST}/apps/${applicationId}/deployments`);
 
     return response;

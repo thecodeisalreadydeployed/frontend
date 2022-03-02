@@ -10,6 +10,7 @@ import {
 import { Button, PageTitle, Sidebar, Tab } from "@atoms";
 import { DeploymentList } from "@organisms";
 import { HeaderLayout } from "@templates";
+import Link from "next/link";
 
 const Overview = (): JSX.Element => {
   const router = useRouter();
@@ -40,16 +41,14 @@ const Overview = (): JSX.Element => {
         </div>
         <div className="flex space-x-2">
           <Button onClick={handleOnClickDeploy}>Deploy</Button>
-          <a
-            href={`https://${applicationId}.svc.deploys.dev`}
-            rel="noreferrer"
-            target="_blank"
-          >
-            <Button>
-              <p>Open Application</p>
-              <ExternalLinkIcon className="ml-1 w-4 h-4" />
-            </Button>
-          </a>
+          <Link href={`https://${applicationId}.svc.deploys.dev`}>
+            <a rel="noreferrer" target="_blank">
+              <Button>
+                <p>Open Application</p>
+                <ExternalLinkIcon className="ml-1 w-4 h-4" />
+              </Button>
+            </a>
+          </Link>
         </div>
       </div>
       <DeploymentList applicationId={application?.id} />

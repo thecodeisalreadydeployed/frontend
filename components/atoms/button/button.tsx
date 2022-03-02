@@ -44,12 +44,14 @@ interface ButtonProps {
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
   size?: Size;
   type?: Type;
+  disabled?: boolean;
 }
 
 export const Button = (props: ButtonProps): JSX.Element => {
   const {
     children,
     color = "primary",
+    disabled = false,
     fullWidth = false,
     id,
     onClick,
@@ -65,6 +67,7 @@ export const Button = (props: ButtonProps): JSX.Element => {
         CSS.button.sizeMap[size],
         fullWidth && "w-full"
       )}
+      disabled={disabled}
       id={id}
       onClick={onClick}
     >

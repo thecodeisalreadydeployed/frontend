@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { mapDeploymentStateTitle } from "utils";
 
 import { DeploymentState } from "types/schema";
 
@@ -14,21 +15,6 @@ const CSS: CSSProps = {
     [DeploymentState.DeploymentStateCommitted]: clsx("bg-blue-400"),
     [DeploymentState.DeploymentStateReady]: clsx("bg-green-400"),
     [DeploymentState.DeploymentStateError]: clsx("bg-red-400"),
-  },
-};
-
-interface KProps {
-  label: Record<DeploymentState, string>;
-}
-
-const K: KProps = {
-  label: {
-    [DeploymentState.DeploymentStateQueueing]: "Queueing",
-    [DeploymentState.DeploymentStateBuilding]: "Building",
-    [DeploymentState.DeploymentStateBuildSucceeded]: "Build Succeeded",
-    [DeploymentState.DeploymentStateCommitted]: "Committed",
-    [DeploymentState.DeploymentStateReady]: "Ready",
-    [DeploymentState.DeploymentStateError]: "Error",
   },
 };
 
@@ -49,7 +35,7 @@ const DeploymentStatusDot = (props: DeploymentStatusDotProps): JSX.Element => {
           status === DeploymentState.DeploymentStateBuilding && "animate-pulse"
         )}
       />
-      <p className="text-sm text-zinc-200">{K.label[status]}</p>
+      <p className="text-sm text-zinc-200">{mapDeploymentStateTitle(status)}</p>
     </div>
   );
 };

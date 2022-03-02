@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
+import { ExternalLinkIcon } from "@heroicons/react/outline";
 import { ChevronDoubleDownIcon } from "@heroicons/react/solid";
 import clsx from "clsx";
 import format from "date-fns/format";
@@ -44,20 +46,20 @@ const Deployment = (): JSX.Element => {
     <div>
       <h2 className="text-2xl font-bold">Deployment Status</h2>
       <div ref={codeDivRef} className=" mt-4 text-sm bg-zinc-900 rounded">
-        <div className="flex sticky top-0 justify-between items-center px-4 h-16 bg-zinc-700 rounded-t">
+        <div className="flex sticky top-0 justify-between items-center px-4 h-14 bg-zinc-700 rounded-t">
           <p className="text-lg font-bold">
             {deployment?.state && mapDeploymentStateTitle(deployment?.state)}
           </p>
           <div className="flex items-center space-x-2">
             {deployment?.state === DeploymentState.DeploymentStateReady && (
-              <Button
-                size="sm"
-                onClick={() =>
-                  router.push(`https://${deployment?.appID}.svc.deploys.dev`)
-                }
-              >
-                Open
-              </Button>
+              <Link href={`https://${deployment.appID}.svc.deploys.dev`}>
+                <a rel="noreferrer" target="_blank">
+                  <Button size="sm">
+                    <p>Open</p>
+                    <ExternalLinkIcon className="ml-1 w-4 h-4" />
+                  </Button>
+                </a>
+              </Link>
             )}
 
             <Button

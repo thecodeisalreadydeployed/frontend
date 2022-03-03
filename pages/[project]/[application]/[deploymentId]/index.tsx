@@ -10,7 +10,7 @@ import { useScroll } from "hooks";
 import { useGetDeployment, useGetDeploymentEvents } from "services";
 import { mapDeploymentStateTitle } from "utils";
 
-import { Button, PageTitle, Sidebar, Tab } from "@atoms";
+import { AlienLoadingSplash, Button, PageTitle, Sidebar, Tab } from "@atoms";
 import { HeaderLayout } from "@templates";
 import { DeploymentState } from "types/schema";
 
@@ -77,33 +77,40 @@ const Deployment = (): JSX.Element => {
             </Button>
           </div>
         </div>
-        <code className="font-mono whitespace-pre-wrap">
-          {events?.map((event) => {
-            const [hms, ms] = format(
-              new Date(event.exportedAt),
-              "HH:mm:ss.SSS"
-            ).split(".");
+        {events && events.length > 0 ? (
+          <code className="font-mono whitespace-pre-wrap">
+            {events?.map((event) => {
+              const [hms, ms] = format(
+                new Date(event.exportedAt),
+                "HH:mm:ss.SSS"
+              ).split(".");
 
-            return (
-              <div
-                key={event.id}
-                className="flex gap-x-4 py-1 px-4 hover:bg-zinc-800/50"
-              >
-                <span className="shrink-0">
-                  <span>{hms}</span>.<span className="text-zinc-400">{ms}</span>
-                </span>
-                <span
-                  className={clsx(
-                    event.text.toLocaleLowerCase().includes("error") &&
-                      "text-red-400"
-                  )}
+              return (
+                <div
+                  key={event.id}
+                  className="flex gap-x-4 py-1 px-4 hover:bg-zinc-800/50"
                 >
-                  {event.text}
-                </span>
-              </div>
-            );
-          })}
-        </code>
+                  <span className="shrink-0">
+                    <span>{hms}</span>.
+                    <span className="text-zinc-400">{ms}</span>
+                  </span>
+                  <span
+                    className={clsx(
+                      event.text.toLocaleLowerCase().includes("error") &&
+                        "text-red-400"
+                    )}
+                  >
+                    {event.text}
+                  </span>
+                </div>
+              );
+            })}
+          </code>
+        ) : (
+          <div className="p-6 h-[20rem]">
+            <AlienLoadingSplash className="w-full h-full" />
+          </div>
+        )}
       </div>
     </div>
   );

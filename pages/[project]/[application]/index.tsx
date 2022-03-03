@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { ExternalLinkIcon } from "@heroicons/react/outline";
@@ -10,7 +11,6 @@ import {
 import { Button, PageTitle, Sidebar, Tab } from "@atoms";
 import { DeploymentList } from "@organisms";
 import { HeaderLayout } from "@templates";
-import Link from "next/link";
 
 const Overview = (): JSX.Element => {
   const router = useRouter();

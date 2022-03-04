@@ -21,11 +21,13 @@ const Deployment = (): JSX.Element => {
   const codeDivRef = useRef<HTMLDivElement>(null);
   const shouldAutoScroll = useRef(false);
 
-  const { deployment, mutateDeployment } = useGetDeployment(
-    typeof deploymentId === "string" ? deploymentId : undefined
+  const { deployment } = useGetDeployment(
+    typeof deploymentId === "string" ? deploymentId : undefined,
+    { refreshInterval: 1000 }
   );
   const { events } = useGetDeploymentEvents(
-    typeof deploymentId === "string" ? deploymentId : undefined
+    typeof deploymentId === "string" ? deploymentId : undefined,
+    { refreshInterval: 1000 }
   );
 
   const scroll = useScroll();
@@ -40,8 +42,7 @@ const Deployment = (): JSX.Element => {
     if (codeDivRef.current && shouldAutoScroll.current === true) {
       codeDivRef.current.scrollIntoView({ block: "end" });
     }
-    mutateDeployment();
-  }, [events, mutateDeployment]);
+  }, [events]);
 
   const OverviewView = (
     <div>

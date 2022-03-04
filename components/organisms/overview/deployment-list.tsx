@@ -15,7 +15,9 @@ const DeploymentList = (props: DeploymentListProps): JSX.Element => {
   const { applicationId } = props;
   const router = useRouter();
 
-  const { deployments } = useGetApplicationDeployments(applicationId);
+  const { deployments } = useGetApplicationDeployments(applicationId, {
+    refreshInterval: 1000,
+  });
 
   return (
     <div>

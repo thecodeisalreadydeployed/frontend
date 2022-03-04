@@ -1,9 +1,10 @@
-import useSWR, { KeyedMutator } from "swr";
+import useSWR, { KeyedMutator, SWRConfiguration } from "swr";
 
 import type { Event } from "types/schema";
 
 export const useGetDeploymentEvents = (
-  deploymentId: string | undefined
+  deploymentId: string | undefined,
+  config?: SWRConfiguration
 ): {
   events: Event[] | undefined;
   getEventsError: unknown;
@@ -13,7 +14,7 @@ export const useGetDeploymentEvents = (
   const { data, error, isValidating, mutate } = useSWR<Event[]>(
     deploymentId &&
       `${process.env.NEXT_PUBLIC_HOST}/deployments/${deploymentId}/events`,
-    { refreshInterval: 1000 }
+    config
   );
 
   return {

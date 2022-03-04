@@ -15,17 +15,17 @@ export const Sidebar = (props: SidebarProps): JSX.Element => {
       as="div"
       className="flex gap-x-6 text-base font-normal text-zinc-200"
     >
-      <Tab.List className="flex flex-col space-y-1 w-1/4">
+      <Tab.List className="flex w-1/4 flex-col space-y-1">
         {menus.map((menu, index) => {
           return (
             <Tab
               key={`menu-name-${index}-${menu.name.toLocaleLowerCase()}`}
               className={({ selected }) =>
                 clsx(
-                  "py-2.5 px-4 text-sm font-bold leading-5 text-left rounded-lg outline-none",
+                  "rounded-lg py-2.5 px-4 text-left text-sm font-bold leading-5 outline-none",
                   selected
                     ? "bg-zinc-600 shadow"
-                    : "text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.12]"
+                    : "text-zinc-400 hover:bg-white/[0.12] hover:text-zinc-200"
                 )
               }
             >

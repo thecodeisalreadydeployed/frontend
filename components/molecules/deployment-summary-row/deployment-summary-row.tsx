@@ -23,18 +23,18 @@ const DeploymentSummaryRow = (
   } = props;
 
   return (
-    <div className="grid grid-cols-4 items-center p-4 bg-zinc-800 hover:bg-zinc-700 cursor-pointer">
+    <div className="grid cursor-pointer grid-cols-4 items-center bg-zinc-800 p-4 hover:bg-zinc-700">
       <div className="h-10">
-        <p className="text-sm font-bold truncate cursor-pointer line-clamp-1">
+        <p className="cursor-pointer truncate text-sm font-bold line-clamp-1">
           {applicationName}
         </p>
         <p className="text-sm line-clamp-1">Preview</p>
       </div>
-      <div className="flex flex-col justify-between h-10">
+      <div className="flex h-10 flex-col justify-between">
         <DeploymentStatusDot status={deploymentStatus} />
         <p
           className={clsx(
-            "text-sm truncate",
+            "truncate text-sm",
             deploymentStatus === DeploymentState.DeploymentStateQueueing &&
               "hidden"
           )}

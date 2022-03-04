@@ -45,8 +45,8 @@ const Deployment = (): JSX.Element => {
   const OverviewView = (
     <div>
       <h2 className="text-2xl font-bold">Deployment Status</h2>
-      <div ref={codeDivRef} className=" mt-4 text-sm bg-zinc-900 rounded">
-        <div className="flex sticky top-0 justify-between items-center px-4 h-14 bg-zinc-700 rounded-t">
+      <div ref={codeDivRef} className=" mt-4 rounded bg-zinc-900 text-sm">
+        <div className="sticky top-0 flex h-14 items-center justify-between rounded-t bg-zinc-700 px-4">
           <p className="text-lg font-bold">
             {deployment?.state && mapDeploymentStateTitle(deployment?.state)}
           </p>
@@ -56,7 +56,7 @@ const Deployment = (): JSX.Element => {
                 <a rel="noreferrer" target="_blank">
                   <Button size="sm">
                     <p>Open</p>
-                    <ExternalLinkIcon className="ml-1 w-4 h-4" />
+                    <ExternalLinkIcon className="ml-1 h-4 w-4" />
                   </Button>
                 </a>
               </Link>
@@ -73,12 +73,12 @@ const Deployment = (): JSX.Element => {
                 shouldAutoScroll.current = true;
               }}
             >
-              <ChevronDoubleDownIcon className="w-6 h-6" />
+              <ChevronDoubleDownIcon className="h-6 w-6" />
             </Button>
           </div>
         </div>
         {events && events.length > 0 ? (
-          <code className="font-mono whitespace-pre-wrap">
+          <code className="whitespace-pre-wrap font-mono">
             {events?.map((event) => {
               const [hms, ms] = format(
                 new Date(event.exportedAt),
@@ -107,8 +107,8 @@ const Deployment = (): JSX.Element => {
             })}
           </code>
         ) : (
-          <div className="p-6 h-[20rem]">
-            <AlienLoadingSplash className="w-full h-full" />
+          <div className="h-[20rem] p-6">
+            <AlienLoadingSplash className="h-full w-full" />
           </div>
         )}
       </div>

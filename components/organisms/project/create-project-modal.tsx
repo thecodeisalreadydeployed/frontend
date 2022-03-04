@@ -64,7 +64,7 @@ export const CreateProjectModal = (
       <div className="w-screen max-w-[28rem] text-base font-normal text-zinc-200">
         <div className="p-6">
           <p className="mb-6 font-bold">New Project</p>
-          <label className="block mb-1 text-sm" htmlFor={INPUT_ID.PRJ_NAME}>
+          <label className="mb-1 block text-sm" htmlFor={INPUT_ID.PRJ_NAME}>
             Name
           </label>
           <Input
@@ -75,7 +75,7 @@ export const CreateProjectModal = (
           />
         </div>
 
-        <div className="flex gap-x-6 justify-end py-4 px-6">
+        <div className="flex justify-end gap-x-6 py-4 px-6">
           <Button
             fullWidth
             id={BUTTON_ID.CANCEL}

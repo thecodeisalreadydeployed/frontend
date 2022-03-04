@@ -32,7 +32,7 @@ const Overview = (): JSX.Element => {
 
   const OverviewView = (
     <div>
-      <div className="flex justify-between items-end mb-6">
+      <div className="mb-6 flex items-end justify-between">
         <div>
           <h2 className="text-2xl font-bold">Deployments</h2>
           <p className="mt-3.5 text-sm text-zinc-400">
@@ -45,7 +45,7 @@ const Overview = (): JSX.Element => {
             <a rel="noreferrer" target="_blank">
               <Button>
                 <p>Open Application</p>
-                <ExternalLinkIcon className="ml-1 w-4 h-4" />
+                <ExternalLinkIcon className="ml-1 h-4 w-4" />
               </Button>
             </a>
           </Link>

@@ -29,7 +29,7 @@ const DeploymentStatusDot = (props: DeploymentStatusDotProps): JSX.Element => {
     <div className="inline-flex items-center space-x-2">
       <div
         className={clsx(
-          "w-2.5 h-2.5 rounded-full",
+          "h-2.5 w-2.5 rounded-full",
           CSS.dot[status],
           status === DeploymentState.DeploymentStateQueueing && "animate-pulse",
           status === DeploymentState.DeploymentStateBuilding && "animate-pulse"

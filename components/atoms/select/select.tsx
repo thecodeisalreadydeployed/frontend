@@ -66,7 +66,7 @@ export const Select = <T,>(props: SelectProps<T>): JSX.Element => {
       >
         <Listbox.Button
           className={clsx(
-            "relative pr-10 pl-3 w-full text-left bg-zinc-800 disabled:bg-zinc-700 rounded-lg border border-zinc-600 outline-none cursor-pointer disabled:cursor-not-allowed",
+            "relative w-full cursor-pointer rounded-lg border border-zinc-600 bg-zinc-800 pr-10 pl-3 text-left outline-none disabled:cursor-not-allowed disabled:bg-zinc-700",
             CSS.listBoxButton[size]
           )}
         >
@@ -82,10 +82,10 @@ export const Select = <T,>(props: SelectProps<T>): JSX.Element => {
           >
             {value?.name ?? placeholder}
           </span>
-          <span className="flex absolute inset-y-0 right-0 items-center pr-2 pointer-events-none">
+          <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
             <SelectorIcon
               aria-hidden="true"
-              className="w-5 h-5 text-zinc-400"
+              className="h-5 w-5 text-zinc-400"
             />
           </span>
         </Listbox.Button>
@@ -95,14 +95,14 @@ export const Select = <T,>(props: SelectProps<T>): JSX.Element => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Listbox.Options className="overflow-auto absolute py-1 mt-1 w-full max-h-40 bg-zinc-800 rounded-md border border-zinc-600 outline-none shadow-lg">
+          <Listbox.Options className="absolute mt-1 max-h-40 w-full overflow-auto rounded-md border border-zinc-600 bg-zinc-800 py-1 shadow-lg outline-none">
             {selectOptions?.map((option, optionIdx) => (
               <Listbox.Option
                 key={optionIdx}
                 className={({ active }) =>
                   clsx(
-                    "relative py-2 pr-4 pl-10 outline-none cursor-pointer select-none",
-                    active ? "text-zinc-100 bg-zinc-600" : "text-zinc-200"
+                    "relative cursor-pointer select-none py-2 pr-4 pl-10 outline-none",
+                    active ? "bg-zinc-600 text-zinc-100" : "text-zinc-200"
                   )
                 }
                 value={option.id}
@@ -118,8 +118,8 @@ export const Select = <T,>(props: SelectProps<T>): JSX.Element => {
                       {option.name}
                     </span>
                     {selected && (
-                      <span className="flex absolute inset-y-0 left-0 items-center pl-3 text-zinc-400">
-                        <CheckIcon aria-hidden="true" className="w-5 h-5" />
+                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-zinc-400">
+                        <CheckIcon aria-hidden="true" className="h-5 w-5" />
                       </span>
                     )}
                   </>

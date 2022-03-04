@@ -16,10 +16,10 @@ export const Modal = (props: ModalProps): JSX.Element => {
     <Transition appear as={Fragment} show={isOpen}>
       <Dialog
         as="div"
-        className="overflow-y-auto fixed inset-0 z-10"
+        className="fixed inset-0 z-10 overflow-y-auto"
         onClose={closeModal}
       >
-        <div className="px-4 min-h-screen text-center">
+        <div className="min-h-screen px-4 text-center">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -40,7 +40,7 @@ export const Modal = (props: ModalProps): JSX.Element => {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div className="overflow-hidden fixed top-1/2 left-1/2 p-1 text-left align-middle bg-zinc-800 rounded-2xl shadow-xl transition-all -translate-x-1/2 -translate-y-1/2">
+            <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-zinc-800 p-1 text-left align-middle shadow-xl transition-all">
               {children}
             </div>
           </Transition.Child>

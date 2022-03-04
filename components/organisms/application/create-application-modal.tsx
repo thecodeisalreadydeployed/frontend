@@ -152,19 +152,19 @@ export const CreateApplicationModal = (
         setCustomCode("");
       }}
     >
-      <div className="flex overflow-hidden flex-col w-screen max-w-[56rem] h-screen max-h-[30rem] text-base font-normal text-zinc-200">
-        <div className="flex flex-col p-6 min-h-0">
+      <div className="flex h-screen max-h-[30rem] w-screen max-w-[56rem] flex-col overflow-hidden text-base font-normal text-zinc-200">
+        <div className="flex min-h-0 flex-col p-6">
           <p className="mb-6 font-bold">New Application</p>
           <div
             className={clsx(
-              "grid relative gap-x-6 min-h-0",
+              "relative grid min-h-0 gap-x-6",
               lockInput ? "grid-cols-3" : "grid-cols-2"
             )}
           >
-            <div className="overflow-y-scroll space-y-3 hide-scrollbar">
+            <div className="hide-scrollbar space-y-3 overflow-y-scroll">
               <div>
                 <label
-                  className="block mb-1 text-sm"
+                  className="mb-1 block text-sm"
                   htmlFor={INPUT_ID.APP_NAME}
                 >
                   Name
@@ -178,7 +178,7 @@ export const CreateApplicationModal = (
               </div>
               <div>
                 <label
-                  className="block mb-1 text-sm"
+                  className="mb-1 block text-sm"
                   htmlFor={INPUT_ID.REPO_URL}
                 >
                   Repository Url
@@ -191,7 +191,7 @@ export const CreateApplicationModal = (
                 />
               </div>
               <div>
-                <label className="block mb-1 text-sm" htmlFor={INPUT_ID.BRANCH}>
+                <label className="mb-1 block text-sm" htmlFor={INPUT_ID.BRANCH}>
                   Branch
                 </label>
                 <Input
@@ -203,7 +203,7 @@ export const CreateApplicationModal = (
               </div>
               <div>
                 <label
-                  className="block mb-1 text-sm"
+                  className="mb-1 block text-sm"
                   htmlFor={INPUT_ID.BUILD_SCRIPT}
                 >
                   Build Script
@@ -219,7 +219,7 @@ export const CreateApplicationModal = (
               </div>
               <div>
                 <label
-                  className="block mb-1 text-sm"
+                  className="mb-1 block text-sm"
                   htmlFor={INPUT_ID.OUTPUT_DIR}
                 >
                   Output Directory
@@ -234,7 +234,7 @@ export const CreateApplicationModal = (
               </div>
               <div>
                 <label
-                  className="block mb-1 text-sm"
+                  className="mb-1 block text-sm"
                   htmlFor={INPUT_ID.INSTALL_CMD}
                 >
                   Install Command
@@ -249,7 +249,7 @@ export const CreateApplicationModal = (
               </div>
               <div>
                 <label
-                  className="block mb-1 text-sm"
+                  className="mb-1 block text-sm"
                   htmlFor={INPUT_ID.BUILD_CMD}
                 >
                   Build Command
@@ -264,7 +264,7 @@ export const CreateApplicationModal = (
               </div>
               <div ref={inputContainerRef}>
                 <label
-                  className="block mb-1 text-sm"
+                  className="mb-1 block text-sm"
                   htmlFor={INPUT_ID.START_COMMAND}
                 >
                   Start Command
@@ -278,16 +278,16 @@ export const CreateApplicationModal = (
                 />
               </div>
             </div>
-            <div className={clsx("grid relative", lockInput && "col-span-2")}>
+            <div className={clsx("relative grid", lockInput && "col-span-2")}>
               {lockInput && (
                 <div
-                  className="flex absolute top-2 right-2 justify-center items-center bg-zinc-700/50 hover:bg-zinc-600/50 rounded-lg cursor-pointer"
+                  className="absolute top-2 right-2 flex cursor-pointer items-center justify-center rounded-lg bg-zinc-700/50 hover:bg-zinc-600/50"
                   onClick={() => {
                     setCustomCode(parsedBuildScript);
                     setLockInput(false);
                   }}
                 >
-                  <XIcon className="m-1 w-4 h-4 text-zinc-200/50 hover:text-zinc-100/50" />
+                  <XIcon className="m-1 h-4 w-4 text-zinc-200/50 hover:text-zinc-100/50" />
                 </div>
               )}
               <Code
@@ -300,12 +300,12 @@ export const CreateApplicationModal = (
             </div>
             {!isInputContainerScrolledToBottom && (
               <div className="absolute -bottom-8 left-0 animate-bounce">
-                <ChevronDownIcon className="w-6 h-6" />
+                <ChevronDownIcon className="h-6 w-6" />
               </div>
             )}
           </div>
         </div>
-        <div className="flex gap-x-6 justify-end py-4 px-6">
+        <div className="flex justify-end gap-x-6 py-4 px-6">
           <Button
             fullWidth
             id={BUTTON_ID.CANCEL}

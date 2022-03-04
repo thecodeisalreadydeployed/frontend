@@ -21,7 +21,7 @@ export const NavBreadcrumb = (props: NavBreadcrumbProps): JSX.Element => {
 
   return (
     <div className="flex items-center text-sm">
-      <div className="overflow-hidden relative w-8 h-8 rounded-full ring-2 ring-zinc-400 cursor-pointer">
+      <div className="relative h-8 w-8 cursor-pointer overflow-hidden rounded-full ring-2 ring-zinc-400">
         <Image
           alt="Logo"
           className="object-contain"

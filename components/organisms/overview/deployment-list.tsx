@@ -19,7 +19,7 @@ const DeploymentList = (props: DeploymentListProps): JSX.Element => {
 
   return (
     <div>
-      <div className="overflow-hidden rounded-lg border border-zinc-600 divide-y divide-zinc-600">
+      <div className="divide-y divide-zinc-600 overflow-hidden rounded-lg border border-zinc-600">
         {deployments
           ?.sort((a, b) => {
             return (

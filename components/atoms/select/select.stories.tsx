@@ -29,7 +29,7 @@ export const Select: ComponentStory<typeof Component> = (args): JSX.Element => {
   const [selectOption, setSelectOption] = useState<SelectOption<string>>();
 
   return (
-    <div className="space-y-2 w-60">
+    <div className="w-60 space-y-2">
       <Component
         {...(args as unknown)}
         value={selectOption}

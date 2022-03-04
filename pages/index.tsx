@@ -40,7 +40,7 @@ const Project = (): JSX.Element => {
   return (
     <div className="container mt-6">
       <PageTitle>Projects</PageTitle>
-      <div className="flex mb-6 space-x-4">
+      <div className="mb-6 flex space-x-4">
         <Input
           placeholder="Search..."
           value={searchInput}

@@ -16,12 +16,12 @@ export const ProjectCard = (props: ProjectCardProps): JSX.Element => {
   return (
     <Card onClick={onClick}>
       {/* Hard code h-12 (48px) due to when line clamped, it is changed from 48px to 46px */}
-      <p className="mb-2 h-12 text-base font-normal text-zinc-200 break-words line-clamp-2">
+      <p className="mb-2 h-12 break-words text-base font-normal text-zinc-200 line-clamp-2">
         {name}
       </p>
-      <div className="flex justify-between items-end">
+      <div className="flex items-end justify-between">
         <p className="flex-1 text-xs font-light text-zinc-400">{updatedAt}</p>
-        <div className="overflow-hidden relative w-8 h-8 rounded-full ring-2 ring-zinc-600">
+        <div className="relative h-8 w-8 overflow-hidden rounded-full ring-2 ring-zinc-600">
           <Image
             alt="Randomly generated icon"
             layout="fill"

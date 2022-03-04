@@ -33,7 +33,7 @@ const Application = (): JSX.Element => {
 
   const OverviewView = (
     <div>
-      <div className="flex mb-6 space-x-4">
+      <div className="mb-6 flex space-x-4">
         <Input
           placeholder="Search..."
           value={searchInput}

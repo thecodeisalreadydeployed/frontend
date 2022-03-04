@@ -10,7 +10,7 @@ import { useScroll } from "hooks";
 import { useGetDeployment, useGetDeploymentEvents } from "services";
 import { mapDeploymentStateTitle } from "utils";
 
-import { Button, PageTitle, Sidebar, Tab } from "@atoms";
+import { AlienLoadingSplash, Button, PageTitle, Sidebar, Tab } from "@atoms";
 import { HeaderLayout } from "@templates";
 import { DeploymentState } from "types/schema";
 
@@ -45,8 +45,8 @@ const Deployment = (): JSX.Element => {
   const OverviewView = (
     <div>
       <h2 className="text-2xl font-bold">Deployment Status</h2>
-      <div ref={codeDivRef} className=" mt-4 text-sm bg-zinc-900 rounded">
-        <div className="flex sticky top-0 justify-between items-center px-4 h-14 bg-zinc-700 rounded-t">
+      <div ref={codeDivRef} className=" mt-4 rounded bg-zinc-900 text-sm">
+        <div className="sticky top-0 flex h-14 items-center justify-between rounded-t bg-zinc-700 px-4">
           <p className="text-lg font-bold">
             {deployment?.state && mapDeploymentStateTitle(deployment?.state)}
           </p>
@@ -56,7 +56,7 @@ const Deployment = (): JSX.Element => {
                 <a rel="noreferrer" target="_blank">
                   <Button size="sm">
                     <p>Open</p>
-                    <ExternalLinkIcon className="ml-1 w-4 h-4" />
+                    <ExternalLinkIcon className="ml-1 h-4 w-4" />
                   </Button>
                 </a>
               </Link>
@@ -73,37 +73,44 @@ const Deployment = (): JSX.Element => {
                 shouldAutoScroll.current = true;
               }}
             >
-              <ChevronDoubleDownIcon className="w-6 h-6" />
+              <ChevronDoubleDownIcon className="h-6 w-6" />
             </Button>
           </div>
         </div>
-        <code className="font-mono whitespace-pre-wrap">
-          {events?.map((event) => {
-            const [hms, ms] = format(
-              new Date(event.exportedAt),
-              "HH:mm:ss.SSS"
-            ).split(".");
+        {events && events.length > 0 ? (
+          <code className="whitespace-pre-wrap font-mono">
+            {events?.map((event) => {
+              const [hms, ms] = format(
+                new Date(event.exportedAt),
+                "HH:mm:ss.SSS"
+              ).split(".");
 
-            return (
-              <div
-                key={event.id}
-                className="flex gap-x-4 py-1 px-4 hover:bg-zinc-800/50"
-              >
-                <span className="shrink-0">
-                  <span>{hms}</span>.<span className="text-zinc-400">{ms}</span>
-                </span>
-                <span
-                  className={clsx(
-                    event.text.toLocaleLowerCase().includes("error") &&
-                      "text-red-400"
-                  )}
+              return (
+                <div
+                  key={event.id}
+                  className="flex gap-x-4 py-1 px-4 hover:bg-zinc-800/50"
                 >
-                  {event.text}
-                </span>
-              </div>
-            );
-          })}
-        </code>
+                  <span className="shrink-0">
+                    <span>{hms}</span>.
+                    <span className="text-zinc-400">{ms}</span>
+                  </span>
+                  <span
+                    className={clsx(
+                      event.text.toLocaleLowerCase().includes("error") &&
+                        "text-red-400"
+                    )}
+                  >
+                    {event.text}
+                  </span>
+                </div>
+              );
+            })}
+          </code>
+        ) : (
+          <div className="h-[20rem] p-6">
+            <AlienLoadingSplash className="h-full w-full" />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ export const Card: ComponentStory<typeof Component> = (args): JSX.Element => (
 );
 Card.args = {
   children: (
-    <div className="w-40 h-40">
+    <div className="h-40 w-40">
       <div className="relative h-1/2">
         <Image
           alt="Random photo"

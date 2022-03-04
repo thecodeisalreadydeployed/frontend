@@ -1,7 +1,4 @@
-export const throttle = <T>(
-  func: () => T,
-  timeFrame: number | undefined
-): (() => void) => {
+export const throttle = <T>(func: () => T, timeFrame = 500): (() => void) => {
   let lastTime = 0;
   return () => {
     const now = new Date().getTime();

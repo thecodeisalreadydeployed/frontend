@@ -3,10 +3,12 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { ExternalLinkIcon } from "@heroicons/react/outline";
-import { ChevronDoubleDownIcon } from "@heroicons/react/solid";
+import {
+  ChevronDoubleDownIcon,
+  ChevronDoubleUpIcon,
+} from "@heroicons/react/solid";
 import clsx from "clsx";
 import format from "date-fns/format";
-import { useScroll } from "hooks";
 import { useGetDeployment, useGetDeploymentEvents } from "services";
 import { mapDeploymentStateTitle } from "utils";
 
@@ -19,34 +21,20 @@ const Deployment = (): JSX.Element => {
   const { deploymentId } = router.query;
 
   const codeDivRef = useRef<HTMLDivElement>(null);
-  const shouldAutoScroll = useRef(false);
 
-  const { deployment, mutateDeployment } = useGetDeployment(
-    typeof deploymentId === "string" ? deploymentId : undefined
+  const { deployment } = useGetDeployment(
+    typeof deploymentId === "string" ? deploymentId : undefined,
+    { refreshInterval: 1000 }
   );
   const { events } = useGetDeploymentEvents(
-    typeof deploymentId === "string" ? deploymentId : undefined
+    typeof deploymentId === "string" ? deploymentId : undefined,
+    { refreshInterval: 1000 }
   );
-
-  const scroll = useScroll();
-
-  useEffect(() => {
-    if (scroll.direction === "up") {
-      shouldAutoScroll.current = false;
-    }
-  }, [scroll]);
-
-  useEffect(() => {
-    if (codeDivRef.current && shouldAutoScroll.current === true) {
-      codeDivRef.current.scrollIntoView({ block: "end" });
-    }
-    mutateDeployment();
-  }, [events, mutateDeployment]);
 
   const OverviewView = (
     <div>
       <h2 className="text-2xl font-bold">Deployment Status</h2>
-      <div ref={codeDivRef} className=" mt-4 rounded bg-zinc-900 text-sm">
+      <div ref={codeDivRef} className="mt-4 rounded bg-zinc-900 text-sm">
         <div className="sticky top-0 flex h-14 items-center justify-between rounded-t bg-zinc-700 px-4">
           <p className="text-lg font-bold">
             {deployment?.state && mapDeploymentStateTitle(deployment?.state)}
@@ -67,11 +55,18 @@ const Deployment = (): JSX.Element => {
               size="sm"
               type="outline"
               onClick={() => {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            >
+              <ChevronDoubleUpIcon className="h-6 w-6" />
+            </Button>
+            <Button
+              size="sm"
+              type="outline"
+              onClick={() => {
                 if (codeDivRef.current) {
                   codeDivRef.current.scrollIntoView({ block: "end" });
                 }
-
-                shouldAutoScroll.current = true;
               }}
             >
               <ChevronDoubleDownIcon className="h-6 w-6" />

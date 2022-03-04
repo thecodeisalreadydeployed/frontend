@@ -5,7 +5,7 @@ import { formatDistanceToNowStrict, intervalToDuration } from "date-fns";
 import { useGetApplicationDeployments } from "services";
 
 import { DeploymentSummaryRow } from "@molecules";
-import { Deployment } from "types/schema";
+import { Deployment, DeploymentState } from "types/schema";
 
 interface DeploymentListProps {
   applicationId?: string;
@@ -15,7 +15,9 @@ const DeploymentList = (props: DeploymentListProps): JSX.Element => {
   const { applicationId } = props;
   const router = useRouter();
 
-  const { deployments } = useGetApplicationDeployments(applicationId);
+  const { deployments } = useGetApplicationDeployments(applicationId, {
+    refreshInterval: 1000,
+  });
 
   return (
     <div>
@@ -31,12 +33,35 @@ const DeploymentList = (props: DeploymentListProps): JSX.Element => {
             const updatedDate = new Date(deployment.updatedAt);
             const createdDate = new Date(deployment.createdAt);
 
-            const buildDuration = intervalToDuration({
-              start: createdDate,
-              end: builtDate,
-            });
-
             const updatedToNow = formatDistanceToNowStrict(updatedDate);
+
+            let durationString = "";
+
+            switch (deployment.state) {
+              case DeploymentState.DeploymentStateReady:
+                {
+                  const buildDuration = intervalToDuration({
+                    start: createdDate,
+                    end: builtDate,
+                  });
+
+                  durationString = `${
+                    buildDuration.hours ? buildDuration.hours + "h" : ""
+                  } ${buildDuration.minutes}m ${buildDuration.seconds}s`;
+                }
+                break;
+              default:
+                {
+                  const buildDuration = intervalToDuration({
+                    start: createdDate,
+                    end: new Date(),
+                  });
+                  durationString = `${
+                    buildDuration.hours ? buildDuration.hours + "h" : ""
+                  } ${buildDuration.minutes}m ${buildDuration.seconds}s`;
+                }
+                break;
+            }
 
             return (
               <Link
@@ -49,9 +74,7 @@ const DeploymentList = (props: DeploymentListProps): JSX.Element => {
                     author={deployment?.gitSource.commitAuthorName}
                     // TODO: - fix edge case where the duration is more than 24 hours
                     deploymentStatus={deployment.state}
-                    duration={`${
-                      buildDuration.hours ? buildDuration.hours + "h" : ""
-                    } ${buildDuration.minutes}m ${buildDuration.seconds}s`}
+                    duration={durationString}
                     updatedAt={updatedToNow}
                   />
                 </a>

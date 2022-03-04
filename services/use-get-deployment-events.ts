@@ -1,4 +1,4 @@
-import useSWR from "swr";
+import useSWR, { KeyedMutator } from "swr";
 
 import type { Event } from "types/schema";
 
@@ -8,8 +8,9 @@ export const useGetDeploymentEvents = (
   events: Event[] | undefined;
   getEventsError: unknown;
   getEventsIsValidating: boolean;
+  mutateEvents: KeyedMutator<Event[]>;
 } => {
-  const { data, error, isValidating } = useSWR<Event[]>(
+  const { data, error, isValidating, mutate } = useSWR<Event[]>(
     deploymentId &&
       `${process.env.NEXT_PUBLIC_HOST}/deployments/${deploymentId}/events`,
     { refreshInterval: 1000 }
@@ -19,5 +20,6 @@ export const useGetDeploymentEvents = (
     events: data,
     getEventsError: error,
     getEventsIsValidating: isValidating,
+    mutateEvents: mutate,
   };
 };

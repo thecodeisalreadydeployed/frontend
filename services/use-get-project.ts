@@ -1,4 +1,4 @@
-import useSWR from "swr";
+import useSWR, { KeyedMutator } from "swr";
 
 import type { Project } from "types/schema";
 
@@ -8,8 +8,9 @@ export const useGetProject = (
   project: Project | undefined;
   getProjectError: unknown;
   getProjectIsValidating: boolean;
+  mutateProject: KeyedMutator<Project>;
 } => {
-  const { data, error, isValidating } = useSWR<Project>(
+  const { data, error, isValidating, mutate } = useSWR<Project>(
     `${process.env.NEXT_PUBLIC_HOST}/projects/${projectId}`
   );
 
@@ -17,5 +18,6 @@ export const useGetProject = (
     project: data,
     getProjectError: error,
     getProjectIsValidating: isValidating,
+    mutateProject: mutate,
   };
 };

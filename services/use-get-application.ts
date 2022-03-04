@@ -1,4 +1,4 @@
-import useSWR from "swr";
+import useSWR, { KeyedMutator } from "swr";
 
 import type { App } from "types/schema";
 
@@ -8,8 +8,9 @@ export const useGetApplication = (
   application: App | undefined;
   getApplicationError: unknown;
   getApplicationIsValidating: boolean;
+  mutateApplication: KeyedMutator<App>;
 } => {
-  const { data, error, isValidating } = useSWR<App>(
+  const { data, error, isValidating, mutate } = useSWR<App>(
     applicationId && `${process.env.NEXT_PUBLIC_HOST}/apps/${applicationId}`
   );
 
@@ -17,5 +18,6 @@ export const useGetApplication = (
     application: data,
     getApplicationError: error,
     getApplicationIsValidating: isValidating,
+    mutateApplication: mutate,
   };
 };

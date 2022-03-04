@@ -26,7 +26,7 @@ specifiers:
   eslint-plugin-simple-import-sort: ^7.0.0
   eslint-plugin-sort-destructure-keys: ^1.4.0
   eslint-plugin-storybook: ^0.5.6
-  eslint-plugin-tailwindcss: ^3.3.3
+  eslint-plugin-tailwindcss: ^3.5.0
   firebase: ^9.6.6
   next: '12'
   postcss: ^8.4.4
@@ -80,7 +80,7 @@ devDependencies:
   eslint-plugin-simple-import-sort: 7.0.0_eslint@7.32.0
   eslint-plugin-sort-destructure-keys: 1.4.0_eslint@7.32.0
   eslint-plugin-storybook: 0.5.7_eslint@7.32.0+typescript@4.3.5
-  eslint-plugin-tailwindcss: 3.4.4_autoprefixer@10.4.2
+  eslint-plugin-tailwindcss: 3.5.0_autoprefixer@10.4.2
   postcss: 8.4.6
   prettier: 2.5.1
   storybook-addon-next: 1.4.4_33e9fe2cd882b9f8bcd8ed3791e832d6
@@ -7061,8 +7061,8 @@ packages:
       - typescript
     dev: true
 
-  /eslint-plugin-tailwindcss/3.4.4_autoprefixer@10.4.2:
-    resolution: {integrity: sha512-HaOmeX3wdzB3SYR8RediKtrQnxqRPAEq6VsX4sZ4QYehqfeuAMxkp7+pfXr9Ep8rfgcfW9jHFvnvGNrs3sVpIw==}
+  /eslint-plugin-tailwindcss/3.5.0_autoprefixer@10.4.2:
+    resolution: {integrity: sha512-m1NyKX1qii3arb+zWrsNO5R15b27aaEm6m1ie9JM9a6yBrU9Q8H62obzT/U8PSITIucMY864uxljV8MiP7H6xg==}
     engines: {node: '>=12.13.0'}
     dependencies:
       fast-glob: 3.2.11
@@ -7989,7 +7989,7 @@ packages:
       source-map: 0.6.1
       wordwrap: 1.0.0
     optionalDependencies:
-      uglify-js: 3.15.1
+      uglify-js: 3.15.2
     dev: true
 
   /has-bigints/1.0.1:
@@ -12468,8 +12468,8 @@ packages:
     hasBin: true
     dev: true
 
-  /uglify-js/3.15.1:
-    resolution: {integrity: sha512-FAGKF12fWdkpvNJZENacOH0e/83eG6JyVQyanIJaBXCN1J11TUQv1T1/z8S+Z0CG0ZPk1nPcreF/c7lrTd0TEQ==}
+  /uglify-js/3.15.2:
+    resolution: {integrity: sha512-peeoTk3hSwYdoc9nrdiEJk+gx1ALCtTjdYuKSXMTDqq7n1W7dHPqWDdSi+BPL0ni2YMeHD7hKUSdbj3TZauY2A==}
     engines: {node: '>=0.8.0'}
     hasBin: true
     requiresBuild: true

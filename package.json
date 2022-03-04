@@ -13,6 +13,7 @@
   "dependencies": {
     "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.5",
+    "@storybook/client-api": "^6.4.19",
     "@tailwindcss/line-clamp": "^0.3.0",
     "clsx": "^1.1.1",
     "date-fns": "^2.27.0",

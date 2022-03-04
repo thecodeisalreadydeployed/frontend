@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -15,9 +16,20 @@ const DeploymentList = (props: DeploymentListProps): JSX.Element => {
   const { applicationId } = props;
   const router = useRouter();
 
+  const [currentDate, setCurrentDate] = useState(new Date());
   const { deployments } = useGetApplicationDeployments(applicationId, {
     refreshInterval: 1000,
   });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentDate(new Date());
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   return (
     <div>
@@ -39,6 +51,7 @@ const DeploymentList = (props: DeploymentListProps): JSX.Element => {
 
             switch (deployment.state) {
               case DeploymentState.DeploymentStateReady:
+              case DeploymentState.DeploymentStateError:
                 {
                   const buildDuration = intervalToDuration({
                     start: createdDate,
@@ -54,7 +67,7 @@ const DeploymentList = (props: DeploymentListProps): JSX.Element => {
                 {
                   const buildDuration = intervalToDuration({
                     start: createdDate,
-                    end: new Date(),
+                    end: currentDate,
                   });
                   durationString = `${
                     buildDuration.hours ? buildDuration.hours + "h" : ""

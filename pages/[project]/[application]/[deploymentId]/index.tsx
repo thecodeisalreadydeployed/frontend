@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -10,7 +10,7 @@ import {
 import clsx from "clsx";
 import format from "date-fns/format";
 import { useGetDeployment, useGetDeploymentEvents } from "services";
-import { mapDeploymentStateTitle } from "utils";
+import { mapDeploymentStateTitle, throttle } from "utils";
 
 import { AlienLoadingSplash, Button, PageTitle, Sidebar, Tab } from "@atoms";
 import { HeaderLayout } from "@templates";
@@ -20,7 +20,8 @@ const Deployment = (): JSX.Element => {
   const router = useRouter();
   const { deploymentId } = router.query;
 
-  const codeDivRef = useRef<HTMLDivElement>(null);
+  const paddingDivRef = useRef<HTMLDivElement>(null);
+  const shouldAutoScroll = useRef(true);
 
   const { deployment } = useGetDeployment(
     typeof deploymentId === "string" ? deploymentId : undefined,
@@ -31,10 +32,28 @@ const Deployment = (): JSX.Element => {
     { refreshInterval: 1000 }
   );
 
+  useEffect(() => {
+    if (shouldAutoScroll.current) {
+      paddingDivRef.current?.scrollIntoView({ block: "end" });
+    }
+  }, [events]);
+
+  const removeAutoScrollthrottle = useMemo(
+    () =>
+      throttle(() => {
+        shouldAutoScroll.current = false;
+      }),
+    []
+  );
+
   const OverviewView = (
-    <div>
+    <div
+      onWheel={() => {
+        removeAutoScrollthrottle();
+      }}
+    >
       <h2 className="text-2xl font-bold">Deployment Status</h2>
-      <div ref={codeDivRef} className="mt-4 rounded bg-zinc-900 text-sm">
+      <div className="mt-4 rounded bg-zinc-900 text-sm">
         <div className="sticky top-0 flex h-14 items-center justify-between rounded-t bg-zinc-700 px-4">
           <p className="text-lg font-bold">
             {deployment?.state && mapDeploymentStateTitle(deployment?.state)}
@@ -64,9 +83,10 @@ const Deployment = (): JSX.Element => {
               size="sm"
               type="outline"
               onClick={() => {
-                if (codeDivRef.current) {
-                  codeDivRef.current.scrollIntoView({ block: "end" });
+                if (paddingDivRef.current) {
+                  paddingDivRef.current.scrollIntoView({ block: "end" });
                 }
+                shouldAutoScroll.current = true;
               }}
             >
               <ChevronDoubleDownIcon className="h-6 w-6" />
@@ -108,6 +128,7 @@ const Deployment = (): JSX.Element => {
           </div>
         )}
       </div>
+      <div ref={paddingDivRef} className="h-6" />
     </div>
   );
 

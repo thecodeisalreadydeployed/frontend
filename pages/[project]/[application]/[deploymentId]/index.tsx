@@ -21,7 +21,7 @@ const Deployment = (): JSX.Element => {
   const codeDivRef = useRef<HTMLDivElement>(null);
   const shouldAutoScroll = useRef(false);
 
-  const { deployment } = useGetDeployment(
+  const { deployment, mutateDeployment } = useGetDeployment(
     typeof deploymentId === "string" ? deploymentId : undefined
   );
   const { events } = useGetDeploymentEvents(
@@ -40,7 +40,8 @@ const Deployment = (): JSX.Element => {
     if (codeDivRef.current && shouldAutoScroll.current === true) {
       codeDivRef.current.scrollIntoView({ block: "end" });
     }
-  }, [events]);
+    mutateDeployment();
+  }, [events, mutateDeployment]);
 
   const OverviewView = (
     <div>

@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 import { formatDistanceToNowStrict } from "date-fns";
 import Fuse from "fuse.js";
+import { useDebounce } from "hooks";
 import { useGetProjects } from "services";
 
 import { Button, Input, PageTitle } from "@atoms";
@@ -12,6 +13,7 @@ import { HeaderLayout } from "@templates";
 
 const Project = (): JSX.Element => {
   const [searchInput, setSearchInput] = useState("");
+  const debouncedSearchInput = useDebounce(searchInput);
   const [showCreateProjectModal, setShowCreateProjectModal] = useState(false);
   const router = useRouter();
 
@@ -29,7 +31,7 @@ const Project = (): JSX.Element => {
       return undefined;
     }
 
-    if (!searchInput) {
+    if (!debouncedSearchInput) {
       return projects?.sort((a, b) => {
         return (
           new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
@@ -39,8 +41,8 @@ const Project = (): JSX.Element => {
 
     const fuse = new Fuse(projects, { keys: ["name"] });
 
-    return fuse.search(searchInput).map((result) => result.item);
-  }, [projects, searchInput]);
+    return fuse.search(debouncedSearchInput).map((result) => result.item);
+  }, [projects, debouncedSearchInput]);
 
   return (
     <div className="container mt-6">

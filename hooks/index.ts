@@ -1,3 +1,4 @@
+export * from "./use-debounce";
 export * from "./use-event-listener";
 export * from "./use-on-click-outside";
 export * from "./use-scroll";

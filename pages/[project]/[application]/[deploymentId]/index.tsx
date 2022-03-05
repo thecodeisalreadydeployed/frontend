@@ -53,8 +53,8 @@ const Deployment = (): JSX.Element => {
       }}
     >
       <h2 className="text-2xl font-bold">Deployment Status</h2>
-      <div className="mt-4 rounded bg-zinc-900 text-sm">
-        <div className="sticky top-0 flex h-14 items-center justify-between rounded-t bg-zinc-700 px-4">
+      <div className="mt-4 rounded-lg bg-zinc-900 text-sm">
+        <div className="sticky top-0 flex h-14 items-center justify-between rounded-t-lg bg-zinc-700 px-4">
           <p className="text-lg font-bold">
             {deployment?.state && mapDeploymentStateTitle(deployment?.state)}
           </p>
@@ -94,7 +94,7 @@ const Deployment = (): JSX.Element => {
           </div>
         </div>
         {events && events.length > 0 ? (
-          <code className="whitespace-pre-wrap font-mono">
+          <code className="whitespace-pre-wrap font-mono rounded-b-lg overflow-hidden block">
             {events?.map((event) => {
               const [hms, ms] = format(
                 new Date(event.exportedAt),
@@ -104,7 +104,7 @@ const Deployment = (): JSX.Element => {
               return (
                 <div
                   key={event.id}
-                  className="flex gap-x-4 py-1 px-4 hover:bg-zinc-800/50"
+                  className="flex gap-x-4 bg-black py-1 px-4 hover:bg-zinc-800/50"
                 >
                   <span className="shrink-0">
                     <span>{hms}</span>.

@@ -28,7 +28,6 @@ const DeploymentSummaryRow = (
         <p className="cursor-pointer truncate text-sm font-bold line-clamp-1">
           {applicationName}
         </p>
-        <p className="text-sm line-clamp-1">Preview</p>
       </div>
       <div className="flex h-10 flex-col justify-between">
         <DeploymentStatusDot status={deploymentStatus} />

@@ -34,14 +34,14 @@ const DeploymentList = (props: DeploymentListProps): JSX.Element => {
 
   return (
     <div>
-      <div className="divide-y divide-zinc-600 overflow-hidden rounded-lg border border-zinc-600">
+      <div className="overflow-hidden rounded-lg">
         {deployments
           ?.sort((a, b) => {
             return (
               new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
             );
           })
-          .map((deployment: Deployment) => {
+          .map((deployment: Deployment, index) => {
             const builtDate = new Date(deployment.builtAt);
             const updatedDate = new Date(deployment.updatedAt);
             const createdDate = new Date(deployment.createdAt);
@@ -81,21 +81,21 @@ const DeploymentList = (props: DeploymentListProps): JSX.Element => {
             }
 
             return (
-              <Link
-                key={deployment?.id}
-                href={`${router.asPath}/${deployment.id}`}
-              >
-                <a>
-                  <DeploymentSummaryRow
-                    applicationName={deployment?.gitSource.commitMessage}
-                    author={deployment?.gitSource.commitAuthorName}
-                    // TODO: - fix edge case where the duration is more than 24 hours
-                    deploymentStatus={deployment.state}
-                    duration={durationString}
-                    updatedAt={updatedToNow}
-                  />
-                </a>
-              </Link>
+              <div key={deployment?.id}>
+                <Link href={`${router.asPath}/${deployment.id}`}>
+                  <a>
+                    <DeploymentSummaryRow
+                      applicationName={deployment?.gitSource.commitMessage}
+                      author={deployment?.gitSource.commitAuthorName}
+                      deploymentStatus={deployment.state}
+                      // TODO: - fix edge case where the duration is more than 24 hours
+                      duration={durationString}
+                      rowIndex={index}
+                      updatedAt={updatedToNow}
+                    />
+                  </a>
+                </Link>
+              </div>
             );
           })}
       </div>

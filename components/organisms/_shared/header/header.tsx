@@ -13,11 +13,11 @@ export const Header = (): JSX.Element => {
   const { application: applicationId, project: projectId } = router.query;
 
   const { project } = useGetProject(
-    typeof projectId === "string" ? projectId : ""
+    typeof projectId === "string" ? projectId : undefined
   );
 
   const { application } = useGetApplication(
-    typeof applicationId === "string" ? applicationId : ""
+    typeof applicationId === "string" ? applicationId : undefined
   );
 
   const handleLogout = () => {

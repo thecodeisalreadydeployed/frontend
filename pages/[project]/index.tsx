@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 import { formatDistanceToNowStrict } from "date-fns";
 import Fuse from "fuse.js";
+import { useDebounce } from "hooks";
 import { useDeleteProject, useGetProjectApplications } from "services";
 
 import { Button, Input, PageTitle, Sidebar, Tab } from "@atoms";
@@ -12,6 +13,7 @@ import { HeaderLayout } from "@templates";
 
 const Application = (): JSX.Element => {
   const [searchInput, setSearchInput] = useState("");
+  const debouncedSearchInput = useDebounce(searchInput);
   const [showCreateApplicationModal, setShowCreateApplicationModal] =
     useState(false);
 
@@ -37,7 +39,7 @@ const Application = (): JSX.Element => {
       return undefined;
     }
 
-    if (!searchInput) {
+    if (!debouncedSearchInput) {
       return applications?.sort((a, b) => {
         return (
           new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
@@ -47,8 +49,8 @@ const Application = (): JSX.Element => {
 
     const fuse = new Fuse(applications, { keys: ["name"] });
 
-    return fuse.search(searchInput).map((result) => result.item);
-  }, [applications, searchInput]);
+    return fuse.search(debouncedSearchInput).map((result) => result.item);
+  }, [applications, debouncedSearchInput]);
 
   const OverviewView = (
     <div>

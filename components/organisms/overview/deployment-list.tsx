@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { formatDistanceToNowStrict, intervalToDuration } from "date-fns";
+import formatDistanceStrict from "date-fns/formatDistanceStrict";
+import intervalToDuration from "date-fns/intervalToDuration";
 import { useGetApplicationDeployments } from "services";
 
 import { DeploymentSummaryRow } from "@molecules";
@@ -45,7 +46,7 @@ const DeploymentList = (props: DeploymentListProps): JSX.Element => {
             const updatedDate = new Date(deployment.updatedAt);
             const createdDate = new Date(deployment.createdAt);
 
-            const updatedToNow = formatDistanceToNowStrict(updatedDate);
+            const updatedToNow = formatDistanceStrict(updatedDate, currentDate);
 
             let durationString = "";
 

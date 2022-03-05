@@ -20,8 +20,8 @@ export const NavBreadcrumb = (props: NavBreadcrumbProps): JSX.Element => {
   } = props;
 
   return (
-    <div className="flex items-center text-sm">
-      <div className="relative h-8 w-8 cursor-pointer overflow-hidden rounded-full ring-2 ring-zinc-400">
+    <div className="flex items-center text-xs sm:text-sm">
+      <div className="relative h-8 w-8 shrink-0 cursor-pointer overflow-hidden rounded-full ring-2 ring-zinc-400">
         <Image
           alt="Logo"
           className="object-contain"
@@ -31,28 +31,34 @@ export const NavBreadcrumb = (props: NavBreadcrumbProps): JSX.Element => {
           onClick={onClickLogo}
         />
       </div>
-      {projectName && (
-        <>
-          <BreadcrumbDivider height="h-8" width="w-8" />
-          <p
-            className="cursor-pointer select-none line-clamp-1"
-            onClick={onClickProject}
-          >
-            {projectName}
-          </p>
-        </>
-      )}
-      {applicationName && (
-        <>
-          <BreadcrumbDivider height="h-8" width="w-8" />
-          <p
-            className="mr-2 cursor-pointer select-none line-clamp-1"
-            onClick={onClickApplication}
-          >
-            {applicationName}
-          </p>
-        </>
-      )}
+      <div className="hide-scrollbar mx-2 flex items-center overflow-scroll">
+        {projectName && (
+          <>
+            <div className="h-8 w-8 min-w-[24px]">
+              <BreadcrumbDivider height="h-full" width="w-full" />
+            </div>
+            <p
+              className="cursor-pointer select-none truncate"
+              onClick={onClickProject}
+            >
+              {projectName}
+            </p>
+          </>
+        )}
+        {applicationName && (
+          <>
+            <div className="h-8 w-8 min-w-[24px]">
+              <BreadcrumbDivider height="h-full" width="w-full" />
+            </div>
+            <p
+              className="mr-2 cursor-pointer select-none truncate"
+              onClick={onClickApplication}
+            >
+              {applicationName}
+            </p>
+          </>
+        )}
+      </div>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import useSWR, { KeyedMutator, SWRConfiguration } from "swr";
 import type { Project } from "types/schema";
 
 export const useGetProject = (
-  projectId: string,
+  projectId: string | undefined,
   config?: SWRConfiguration
 ): {
   project: Project | undefined;
@@ -12,7 +12,7 @@ export const useGetProject = (
   mutateProject: KeyedMutator<Project>;
 } => {
   const { data, error, isValidating, mutate } = useSWR<Project>(
-    `${process.env.NEXT_PUBLIC_HOST}/projects/${projectId}`,
+    projectId && `${process.env.NEXT_PUBLIC_HOST}/projects/${projectId}`,
     config
   );
 

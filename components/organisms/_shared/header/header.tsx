@@ -13,11 +13,11 @@ export const Header = (): JSX.Element => {
   const { application: applicationId, project: projectId } = router.query;
 
   const { project } = useGetProject(
-    typeof projectId === "string" ? projectId : ""
+    typeof projectId === "string" ? projectId : undefined
   );
 
   const { application } = useGetApplication(
-    typeof applicationId === "string" ? applicationId : ""
+    typeof applicationId === "string" ? applicationId : undefined
   );
 
   const handleLogout = () => {
@@ -26,18 +26,22 @@ export const Header = (): JSX.Element => {
 
   return (
     <div className="bg-zinc-900">
-      <nav className="container flex h-16 items-center justify-between sm:h-20">
-        <NavBreadcrumb
-          applicationName={application?.name}
-          projectName={project?.name}
-          onClickApplication={() =>
-            router.push(`/${projectId}/${applicationId}`)
-          }
-          onClickLogo={() => router.push("/")}
-          onClickProject={() => router.push(`/${projectId}`)}
-        />
+      <nav className="container flex h-16 w-full items-center justify-between overflow-hidden sm:h-20">
+        <div className="min-w-0">
+          <NavBreadcrumb
+            applicationName={application?.name}
+            projectName={project?.name}
+            onClickApplication={() =>
+              router.push(`/${projectId}/${applicationId}`)
+            }
+            onClickLogo={() => router.push("/")}
+            onClickProject={() => router.push(`/${projectId}`)}
+          />
+        </div>
         <div className="flex items-center space-x-4">
-          <p className="font-bold">{user?.displayName}</p>
+          <p className="max-w-[100px] whitespace-nowrap font-bold">
+            {user?.displayName}
+          </p>
           <Button size="sm" onClick={handleLogout}>
             Logout
           </Button>

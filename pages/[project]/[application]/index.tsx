@@ -39,13 +39,13 @@ const Overview = (): JSX.Element => {
             Deployments that are currently being worked on.
           </p>
         </div>
-        <div className="flex space-x-2">
+        <div className="flex items-center space-x-2">
           <Button onClick={handleOnClickDeploy}>Deploy</Button>
           <Link href={`https://${applicationId}.svc.deploys.dev`}>
             <a rel="noreferrer" target="_blank">
               <Button>
-                <p>Open Application</p>
-                <ExternalLinkIcon className="ml-1 h-4 w-4" />
+                <p className="whitespace-nowrap">Open Application</p>
+                <ExternalLinkIcon className="ml-1 h-4 w-4 shrink-0" />
               </Button>
             </a>
           </Link>

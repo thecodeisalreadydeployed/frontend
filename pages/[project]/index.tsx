@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/router";
 
 import { formatDistanceToNowStrict } from "date-fns";
+import Fuse from "fuse.js";
 import { useDeleteProject, useGetProjectApplications } from "services";
 
 import { Button, Input, PageTitle, Sidebar, Tab } from "@atoms";
@@ -31,6 +32,24 @@ const Application = (): JSX.Element => {
     setShowCreateApplicationModal(false);
   };
 
+  const modifiedApplications = useMemo(() => {
+    if (!applications) {
+      return undefined;
+    }
+
+    if (!searchInput) {
+      return applications?.sort((a, b) => {
+        return (
+          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+        );
+      });
+    }
+
+    const fuse = new Fuse(applications, { keys: ["name"] });
+
+    return fuse.search(searchInput).map((result) => result.item);
+  }, [applications, searchInput]);
+
   const OverviewView = (
     <div>
       <div className="mb-6 flex space-x-4">
@@ -42,26 +61,17 @@ const Application = (): JSX.Element => {
         <Button onClick={handleCreateNewApplication}>New Application</Button>
       </div>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {applications
-          ?.filter((application) =>
-            application.name.toLocaleLowerCase().includes(searchInput)
-          )
-          .sort((a, b) => {
-            return (
-              new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime()
-            );
-          })
-          .map((application, index) => (
-            <ProjectCard
-              key={index}
-              name={application.name}
-              projectId={application.id}
-              updatedAt={`${formatDistanceToNowStrict(
-                new Date(application.updatedAt)
-              )} ago`}
-              onClick={() => router.push(`/${projectId}/${application.id}`)}
-            />
-          ))}
+        {modifiedApplications?.map((application, index) => (
+          <ProjectCard
+            key={index}
+            name={application.name}
+            projectId={application.id}
+            updatedAt={`${formatDistanceToNowStrict(
+              new Date(application.updatedAt)
+            )} ago`}
+            onClick={() => router.push(`/${projectId}/${application.id}`)}
+          />
+        ))}
       </div>
       {typeof projectId === "string" && projectId && (
         <CreateApplicationModal

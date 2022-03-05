@@ -55,7 +55,7 @@ export const Code = (props: CodeProps): JSX.Element => {
           autoCapitalize="off"
           autoCorrect="off"
           className={clsx(
-            "overflow-scroll !whitespace-pre rounded-lg bg-zinc-900 p-4 font-mono text-sm outline-none",
+            "overflow-scroll !whitespace-pre rounded-lg bg-black p-4 font-mono text-sm outline-none",
             className,
             isEditable ? "ring-1 ring-zinc-500" : "cursor-pointer"
           )}

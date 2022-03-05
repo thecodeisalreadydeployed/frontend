@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/router";
 
 import { formatDistanceToNowStrict } from "date-fns";
+import Fuse from "fuse.js";
 import { useGetProjects } from "services";
 
 import { Button, Input, PageTitle } from "@atoms";
@@ -23,19 +24,23 @@ const Project = (): JSX.Element => {
     setShowCreateProjectModal(true);
   };
 
-  const modifiedProjects = useMemo(
-    () =>
-      projects
-        ?.filter((project) =>
-          project.name.toLocaleLowerCase().includes(searchInput)
-        )
-        ?.sort((a, b) => {
-          return (
-            new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-          );
-        }),
-    [projects, searchInput]
-  );
+  const modifiedProjects = useMemo(() => {
+    if (!projects) {
+      return undefined;
+    }
+
+    if (!searchInput) {
+      return projects?.sort((a, b) => {
+        return (
+          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+        );
+      });
+    }
+
+    const fuse = new Fuse(projects, { keys: ["name"] });
+
+    return fuse.search(searchInput).map((result) => result.item);
+  }, [projects, searchInput]);
 
   return (
     <div className="container mt-6">

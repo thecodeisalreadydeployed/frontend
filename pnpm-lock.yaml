@@ -8,6 +8,7 @@ specifiers:
   '@storybook/addon-essentials': ^6.4.19
   '@storybook/addon-links': ^6.4.19
   '@storybook/builder-webpack5': ^6.4.19
+  '@storybook/client-api': ^6.4.19
   '@storybook/manager-webpack5': ^6.4.19
   '@storybook/react': ^6.4.19
   '@tailwindcss/line-clamp': ^0.3.0
@@ -69,6 +70,7 @@ devDependencies:
   '@storybook/addon-essentials': 6.4.19_a71ab01282a4199e759409480810a8bf
   '@storybook/addon-links': 6.4.19_react-dom@17.0.2+react@17.0.2
   '@storybook/builder-webpack5': 6.4.19_3548f748fed877ba8c2b0f19d5df7025
+  '@storybook/client-api': 6.4.19_react-dom@17.0.2+react@17.0.2
   '@storybook/manager-webpack5': 6.4.19_3548f748fed877ba8c2b0f19d5df7025
   '@storybook/react': 6.4.19_97b3558c0089677a8523aef0c0894589
   '@types/prismjs': 1.26.0

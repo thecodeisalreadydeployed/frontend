@@ -94,7 +94,7 @@ const Deployment = (): JSX.Element => {
           </div>
         </div>
         {events && events.length > 0 ? (
-          <code className="whitespace-pre-wrap font-mono rounded-b-lg overflow-hidden block">
+          <code className="block overflow-hidden whitespace-pre-wrap rounded-b-lg font-mono">
             {events?.map((event) => {
               const [hms, ms] = format(
                 new Date(event.exportedAt),

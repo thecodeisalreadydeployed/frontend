@@ -1,5 +1,6 @@
-import { DeploymentStatusDot } from "@atoms";
 import clsx from "clsx";
+
+import { DeploymentStatusDot } from "@atoms";
 import { DeploymentState } from "types/schema";
 
 interface DeploymentSummaryRowProps {

@@ -1,5 +1,3 @@
-import clsx from "clsx";
-
 import { DeploymentStatusDot } from "@atoms";
 import { DeploymentState } from "types/schema";
 

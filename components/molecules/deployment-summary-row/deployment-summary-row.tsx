@@ -25,11 +25,11 @@ const DeploymentSummaryRow = (
   } = props;
 
   return (
-    <div className="bg-zinc-200">
+    <div className="bg-black">
       <div
         className={clsx(
           "grid cursor-pointer grid-cols-4 items-center p-4 hover:bg-zinc-700",
-          rowIndex % 2 === 0 ? "bg-zinc-800" : "bg-zinc-800/95"
+          rowIndex % 2 === 0 ? "bg-zinc-800" : "bg-zinc-800/80"
         )}
       >
         <div className="h-10">

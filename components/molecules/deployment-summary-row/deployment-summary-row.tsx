@@ -32,15 +32,7 @@ const DeploymentSummaryRow = (
       </div>
       <div className="flex h-10 flex-col justify-between">
         <DeploymentStatusDot status={deploymentStatus} />
-        <p
-          className={clsx(
-            "truncate text-sm",
-            deploymentStatus === DeploymentState.DeploymentStateQueueing &&
-              "hidden"
-          )}
-        >
-          {duration}
-        </p>
+        <p className="truncate text-sm">{duration}</p>
       </div>
       <div className="col-span-2 text-right">
         <p className="text-sm line-clamp-1">

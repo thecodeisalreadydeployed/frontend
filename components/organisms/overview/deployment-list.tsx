@@ -64,6 +64,9 @@ const DeploymentList = (props: DeploymentListProps): JSX.Element => {
                   } ${buildDuration.minutes}m ${buildDuration.seconds}s`;
                 }
                 break;
+              case DeploymentState.DeploymentStateCommitted:
+                durationString = "";
+                break;
               default:
                 {
                   const buildDuration = intervalToDuration({

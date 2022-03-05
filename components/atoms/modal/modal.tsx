@@ -40,7 +40,7 @@ export const Modal = (props: ModalProps): JSX.Element => {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-zinc-800 p-1 text-left align-middle shadow-xl transition-all">
+            <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-zinc-900 p-1 text-left align-middle shadow-xl transition-all">
               {children}
             </div>
           </Transition.Child>

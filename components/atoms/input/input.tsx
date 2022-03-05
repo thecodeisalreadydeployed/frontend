@@ -38,7 +38,7 @@ export const Input = (props: InputProps): JSX.Element => {
     <input
       autoComplete={autoComplete ? "on" : "off"}
       className={clsx(
-        "w-full flex-1 rounded-lg border border-zinc-600 bg-zinc-800 px-3 text-zinc-200 outline-none placeholder:text-zinc-600 focus:border-zinc-500 disabled:cursor-not-allowed disabled:bg-zinc-700 disabled:placeholder:text-zinc-700",
+        "w-full flex-1 rounded-lg bg-zinc-800 px-3 text-zinc-200 outline-none ring-inset ring-zinc-600 placeholder:text-zinc-600 focus:ring-1 disabled:cursor-not-allowed disabled:bg-zinc-700 disabled:placeholder:text-zinc-700",
         SIZE_MAPS[size]
       )}
       disabled={disabled}

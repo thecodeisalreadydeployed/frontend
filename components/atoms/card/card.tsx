@@ -11,7 +11,7 @@ export const Card = (props: CardProps): JSX.Element => {
   return (
     <div
       className={clsx(
-        "inline-block cursor-pointer overflow-hidden rounded-lg border border-zinc-600 bg-zinc-800 p-6 transition-colors duration-150 hover:border-zinc-500 hover:bg-zinc-700"
+        "inline-block cursor-pointer overflow-hidden rounded-lg bg-zinc-800 p-6 transition-colors duration-150 hover:bg-zinc-700"
       )}
       onClick={onClick}
     >

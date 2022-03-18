@@ -81,6 +81,7 @@ export const CreateApplicationModal = (
     setApplicationName("");
     setApplicationRepoUrl("");
     setApplicationBuildScript(undefined);
+    setApplicationBranch(undefined);
     setApplicationInstallCommand("");
     setApplicationBuildCommand("");
     setApplicationOutputDirectory("");

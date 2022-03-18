@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { ChevronDownIcon, XIcon } from "@heroicons/react/solid";
 import clsx from "clsx";
@@ -60,17 +60,25 @@ export const CreateApplicationModal = (
 
   const { getGitBranches, gitBranches } = useGetGitBranches();
 
-  const buildScriptSelectOptions = presetsData?.map((data) => ({
-    id: data.id,
-    name: data.name,
-    value: data.template,
-  }));
+  const buildScriptSelectOptions = useMemo(
+    () =>
+      presetsData?.map((data) => ({
+        id: data.id,
+        name: data.name,
+        value: data.template,
+      })),
+    [presetsData]
+  );
 
-  const branchSelectOptions = gitBranches?.map((data, index) => ({
-    id: index.toString(),
-    name: data,
-    value: data,
-  }));
+  const branchSelectOptions = useMemo(
+    () =>
+      gitBranches?.map((data, index) => ({
+        id: index.toString(),
+        name: data,
+        value: data,
+      })),
+    [gitBranches]
+  );
 
   const [lockInput, setLockInput] = useState(false);
 
@@ -205,7 +213,7 @@ export const CreateApplicationModal = (
                   Branch
                 </label>
                 <Select
-                  disabled={lockInput}
+                  disabled={lockInput || applicationRepoUrl.length === 0}
                   selectOptions={branchSelectOptions}
                   value={applicationBranch}
                   onChangeSelection={(newValue) =>

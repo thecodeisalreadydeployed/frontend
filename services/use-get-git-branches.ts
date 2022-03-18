@@ -1,45 +1,40 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import { useSession } from "contexts";
 
 import type { GetBranchesRequest } from "types/schema";
 
 export const useGetGitBranches = (
-  url: string
+  defaultUrl?: string
 ): {
+  getGitBranches: (url?: string) => void;
   gitBranches: string[] | undefined;
 } => {
   const [data, setData] = useState<string[] | undefined>();
 
   const { user } = useSession();
 
-  const getGitBranches = async () => {
-    const parameter: GetBranchesRequest = {
-      URL: url,
-    };
+  const getGitBranches = useCallback(
+    async (url?: string) => {
+      const parameter: GetBranchesRequest = {
+        URL: url ?? defaultUrl ?? "",
+      };
 
-    const idToken = await user?.getIdToken();
+      const idToken = await user?.getIdToken();
 
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}/gitapi/branches`,
-      {
+      await fetch(`${process.env.NEXT_PUBLIC_HOST}/gitapi/branches`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
           Authorization: "Bearer " + idToken,
         },
         body: JSON.stringify(parameter),
-      }
-    )
-      .then((response) => response.json() as Promise<string[]>)
-      .then((response) => setData(response));
+      })
+        .then((response) => response.json() as Promise<string[]>)
+        .then((response) => setData(response));
+    },
+    [defaultUrl, user]
+  );
 
-    return response;
-  };
-
-  getGitBranches();
-
-  return {
-    gitBranches: data,
-  };
+  return { getGitBranches, gitBranches: data };
 };

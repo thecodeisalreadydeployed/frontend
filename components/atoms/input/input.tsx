@@ -14,6 +14,7 @@ interface InputProps {
   disabled?: boolean;
   id?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
   placeholder?: string;
   size?: InputSize;
   spellCheck?: boolean;
@@ -32,6 +33,7 @@ export const Input = (props: InputProps): JSX.Element => {
     spellCheck = false,
     type = "text",
     value,
+    onBlur,
   } = props;
 
   return (
@@ -48,6 +50,7 @@ export const Input = (props: InputProps): JSX.Element => {
       spellCheck={spellCheck}
       type={type}
       value={value}
+      onBlur={onBlur}
       onChange={onChange}
     />
   );

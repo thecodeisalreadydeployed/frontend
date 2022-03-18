@@ -97,7 +97,7 @@ export const Select = <T,>(props: SelectProps<T>): JSX.Element => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute mt-1 max-h-40 w-full overflow-auto rounded-md bg-zinc-800 py-1 shadow-lg outline-none">
+            <Listbox.Options className="absolute z-10 mt-1 max-h-40 w-full overflow-auto rounded-md bg-zinc-800 py-1 shadow-lg outline-none">
               {selectOptions?.map((option, optionIdx) => (
                 <Listbox.Option
                   key={optionIdx}

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { ChevronDownIcon, XIcon } from "@heroicons/react/solid";
 import clsx from "clsx";
 import { useScrollToBottom } from "hooks";
-import { useCreateNewApplication } from "services";
+import { useCreateNewApplication, useGetGitBranches } from "services";
 import useSWR from "swr";
 import { parseBuildScript } from "utils";
 
@@ -41,12 +41,6 @@ export const CreateApplicationModal = (
     process.env.NEXT_PUBLIC_HOST + "/presets/list"
   );
 
-  const selectOptions = presetsData?.map((data) => ({
-    id: data.id,
-    name: data.name,
-    value: data.template,
-  }));
-
   const { createNewApplication } = useCreateNewApplication();
 
   const [applicationName, setApplicationName] = useState("");
@@ -60,8 +54,23 @@ export const CreateApplicationModal = (
   const [applicationOutputDirectory, setApplicationOutputDirectory] =
     useState("");
   const [applicationStartCommand, setApplicationStartCommand] = useState("");
-  const [applicationBranch, setApplicationBranch] = useState("");
+  const [applicationBranch, setApplicationBranch] =
+    useState<SelectOption<string>>();
   const [customCode, setCustomCode] = useState("");
+
+  const { getGitBranches, gitBranches } = useGetGitBranches();
+
+  const buildScriptSelectOptions = presetsData?.map((data) => ({
+    id: data.id,
+    name: data.name,
+    value: data.template,
+  }));
+
+  const branchSelectOptions = gitBranches?.map((data, index) => ({
+    id: index.toString(),
+    name: data,
+    value: data,
+  }));
 
   const [lockInput, setLockInput] = useState(false);
 
@@ -87,6 +96,7 @@ export const CreateApplicationModal = (
         break;
       case INPUT_ID.REPO_URL:
         setApplicationRepoUrl(value);
+        setApplicationBranch(undefined);
         break;
       case INPUT_ID.INSTALL_CMD:
         setApplicationInstallCommand(value);
@@ -99,9 +109,6 @@ export const CreateApplicationModal = (
         break;
       case INPUT_ID.START_COMMAND:
         setApplicationStartCommand(value);
-        break;
-      case INPUT_ID.BRANCH:
-        setApplicationBranch(value);
         break;
     }
   };
@@ -118,8 +125,9 @@ export const CreateApplicationModal = (
         setCustomCode("");
         break;
       case BUTTON_ID.NEXT:
+        if (!applicationBranch?.value) return;
         createNewApplication({
-          branch: applicationBranch,
+          branch: applicationBranch?.value,
           buildScript: customCode,
           name: applicationName,
           projectId: projectId,
@@ -187,6 +195,7 @@ export const CreateApplicationModal = (
                   id={INPUT_ID.REPO_URL}
                   placeholder="ie: https://github.com/thecodeisalreadydeployed/frontend"
                   value={applicationRepoUrl}
+                  onBlur={() => getGitBranches(applicationRepoUrl)}
                   onChange={handleOnInputChange}
                 />
               </div>
@@ -194,11 +203,13 @@ export const CreateApplicationModal = (
                 <label className="mb-1 block text-sm" htmlFor={INPUT_ID.BRANCH}>
                   Branch
                 </label>
-                <Input
-                  id={INPUT_ID.BRANCH}
-                  placeholder="ie: master"
+                <Select
+                  disabled={lockInput}
+                  selectOptions={branchSelectOptions}
                   value={applicationBranch}
-                  onChange={handleOnInputChange}
+                  onChangeSelection={(newValue) =>
+                    setApplicationBranch(newValue)
+                  }
                 />
               </div>
               <div>
@@ -210,7 +221,7 @@ export const CreateApplicationModal = (
                 </label>
                 <Select
                   disabled={lockInput}
-                  selectOptions={selectOptions}
+                  selectOptions={buildScriptSelectOptions}
                   value={applicationBuildScript}
                   onChangeSelection={(newValue) =>
                     setApplicationBuildScript(newValue)

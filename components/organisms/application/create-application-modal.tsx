@@ -213,7 +213,7 @@ export const CreateApplicationModal = (
                   Branch
                 </label>
                 <Select
-                  disabled={lockInput}
+                  disabled={lockInput || applicationRepoUrl.length === 0}
                   selectOptions={branchSelectOptions}
                   value={applicationBranch}
                   onChangeSelection={(newValue) =>

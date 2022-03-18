@@ -32,7 +32,7 @@ export const useGetGitBranches = (
       })
         .then((response) => response.json() as Promise<string[]>)
         .then((response) => setData(response))
-        .catch((error) => console.error(error));
+        .catch(() => setData(undefined));
     },
     [defaultUrl, user]
   );

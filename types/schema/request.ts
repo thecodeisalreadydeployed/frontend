@@ -26,3 +26,17 @@ export interface CreatePresetRequest {
 export interface CreateProjectRequest {
   Name: string;
 }
+export interface GetBranchesRequest {
+  URL: string;
+}
+
+export interface GetFilesRequest {
+  URL: string;
+  Branch: string;
+}
+
+export interface GetRawRequest {
+  URL: string;
+  Branch: string;
+  Path: string;
+}

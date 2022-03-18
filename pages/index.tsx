@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/router";
 
 import { formatDistanceToNowStrict } from "date-fns";
 import Fuse from "fuse.js";
 import { useDebounce } from "hooks";
-import { useGetGitBranches, useGetProjects } from "services";
+import { useGetProjects } from "services";
 
 import { Button, Input, PageTitle } from "@atoms";
 import { ProjectCard } from "@molecules";

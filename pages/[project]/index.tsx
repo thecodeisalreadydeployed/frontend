@@ -54,12 +54,14 @@ const Application = (): JSX.Element => {
 
   const OverviewView = (
     <div>
-      <div className="mb-6 flex space-x-4">
-        <Input
-          placeholder="Search..."
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-        />
+      <div className="mb-6 flex justify-between space-x-4">
+        <div className="max-w-md flex-1">
+          <Input
+            placeholder="Search..."
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+        </div>
         <Button onClick={handleCreateNewApplication}>New Application</Button>
       </div>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

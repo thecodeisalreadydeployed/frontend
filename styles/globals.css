@@ -7,7 +7,7 @@
 
 @layer base {
   body {
-    @apply bg-zinc-900 text-zinc-200 font-normal font-inter;
+    @apply bg-zinc-900 text-zinc-200 font-normal font-inter max-w-7xl mx-auto;
   }
 }
 

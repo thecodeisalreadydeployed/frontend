@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/router";
 
 import { formatDistanceToNowStrict } from "date-fns";
 import Fuse from "fuse.js";
 import { useDebounce } from "hooks";
-import { useGetGitBranches, useGetProjects } from "services";
+import { useGetProjects } from "services";
 
 import { Button, Input, PageTitle } from "@atoms";
 import { ProjectCard } from "@molecules";
@@ -47,12 +47,14 @@ const Project = (): JSX.Element => {
   return (
     <div className="container mt-6">
       <PageTitle>Projects</PageTitle>
-      <div className="mb-6 flex space-x-4">
-        <Input
-          placeholder="Search..."
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-        />
+      <div className="mb-6 flex justify-between space-x-4">
+        <div className="max-w-md flex-1">
+          <Input
+            placeholder="Search..."
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+        </div>
         <Button onClick={handleOpenProjectModal}>New Project</Button>
       </div>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

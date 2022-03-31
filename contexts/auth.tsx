@@ -5,22 +5,23 @@ import { useSession } from "contexts";
 
 interface AuthProps {
   children: JSX.Element;
+  hasAuth: boolean;
 }
 
 export const Auth = (props: AuthProps): JSX.Element => {
-  const { children } = props;
+  const { children, hasAuth } = props;
 
   const router = useRouter();
 
   const { user } = useSession();
 
   useEffect(() => {
-    if (user === null) {
+    if (user === null && hasAuth) {
       router.push("/sign-in");
     }
-  }, [router, user]);
+  }, [hasAuth, router, user]);
 
-  if (user) {
+  if (!hasAuth || user) {
     return children;
   }
 

@@ -25,7 +25,7 @@ export const Header = (): JSX.Element => {
   };
 
   return (
-    <div className="bg-zinc-900">
+    <div className="bg-zinc-900 font-inter text-base font-normal">
       <nav className="container flex h-16 w-full items-center justify-between overflow-hidden sm:h-20">
         <div className="min-w-0">
           <NavBreadcrumb
@@ -55,7 +55,7 @@ export const Header = (): JSX.Element => {
           />
         </div>
       </nav>
-      <div className="h-0.5 w-full [background:linear-gradient(to_right,rgb(249,199,45),rgb(240,90,42),rgb(241,87,63),rgb(241,71,163),rgb(46,237,224))]"></div>
+      <div className="absolute inset-x-0 h-0.5 w-screen [background:linear-gradient(to_right,rgb(249,199,45),rgb(240,90,42),rgb(241,87,63),rgb(241,71,163),rgb(46,237,224))]" />
     </div>
   );
 };

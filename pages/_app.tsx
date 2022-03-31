@@ -4,7 +4,9 @@ import { Auth, SessionProvider, SWRConfigContext } from "contexts";
 
 import "styles/globals.css";
 
-const MyApp = ({ Component, pageProps }: CustomAppProps): JSX.Element => {
+const MyApp = (props: CustomAppProps): JSX.Element => {
+  const { Component, pageProps } = props;
+
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
@@ -13,17 +15,11 @@ const MyApp = ({ Component, pageProps }: CustomAppProps): JSX.Element => {
         <title>CodeDeploy</title>
       </Head>
       <SessionProvider>
-        {Component.auth === false ? (
+        <Auth hasAuth={Component.auth ?? true}>
           <SWRConfigContext>
             {getLayout(<Component {...pageProps} />)}
           </SWRConfigContext>
-        ) : (
-          <Auth>
-            <SWRConfigContext>
-              {getLayout(<Component {...pageProps} />)}
-            </SWRConfigContext>
-          </Auth>
-        )}
+        </Auth>
       </SessionProvider>
     </>
   );

@@ -298,10 +298,15 @@ export const CreateApplicationModal = (
                 />
               </div>
             </div>
-            <div className={clsx("relative grid", lockInput && "col-span-2")}>
+            <div
+              className={clsx(
+                "relative grid overflow-y-scroll rounded-lg bg-zinc-700/50 hover:bg-zinc-600/50",
+                lockInput && "col-span-2"
+              )}
+            >
               {lockInput && (
                 <div
-                  className="absolute top-2 right-2 flex cursor-pointer items-center justify-center rounded-lg bg-zinc-700/50 hover:bg-zinc-600/50"
+                  className="absolute top-2 right-2 flex cursor-pointer items-center justify-center"
                   onClick={() => {
                     setCustomCode(parsedBuildScript);
                     setLockInput(false);

@@ -8,6 +8,7 @@ type Type = "outline" | "solid";
 interface CSSProps {
   button: {
     typeColorMap: Record<`${Type}_${Color}`, string>;
+    type: Record<Type, string>;
     sizeMap: Record<Size, string>;
   };
 }
@@ -26,6 +27,14 @@ const CSS: CSSProps = {
       ),
       solid_danger: clsx(
         "border-red-400 bg-red-400 text-zinc-200 hover:bg-red-400/0 hover:text-red-400"
+      ),
+    },
+    type: {
+      outline: clsx(
+        "disabled:cursor-not-allowed disabled:border-transparent disabled:text-zinc-700"
+      ),
+      solid: clsx(
+        "disabled:cursor-not-allowed disabled:border-zinc-700 disabled:bg-zinc-700 disabled:text-zinc-800"
       ),
     },
     sizeMap: {
@@ -64,6 +73,7 @@ export const Button = (props: ButtonProps): JSX.Element => {
       className={clsx(
         "inline-flex items-center justify-center rounded-lg border px-4 align-middle transition-colors duration-150 ease-linear",
         CSS.button.typeColorMap[`${type}_${color}` as const],
+        CSS.button.type[type],
         CSS.button.sizeMap[size],
         fullWidth && "w-full"
       )}

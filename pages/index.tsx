@@ -46,8 +46,8 @@ const Project = (): JSX.Element => {
 
   return (
     <div className="container mt-6">
-      <PageTitle>Projects</PageTitle>
-      <div className="mb-6 flex justify-between space-x-4">
+      <div className="flex justify-between">
+        <PageTitle>Applications</PageTitle>
         <div className="max-w-md flex-1">
           <Input
             placeholder="Search..."
@@ -55,6 +55,8 @@ const Project = (): JSX.Element => {
             onChange={(e) => setSearchInput(e.target.value)}
           />
         </div>
+      </div>
+      <div className="mb-6 flex justify-end">
         <Button onClick={handleOpenProjectModal}>New Project</Button>
       </div>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

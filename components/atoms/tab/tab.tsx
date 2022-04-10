@@ -6,12 +6,13 @@ export interface TabProps {
     name: string;
     panel: JSX.Element;
   }[];
+  onChange?: (index: number) => void;
 }
 
 export const Tab = (props: TabProps): JSX.Element => {
-  const { tabs } = props;
+  const { onChange, tabs } = props;
   return (
-    <HeadlessTab.Group>
+    <HeadlessTab.Group onChange={onChange}>
       <HeadlessTab.List className="mb-6 flex space-x-1 rounded-lg bg-zinc-700/30 p-1 text-base font-normal text-zinc-200">
         {tabs.map((tab, index) => {
           return (

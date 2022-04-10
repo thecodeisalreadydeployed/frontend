@@ -20,7 +20,7 @@ const SignIn = (): JSX.Element => {
   }, [router, user]);
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-zinc-500">
+    <div className="relative inset-x-1/2 mx-[-50vw] h-screen w-screen overflow-hidden bg-zinc-500">
       <div className="flex h-full items-center justify-center px-16">
         <div className="relative w-full max-w-lg">
           <div className="absolute top-0 -left-4 h-72 w-72 animate-blob rounded-full bg-purple-300 opacity-70 mix-blend-multiply blur-xl"></div>

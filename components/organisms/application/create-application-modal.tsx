@@ -2,7 +2,6 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { DocumentTextIcon, FolderIcon } from "@heroicons/react/outline";
 import { ChevronDownIcon, XIcon } from "@heroicons/react/solid";
-import { Node } from "@naisutech/react-tree";
 import clsx from "clsx";
 import { useScrollToBottom } from "hooks";
 import {
@@ -92,8 +91,8 @@ export const CreateApplicationModal = (
       temp = currentFiles.items;
     }
 
-    const folders: Array<Node> = [];
-    const files: Array<Node> = [];
+    const folders: typeof temp = [];
+    const files: typeof temp = [];
 
     temp.forEach((item) => {
       item.items ? folders.push(item) : files.push(item);
@@ -332,7 +331,7 @@ export const CreateApplicationModal = (
 
                       return (
                         <div
-                          key={file.id}
+                          key={file.label}
                           className={clsx(
                             "flex cursor-pointer items-center space-x-2 rounded-xl p-2",
                             file.label === selectedFileName

@@ -1,11 +1,18 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
+import { DocumentTextIcon, FolderIcon } from "@heroicons/react/outline";
 import { ChevronDownIcon, XIcon } from "@heroicons/react/solid";
+import { Node } from "@naisutech/react-tree";
 import clsx from "clsx";
 import { useScrollToBottom } from "hooks";
-import { useCreateNewApplication, useGetGitBranches } from "services";
+import {
+  useCreateNewApplication,
+  useGetGitBranches,
+  useGetGitFiles,
+  useGetGitRaw,
+} from "services";
 import useSWR from "swr";
-import { parseBuildScript } from "utils";
+import { arrayPathToObjectTree, parseBuildScript } from "utils";
 
 import { Button, Code, Input, Modal, Select, SelectOption } from "@atoms";
 import type { Preset } from "types/schema";
@@ -16,9 +23,13 @@ interface CreateApplicationModalProps {
   projectId: string;
 }
 
-enum BUTTON_ID {
-  NEXT = "create-application-modal-next-button",
+enum BUTTON_CREATE_APP_ID {
+  CONFIRM = "create-application-modal-next-button",
   CANCEL = "create-application-modal-cancel-button",
+}
+enum BUTTON_SELECT_FILE_ID {
+  CONFIRM = "select-file-modal-confirm-button",
+  CANCEL = "select-file-modal-cancel-button",
 }
 
 enum INPUT_ID {
@@ -42,6 +53,10 @@ export const CreateApplicationModal = (
   );
 
   const { createNewApplication } = useCreateNewApplication();
+  const [filePath, setFilePath] = useState<Array<string>>([]);
+  const [selectedFileName, setSelectedFileName] = useState<string>();
+
+  const [isFileTreeModalOpen, setIsFileTreeModalOpen] = useState(false);
 
   const [applicationName, setApplicationName] = useState("");
   const [applicationRepoUrl, setApplicationRepoUrl] = useState("");
@@ -59,6 +74,36 @@ export const CreateApplicationModal = (
   const [customCode, setCustomCode] = useState("");
 
   const { getGitBranches, gitBranches } = useGetGitBranches();
+
+  const { getGitFiles, gitFiles } = useGetGitFiles();
+  const { getGitRaw, gitRaw } = useGetGitRaw();
+
+  const filesObjectTree = useMemo(
+    () => (gitFiles ? arrayPathToObjectTree(gitFiles) : []),
+    [gitFiles]
+  );
+
+  const currentObjectTree = useCallback(() => {
+    let temp = [...filesObjectTree];
+    for (let index = 0; index < filePath.length; index++) {
+      const label = filePath[index];
+      const currentFiles = temp.find((file) => file.label === label);
+      if (!currentFiles?.items) break;
+      temp = currentFiles.items;
+    }
+
+    const folders: Array<Node> = [];
+    const files: Array<Node> = [];
+
+    temp.forEach((item) => {
+      item.items ? folders.push(item) : files.push(item);
+    });
+
+    return [
+      ...folders.sort((a, b) => a.label.localeCompare(b.label)),
+      ...files.sort((a, b) => a.label.localeCompare(b.label)),
+    ];
+  }, [filePath, filesObjectTree]);
 
   const buildScriptSelectOptions = useMemo(
     () =>
@@ -127,13 +172,13 @@ export const CreateApplicationModal = (
   ) => {
     const id = e.currentTarget.id;
     switch (id) {
-      case BUTTON_ID.CANCEL:
+      case BUTTON_CREATE_APP_ID.CANCEL:
         closeModal();
         resetInput();
         setLockInput(false);
         setCustomCode("");
         break;
-      case BUTTON_ID.NEXT:
+      case BUTTON_CREATE_APP_ID.CONFIRM:
         if (!applicationBranch?.value) return;
         createNewApplication({
           branch: applicationBranch?.value,
@@ -145,8 +190,32 @@ export const CreateApplicationModal = (
         closeModal();
         resetInput();
         break;
+      case BUTTON_SELECT_FILE_ID.CANCEL:
+        setIsFileTreeModalOpen(false);
+        setSelectedFileName(undefined);
+        setFilePath([]);
+        break;
+      case BUTTON_SELECT_FILE_ID.CONFIRM:
+        if (!selectedFileName) return;
+        setIsFileTreeModalOpen(false);
+        if (applicationBranch) {
+          getGitRaw(
+            applicationBranch.value,
+            filePath.join("/") + "/" + selectedFileName,
+            applicationRepoUrl
+          );
+        }
+
+        break;
     }
   };
+
+  useEffect(() => {
+    if (gitRaw) {
+      setCustomCode(gitRaw);
+      setLockInput(true);
+    }
+  }, [gitRaw]);
 
   const parsedBuildScript = parseBuildScript(applicationBuildScript?.value, {
     buildCommand: applicationBuildCommand,
@@ -213,13 +282,100 @@ export const CreateApplicationModal = (
                   Branch
                 </label>
                 <Select
-                  disabled={lockInput || applicationRepoUrl.length === 0}
+                  disabled={applicationRepoUrl.length === 0}
                   selectOptions={branchSelectOptions}
                   value={applicationBranch}
                   onChangeSelection={(newValue) =>
                     setApplicationBranch(newValue)
                   }
                 />
+              </div>
+              <div>
+                <Button
+                  disabled={applicationBranch?.value === undefined}
+                  fullWidth
+                  onClick={() => {
+                    setIsFileTreeModalOpen(true);
+                    applicationBranch?.value &&
+                      getGitFiles(applicationBranch.value, applicationRepoUrl);
+                  }}
+                >
+                  Select from file
+                </Button>
+                <Modal
+                  isOpen={isFileTreeModalOpen}
+                  onClose={() => setIsFileTreeModalOpen(false)}
+                >
+                  <div className="m-6 h-screen max-h-[30rem] w-screen max-w-[56rem] overflow-y-scroll">
+                    <p className="mb-4 text-xl">
+                      {filePath.length ? filePath.join("/") : "Root"}
+                    </p>
+                    {filePath.length > 0 && (
+                      <div
+                        className={clsx(
+                          "flex cursor-pointer items-center space-x-2 rounded-xl p-2 hover:bg-zinc-800"
+                        )}
+                        onClick={() => {
+                          setSelectedFileName(undefined);
+                          setFilePath((prev) => {
+                            const temp = [...prev];
+                            temp.pop();
+                            return temp;
+                          });
+                        }}
+                      >
+                        <p>../</p>
+                      </div>
+                    )}
+                    {currentObjectTree()?.map((file) => {
+                      const isFile = !file.items;
+
+                      return (
+                        <div
+                          key={file.id}
+                          className={clsx(
+                            "flex cursor-pointer items-center space-x-2 rounded-xl p-2",
+                            file.label === selectedFileName
+                              ? "bg-zinc-500"
+                              : "hover:bg-zinc-800"
+                          )}
+                          onClick={() => {
+                            setSelectedFileName(undefined);
+                            if (isFile) {
+                              setSelectedFileName(file.label);
+                            } else {
+                              setFilePath((prev) => [...prev, file.label]);
+                            }
+                          }}
+                        >
+                          {isFile ? (
+                            <DocumentTextIcon className="h-4 w-4" />
+                          ) : (
+                            <FolderIcon className="h-4 w-4" />
+                          )}
+                          <p>{file.label}</p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="flex justify-end gap-x-6 py-4 px-6">
+                    <Button
+                      fullWidth
+                      id={BUTTON_SELECT_FILE_ID.CANCEL}
+                      type="outline"
+                      onClick={handleOnClickButton}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      fullWidth
+                      id={BUTTON_SELECT_FILE_ID.CONFIRM}
+                      onClick={handleOnClickButton}
+                    >
+                      Confirm
+                    </Button>
+                  </div>
+                </Modal>
               </div>
               <div>
                 <label
@@ -333,13 +489,17 @@ export const CreateApplicationModal = (
         <div className="flex justify-end gap-x-6 py-4 px-6">
           <Button
             fullWidth
-            id={BUTTON_ID.CANCEL}
+            id={BUTTON_CREATE_APP_ID.CANCEL}
             type="outline"
             onClick={handleOnClickButton}
           >
             Cancel
           </Button>
-          <Button fullWidth id={BUTTON_ID.NEXT} onClick={handleOnClickButton}>
+          <Button
+            fullWidth
+            id={BUTTON_CREATE_APP_ID.CONFIRM}
+            onClick={handleOnClickButton}
+          >
             Create
           </Button>
         </div>

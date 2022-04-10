@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/router";
 
+import clsx from "clsx";
 import { formatDistanceToNowStrict } from "date-fns";
 import Fuse from "fuse.js";
 import { useDebounce } from "hooks";
@@ -13,6 +14,7 @@ import { HeaderLayout } from "@templates";
 
 const Application = (): JSX.Element => {
   const [searchInput, setSearchInput] = useState("");
+  const [showSearchInput, setShowSearchInput] = useState(true);
   const debouncedSearchInput = useDebounce(searchInput);
   const [showCreateApplicationModal, setShowCreateApplicationModal] =
     useState(false);
@@ -54,14 +56,7 @@ const Application = (): JSX.Element => {
 
   const OverviewView = (
     <div>
-      <div className="mb-6 flex justify-between space-x-4">
-        <div className="max-w-md flex-1">
-          <Input
-            placeholder="Search..."
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-          />
-        </div>
+      <div className="mb-6 flex justify-end">
         <Button onClick={handleCreateNewApplication}>New Application</Button>
       </div>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -119,12 +114,30 @@ const Application = (): JSX.Element => {
 
   return (
     <div className="container mt-6">
-      <PageTitle>Applications</PageTitle>
+      <div className="flex justify-between">
+        <PageTitle>Applications</PageTitle>
+        <div
+          className={clsx(
+            "max-w-md flex-1",
+            showSearchInput === false && "hidden"
+          )}
+        >
+          <Input
+            placeholder="Search..."
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+        </div>
+      </div>
       <Tab
         tabs={[
           { name: "Overview", panel: OverviewView },
           { name: "Settings", panel: SettingsView },
         ]}
+        onChange={(index) => {
+          console.log(index);
+          setShowSearchInput(index === 0 ? true : false);
+        }}
       />
     </div>
   );

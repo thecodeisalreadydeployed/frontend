@@ -48,7 +48,7 @@ const Project = (): JSX.Element => {
   return (
     <div className="container mt-6">
       <div className="flex justify-between">
-        <PageTitle>Applications</PageTitle>
+        <PageTitle>Project</PageTitle>
         <div className="max-w-md flex-1">
           <Input
             placeholder="Search..."
@@ -59,11 +59,11 @@ const Project = (): JSX.Element => {
       </div>
       <div className="mt-2 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <div
-          className="flex h-full w-full cursor-pointer flex-col items-center justify-center gap-y-2 rounded-lg border border-dashed border-zinc-600 bg-zinc-900 hover:bg-zinc-700"
+          className="flex h-[8.5rem] w-full cursor-pointer flex-col items-center justify-center gap-y-2 rounded-lg border border-dashed border-zinc-600 bg-zinc-900 hover:bg-zinc-700"
           onClick={handleOpenProjectModal}
         >
           <PlusIcon className="h-6 w-6" />
-          <p>Create Project</p>
+          <p>New Project</p>
         </div>
         {modifiedProjects?.map((project, index) => (
           <ProjectCard

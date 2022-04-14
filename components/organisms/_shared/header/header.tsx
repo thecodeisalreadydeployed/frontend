@@ -39,7 +39,7 @@ export const Header = (): JSX.Element => {
           />
         </div>
         <div className="flex items-center space-x-4">
-          <p className="max-w-[100px] whitespace-nowrap font-bold">
+          <p className="max-w-[100px] truncate whitespace-nowrap font-bold">
             {user?.displayName}
           </p>
           <Button size="sm" onClick={handleLogout}>

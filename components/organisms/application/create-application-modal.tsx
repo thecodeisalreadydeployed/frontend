@@ -108,15 +108,15 @@ export const CreateApplicationModal = (
     ];
   }, [filePath, filesObjectTree]);
 
-  const buildScriptSelectOptions = useMemo(
-    () =>
-      presetsData?.map((data) => ({
-        id: data.id,
-        name: data.name,
-        value: data.template,
-      })),
-    [presetsData]
-  );
+  // const buildScriptSelectOptions = useMemo(
+  //   () =>
+  //     presetsData?.map((data) => ({
+  //       id: data.id,
+  //       name: data.name,
+  //       value: data.template,
+  //     })),
+  //   [presetsData]
+  // );
 
   const branchSelectOptions = useMemo(
     () =>
@@ -129,9 +129,6 @@ export const CreateApplicationModal = (
   );
 
   const [lockInput, setLockInput] = useState(false);
-
-  const [inputContainerRef, isInputContainerScrolledToBottom] =
-    useScrollToBottom();
 
   const resetInput = () => {
     setApplicationName("");
@@ -186,7 +183,7 @@ export const CreateApplicationModal = (
         createNewApplication({
           branch: applicationBranch?.value,
           buildScript: customCode,
-          name: applicationName,
+          name: applicationName ?? applicationRepoUrl.split("/")?.pop() ?? "",
           projectId: projectId,
           repositoryURL: applicationRepoUrl,
         });
@@ -270,7 +267,7 @@ export const CreateApplicationModal = (
                   className="mb-1 block text-sm"
                   htmlFor={INPUT_ID.REPO_URL}
                 >
-                  Repository Url
+                  Repository URL
                 </label>
                 <Input
                   id={INPUT_ID.REPO_URL}
@@ -294,114 +291,117 @@ export const CreateApplicationModal = (
                 />
               </div>
               <div>
-                <Button
-                  disabled={applicationBranch?.value === undefined}
-                  fullWidth
-                  onClick={() => {
-                    setIsFileTreeModalOpen(true);
-                    applicationBranch?.value &&
-                      getGitFiles(applicationBranch.value, applicationRepoUrl);
-                  }}
-                >
-                  Select from file
-                </Button>
-                <Modal
-                  isOpen={isFileTreeModalOpen}
-                  onClose={() => setIsFileTreeModalOpen(false)}
-                >
-                  <div className="m-6 flex h-screen max-h-[30rem] w-screen max-w-[56rem] flex-col">
-                    <p className="mb-4 text-xl">
-                      {filePath.length ? filePath.join("/") : "Root"}
-                    </p>
-                    <div className="overflow-y-scroll">
-                      {filePath.length > 0 && (
-                        <div
-                          className={clsx(
-                            "flex cursor-pointer items-center space-x-2 rounded-xl p-2 hover:bg-zinc-800"
-                          )}
-                          onClick={() => {
-                            setSelectedFileName(undefined);
-                            setFilePath((prev) => {
-                              const temp = [...prev];
-                              temp.pop();
-                              return temp;
-                            });
-                          }}
-                        >
-                          <p>../</p>
-                        </div>
-                      )}
-                      {currentObjectTree()?.map((file) => {
-                        const isFile = !file.items;
-                        return (
-                          <div
-                            key={file.label}
-                            className={clsx(
-                              "flex cursor-pointer items-center space-x-2 rounded-xl p-2",
-                              file.label === selectedFileName
-                                ? "bg-zinc-500"
-                                : "hover:bg-zinc-800"
-                            )}
-                            onClick={() => {
-                              setSelectedFileName(undefined);
-                              if (isFile) {
-                                setSelectedFileName(file.label);
-                              } else {
-                                setFilePath((prev) => [...prev, file.label]);
-                              }
-                            }}
-                          >
-                            {isFile ? (
-                              file.label.toLowerCase().match(/dockerfile/) ? (
-                                <CubeTransparentIcon className="h-4 w-4" />
-                              ) : (
-                                <DocumentTextIcon className="h-4 w-4" />
-                              )
-                            ) : (
-                              <FolderIcon className="h-4 w-4" />
-                            )}
-                            <p>{file.label}</p>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                  <div className="flex justify-end gap-x-6 py-4 px-6">
-                    <Button
-                      fullWidth
-                      id={BUTTON_SELECT_FILE_ID.CANCEL}
-                      type="outline"
-                      onClick={handleOnClickButton}
-                    >
-                      Cancel
-                    </Button>
-                    <Button
-                      fullWidth
-                      id={BUTTON_SELECT_FILE_ID.CONFIRM}
-                      onClick={handleOnClickButton}
-                    >
-                      Confirm
-                    </Button>
-                  </div>
-                </Modal>
-              </div>
-              <div>
                 <label
                   className="mb-1 block text-sm"
                   htmlFor={INPUT_ID.BUILD_SCRIPT}
                 >
                   Build Script
                 </label>
-                <Select
+                {/* <Select
                   disabled={lockInput}
                   selectOptions={buildScriptSelectOptions}
                   value={applicationBuildScript}
                   onChangeSelection={(newValue) =>
                     setApplicationBuildScript(newValue)
                   }
-                />
+                /> */}
+                <div>
+                  <Button
+                    disabled={applicationBranch?.value === undefined}
+                    fullWidth
+                    onClick={() => {
+                      setIsFileTreeModalOpen(true);
+                      applicationBranch?.value &&
+                        getGitFiles(
+                          applicationBranch.value,
+                          applicationRepoUrl
+                        );
+                    }}
+                  >
+                    Select from file
+                  </Button>
+                  <Modal
+                    isOpen={isFileTreeModalOpen}
+                    onClose={() => setIsFileTreeModalOpen(false)}
+                  >
+                    <div className="m-6 flex h-screen max-h-[30rem] w-screen max-w-[56rem] flex-col">
+                      <p className="mb-4 text-xl">
+                        {filePath.length ? filePath.join("/") : "Root"}
+                      </p>
+                      <div className="overflow-y-scroll">
+                        {filePath.length > 0 && (
+                          <div
+                            className={clsx(
+                              "flex cursor-pointer items-center space-x-2 rounded-xl p-2 hover:bg-zinc-800"
+                            )}
+                            onClick={() => {
+                              setSelectedFileName(undefined);
+                              setFilePath((prev) => {
+                                const temp = [...prev];
+                                temp.pop();
+                                return temp;
+                              });
+                            }}
+                          >
+                            <p>../</p>
+                          </div>
+                        )}
+                        {currentObjectTree()?.map((file) => {
+                          const isFile = !file.items;
+                          return (
+                            <div
+                              key={file.label}
+                              className={clsx(
+                                "flex cursor-pointer items-center space-x-2 rounded-xl p-2",
+                                file.label === selectedFileName
+                                  ? "bg-zinc-500"
+                                  : "hover:bg-zinc-800"
+                              )}
+                              onClick={() => {
+                                setSelectedFileName(undefined);
+                                if (isFile) {
+                                  setSelectedFileName(file.label);
+                                } else {
+                                  setFilePath((prev) => [...prev, file.label]);
+                                }
+                              }}
+                            >
+                              {isFile ? (
+                                file.label.toLowerCase().match(/dockerfile/) ? (
+                                  <CubeTransparentIcon className="h-4 w-4 text-orange-400" />
+                                ) : (
+                                  <DocumentTextIcon className="h-4 w-4" />
+                                )
+                              ) : (
+                                <FolderIcon className="h-4 w-4" />
+                              )}
+                              <p>{file.label}</p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                    <div className="flex justify-end gap-x-6 py-4 px-6">
+                      <Button
+                        fullWidth
+                        id={BUTTON_SELECT_FILE_ID.CANCEL}
+                        type="outline"
+                        onClick={handleOnClickButton}
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        fullWidth
+                        id={BUTTON_SELECT_FILE_ID.CONFIRM}
+                        onClick={handleOnClickButton}
+                      >
+                        Confirm
+                      </Button>
+                    </div>
+                  </Modal>
+                </div>
               </div>
-              <div>
+              {/* <div>
                 <label
                   className="mb-1 block text-sm"
                   htmlFor={INPUT_ID.OUTPUT_DIR}
@@ -415,8 +415,8 @@ export const CreateApplicationModal = (
                   value={applicationOutputDirectory}
                   onChange={handleOnInputChange}
                 />
-              </div>
-              <div>
+              </div> */}
+              {/* <div>
                 <label
                   className="mb-1 block text-sm"
                   htmlFor={INPUT_ID.INSTALL_CMD}
@@ -430,8 +430,8 @@ export const CreateApplicationModal = (
                   value={applicationInstallCommand}
                   onChange={handleOnInputChange}
                 />
-              </div>
-              <div>
+              </div> */}
+              {/* <div>
                 <label
                   className="mb-1 block text-sm"
                   htmlFor={INPUT_ID.BUILD_CMD}
@@ -445,8 +445,8 @@ export const CreateApplicationModal = (
                   value={applicationBuildCommand}
                   onChange={handleOnInputChange}
                 />
-              </div>
-              <div ref={inputContainerRef}>
+              </div> */}
+              {/* <div ref={inputContainerRef}>
                 <label
                   className="mb-1 block text-sm"
                   htmlFor={INPUT_ID.START_COMMAND}
@@ -460,7 +460,7 @@ export const CreateApplicationModal = (
                   value={applicationStartCommand}
                   onChange={handleOnInputChange}
                 />
-              </div>
+              </div> */}
             </div>
             <div
               className={clsx(
@@ -487,11 +487,6 @@ export const CreateApplicationModal = (
                 onClick={() => setLockInput(true)}
               />
             </div>
-            {!isInputContainerScrolledToBottom && (
-              <div className="absolute -bottom-8 left-0 animate-bounce">
-                <ChevronDownIcon className="h-6 w-6" />
-              </div>
-            )}
           </div>
         </div>
         <div className="flex justify-end gap-x-6 py-4 px-6">

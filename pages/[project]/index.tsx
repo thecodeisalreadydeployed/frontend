@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/router";
 
+import { PlusIcon } from "@heroicons/react/outline";
 import clsx from "clsx";
 import { formatDistanceToNowStrict } from "date-fns";
 import Fuse from "fuse.js";
@@ -56,10 +57,14 @@ const Application = (): JSX.Element => {
 
   const OverviewView = (
     <div>
-      <div className="mb-6 flex justify-end">
-        <Button onClick={handleCreateNewApplication}>New Application</Button>
-      </div>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="mt-2 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div
+          className="flex h-full w-full cursor-pointer flex-col items-center justify-center gap-y-2 rounded-lg border border-dashed border-zinc-600 bg-zinc-900 hover:bg-zinc-700"
+          onClick={handleCreateNewApplication}
+        >
+          <PlusIcon className="h-6 w-6" />
+          <p>Create Project</p>
+        </div>
         {modifiedApplications?.map((application, index) => (
           <ProjectCard
             key={index}

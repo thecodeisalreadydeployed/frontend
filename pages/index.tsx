@@ -63,7 +63,7 @@ const Project = (): JSX.Element => {
           onClick={handleOpenProjectModal}
         >
           <PlusIcon className="h-6 w-6" />
-          <p>Create Project</p>
+          <p>New Project</p>
         </div>
         {modifiedProjects?.map((project, index) => (
           <ProjectCard

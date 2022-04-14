@@ -63,7 +63,7 @@ const Application = (): JSX.Element => {
           onClick={handleCreateNewApplication}
         >
           <PlusIcon className="h-6 w-6" />
-          <p>Create Application</p>
+          <p>New Application</p>
         </div>
         {modifiedApplications?.map((application, index) => (
           <ProjectCard

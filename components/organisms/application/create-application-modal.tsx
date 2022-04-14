@@ -270,7 +270,7 @@ export const CreateApplicationModal = (
                   className="mb-1 block text-sm"
                   htmlFor={INPUT_ID.REPO_URL}
                 >
-                  Repository Url
+                  Repository URL
                 </label>
                 <Input
                   id={INPUT_ID.REPO_URL}
@@ -353,7 +353,7 @@ export const CreateApplicationModal = (
                           >
                             {isFile ? (
                               file.label.toLowerCase().match(/dockerfile/) ? (
-                                <CubeTransparentIcon className="h-4 w-4" />
+                                <CubeTransparentIcon className="h-4 w-4 text-orange-400" />
                               ) : (
                                 <DocumentTextIcon className="h-4 w-4" />
                               )

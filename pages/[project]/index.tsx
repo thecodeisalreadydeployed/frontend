@@ -59,11 +59,11 @@ const Application = (): JSX.Element => {
     <div>
       <div className="mt-2 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <div
-          className="flex h-full w-full cursor-pointer flex-col items-center justify-center gap-y-2 rounded-lg border border-dashed border-zinc-600 bg-zinc-900 hover:bg-zinc-700"
+          className="flex h-[8.5rem] w-[19.3125rem] cursor-pointer flex-col items-center justify-center gap-y-2 rounded-lg border border-dashed border-zinc-600 bg-zinc-900 hover:bg-zinc-700"
           onClick={handleCreateNewApplication}
         >
           <PlusIcon className="h-6 w-6" />
-          <p>Create Project</p>
+          <p>Create Application</p>
         </div>
         {modifiedApplications?.map((application, index) => (
           <ProjectCard

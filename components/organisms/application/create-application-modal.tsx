@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-import { DocumentTextIcon, FolderIcon } from "@heroicons/react/outline";
+import {
+  CubeTransparentIcon,
+  DocumentTextIcon,
+  FolderIcon,
+} from "@heroicons/react/outline";
 import { ChevronDownIcon, XIcon } from "@heroicons/react/solid";
 import clsx from "clsx";
 import { useScrollToBottom } from "hooks";
@@ -305,57 +309,62 @@ export const CreateApplicationModal = (
                   isOpen={isFileTreeModalOpen}
                   onClose={() => setIsFileTreeModalOpen(false)}
                 >
-                  <div className="m-6 h-screen max-h-[30rem] w-screen max-w-[56rem] overflow-y-scroll">
+                  <div className="m-6 flex h-screen max-h-[30rem] w-screen max-w-[56rem] flex-col">
                     <p className="mb-4 text-xl">
                       {filePath.length ? filePath.join("/") : "Root"}
                     </p>
-                    {filePath.length > 0 && (
-                      <div
-                        className={clsx(
-                          "flex cursor-pointer items-center space-x-2 rounded-xl p-2 hover:bg-zinc-800"
-                        )}
-                        onClick={() => {
-                          setSelectedFileName(undefined);
-                          setFilePath((prev) => {
-                            const temp = [...prev];
-                            temp.pop();
-                            return temp;
-                          });
-                        }}
-                      >
-                        <p>../</p>
-                      </div>
-                    )}
-                    {currentObjectTree()?.map((file) => {
-                      const isFile = !file.items;
-
-                      return (
+                    <div className="overflow-y-scroll">
+                      {filePath.length > 0 && (
                         <div
-                          key={file.label}
                           className={clsx(
-                            "flex cursor-pointer items-center space-x-2 rounded-xl p-2",
-                            file.label === selectedFileName
-                              ? "bg-zinc-500"
-                              : "hover:bg-zinc-800"
+                            "flex cursor-pointer items-center space-x-2 rounded-xl p-2 hover:bg-zinc-800"
                           )}
                           onClick={() => {
                             setSelectedFileName(undefined);
-                            if (isFile) {
-                              setSelectedFileName(file.label);
-                            } else {
-                              setFilePath((prev) => [...prev, file.label]);
-                            }
+                            setFilePath((prev) => {
+                              const temp = [...prev];
+                              temp.pop();
+                              return temp;
+                            });
                           }}
                         >
-                          {isFile ? (
-                            <DocumentTextIcon className="h-4 w-4" />
-                          ) : (
-                            <FolderIcon className="h-4 w-4" />
-                          )}
-                          <p>{file.label}</p>
+                          <p>../</p>
                         </div>
-                      );
-                    })}
+                      )}
+                      {currentObjectTree()?.map((file) => {
+                        const isFile = !file.items;
+                        return (
+                          <div
+                            key={file.label}
+                            className={clsx(
+                              "flex cursor-pointer items-center space-x-2 rounded-xl p-2",
+                              file.label === selectedFileName
+                                ? "bg-zinc-500"
+                                : "hover:bg-zinc-800"
+                            )}
+                            onClick={() => {
+                              setSelectedFileName(undefined);
+                              if (isFile) {
+                                setSelectedFileName(file.label);
+                              } else {
+                                setFilePath((prev) => [...prev, file.label]);
+                              }
+                            }}
+                          >
+                            {isFile ? (
+                              file.label.toLowerCase().match(/dockerfile/) ? (
+                                <CubeTransparentIcon className="h-4 w-4" />
+                              ) : (
+                                <DocumentTextIcon className="h-4 w-4" />
+                              )
+                            ) : (
+                              <FolderIcon className="h-4 w-4" />
+                            )}
+                            <p>{file.label}</p>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                   <div className="flex justify-end gap-x-6 py-4 px-6">
                     <Button

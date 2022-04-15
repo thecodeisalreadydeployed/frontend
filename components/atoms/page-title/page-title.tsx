@@ -4,7 +4,7 @@ interface PageTitleProps {
 
 const PageTitle = (props: PageTitleProps): JSX.Element => {
   const { children } = props;
-  return <h1 className="mb-4 text-4xl font-bold">{children}</h1>;
+  return <h1 className="text-4xl font-bold">{children}</h1>;
 };
 
 export { PageTitle };

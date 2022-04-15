@@ -119,7 +119,7 @@ const Application = (): JSX.Element => {
 
   return (
     <div className="container mt-6">
-      <div className="flex flex-col justify-between gap-2 sm:flex-row">
+      <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
         <PageTitle>Applications</PageTitle>
         <div
           className={clsx(
@@ -134,16 +134,18 @@ const Application = (): JSX.Element => {
           />
         </div>
       </div>
-      <Tab
-        tabs={[
-          { name: "Overview", panel: OverviewView },
-          { name: "Settings", panel: SettingsView },
-        ]}
-        onChange={(index) => {
-          console.log(index);
-          setShowSearchInput(index === 0 ? true : false);
-        }}
-      />
+      <div className="mt-4">
+        <Tab
+          tabs={[
+            { name: "Overview", panel: OverviewView },
+            { name: "Settings", panel: SettingsView },
+          ]}
+          onChange={(index) => {
+            console.log(index);
+            setShowSearchInput(index === 0 ? true : false);
+          }}
+        />
+      </div>
     </div>
   );
 };

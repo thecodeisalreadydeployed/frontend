@@ -47,7 +47,7 @@ const Project = (): JSX.Element => {
 
   return (
     <div className="container mt-6">
-      <div className="flex flex-col justify-between gap-2 sm:flex-row">
+      <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
         <PageTitle>Project</PageTitle>
         <div className="flex-1 sm:max-w-md">
           <Input
@@ -57,7 +57,7 @@ const Project = (): JSX.Element => {
           />
         </div>
       </div>
-      <div className="mt-2 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <div
           className="flex h-[8.5rem] w-full cursor-pointer flex-col items-center justify-center gap-y-2 rounded-lg border border-dashed border-zinc-600 bg-zinc-900 hover:bg-zinc-700"
           onClick={handleOpenProjectModal}

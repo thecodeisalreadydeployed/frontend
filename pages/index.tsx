@@ -47,9 +47,9 @@ const Project = (): JSX.Element => {
 
   return (
     <div className="container mt-6">
-      <div className="flex flex-col justify-between space-x-2 sm:flex-row">
+      <div className="flex flex-col justify-between gap-2 sm:flex-row">
         <PageTitle>Project</PageTitle>
-        <div className="max-w-md flex-1">
+        <div className="flex-1 sm:max-w-md">
           <Input
             placeholder="Search..."
             value={searchInput}

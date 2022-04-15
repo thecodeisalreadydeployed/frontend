@@ -47,7 +47,7 @@ const Project = (): JSX.Element => {
 
   return (
     <div className="container mt-6">
-      <div className="flex justify-between">
+      <div className="flex flex-col justify-between space-x-2 sm:flex-row">
         <PageTitle>Project</PageTitle>
         <div className="max-w-md flex-1">
           <Input

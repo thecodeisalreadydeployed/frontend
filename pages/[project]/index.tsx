@@ -119,7 +119,7 @@ const Application = (): JSX.Element => {
 
   return (
     <div className="container mt-6">
-      <div className="flex justify-between">
+      <div className="flex flex-col justify-between space-x-2 sm:flex-row">
         <PageTitle>Applications</PageTitle>
         <div
           className={clsx(

@@ -88,12 +88,14 @@ const Overview = (): JSX.Element => {
   return (
     <div className="container mt-6">
       <PageTitle>{application?.name}</PageTitle>
-      <Tab
-        tabs={[
-          { name: "Overview", panel: OverviewView },
-          { name: "Settings", panel: SettingsView },
-        ]}
-      />
+      <div className="mt-4">
+        <Tab
+          tabs={[
+            { name: "Overview", panel: OverviewView },
+            { name: "Settings", panel: SettingsView },
+          ]}
+        />
+      </div>
     </div>
   );
 };

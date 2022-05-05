@@ -110,14 +110,7 @@ const Deployment = (): JSX.Element => {
                     <span>{hms}</span>.
                     <span className="text-zinc-400">{ms}</span>
                   </span>
-                  <span
-                    className={clsx(
-                      event.text.toLocaleLowerCase().includes("error") &&
-                        "text-red-400"
-                    )}
-                  >
-                    {event.text}
-                  </span>
+                  <span>{event.text}</span>
                 </div>
               );
             })}

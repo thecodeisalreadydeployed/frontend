@@ -43,7 +43,7 @@ const DeploymentSummaryRow = (
         </div>
         <div className="col-span-2 text-right">
           <p className="text-sm line-clamp-1">
-            {updatedAt} ago by {author}
+            {updatedAt} ago{/* by {author} */}
           </p>
         </div>
       </div>

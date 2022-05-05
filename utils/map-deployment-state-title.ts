@@ -9,7 +9,7 @@ const K: KProps = {
     [DeploymentState.DeploymentStateQueueing]: "Queueing",
     [DeploymentState.DeploymentStateBuilding]: "Building",
     [DeploymentState.DeploymentStateBuildSucceeded]: "Build Succeeded",
-    [DeploymentState.DeploymentStateCommitted]: "Committed",
+    [DeploymentState.DeploymentStateCommitted]: "Initializing",
     [DeploymentState.DeploymentStateReady]: "Ready",
     [DeploymentState.DeploymentStateError]: "Error",
   },
